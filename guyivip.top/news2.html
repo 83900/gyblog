@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Article</title>
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+    <div class="page-wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+        <!-- Main Header-->
+        <header class="main-header">
+
+            <!--Header-Upper-->
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="outer-container clearfix">
+                        <!--Logo Outer-->
+                        <div class="logo-outer">
+                            <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                        </div>
+
+                        <div class="top-left info-block left-aligned">
+                            <div class="inner">
+                                <!-- Hidden Nav Toggler -->
+                                <div class="nav-toggler">
+                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img
+                                                src="images/icons/menu-icon.png" alt="" /></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-right info-block right-aligned">
+                            <!--Search Box-->
+                            <div class="search-box-outer">
+                                <div class="dropdown">
+                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
+                                        data-bs-toggle="dropdown" aria-expanded="false"><img
+                                            src="images/icons/search-icon.png" alt="" /></button>
+                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                        <li class="panel-outer">
+                                            <div class="form-container">
+                                                <form method="post" action="blog.html">
+                                                    <div class="form-group">
+                                                        <input type="search" name="field-name" value=""
+                                                            placeholder="Search Here" required="">
+                                                        <button type="submit" class="search-btn"><span
+                                                                class="fa fa-search"></span></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Header Upper-->
+
+            <div class="header-lower">
+                <div class="auto-container">
+                    <div class="nav-outer clearfix">
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md">
+                            <div class="navbar-header">
+                                <!-- Toggle Button -->
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                                <!--Nav-->
+                                <ul class="navigation clearfix">
+                                    <li class="current dropdown"><a href="./index.html">Home</a>
+                                    <li><a href="post-side.html">Categories</a></li>
+                                    <li><a href="about.html">About Me</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu  -->
+            <div class="mobile-menu">
+                <div class="menu-backdrop"></div>
+                <div class="close-btn"><span class="icon fa-remove"></span></div>
+
+                <nav class="menu-box">
+                    <div class="nav-logo"><a href="index.html"><img src="images/logo-small.png" alt="" title=""></a>
+                    </div>
+                    <div class="menu-outer">
+                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                    </div>
+                </nav>
+            </div>
+            <!-- End Mobile Menu -->
+
+        </header>
+        <!--End Main Header -->
+
+
+
+        <div class="auto-container">
+            <div class="row clearfix">
+
+                <!--Content Side / News Single-->
+                <!-- <div class="content-side col-lg-8 col-md-8 col-sm-12 col-xs-12"> -->
+                <div class="content-inner">
+                    <!--Page Title-->
+                    <div class="sec-title">
+                        <div class="title">TECH</div>
+                        <h2>使用Gparted 为vmware的Linux虚拟机扩容</h2>
+                        <div class="post-date">May 11, 2025</div>
+                    </div>
+
+                    <!--News Deatil-->
+                    <!-- <div class="news-detail">
+                        <div class="inner-box">
+                            <div class="image">
+                                <img src="images/resource/news-1.jpg" alt="" />
+                            </div>
+                            <div class="lower-content">
+                                <div class="text">
+
+                                    <p>
+                                        <b style="font-size: 1.5rem;">
+                                            ATTENTION：本人使用vmware pro 17，Linux版本为乌班图24.04，成功实践日期为2025.5.11
+                                        </b>
+                                    </p>
+                                    <p>
+                                        1.关闭虚拟机，然后在vmware里编辑大小（图片中虚拟机处在挂起，而非关机，故不能操作，请注意关闭虚拟机）
+                                    </p>
+                                    <div class="image">
+                                        <img src="personal_blog_webpage\Gretzia\images\resource\news2-fig1.png" alt="" />
+                                    </div>
+                                    <p>
+                                        2.下载Gparted  sudo apt-get install gparted，打开，选择需要扩充的盘 <br>
+                                        3.选择resize/xxx 那个，（就一个看起来能选，you can never miss) <br>
+                                        4.打开后上方有个条，你把它拉到底就行
+                                    </p>
+                                    <p>
+                                        5. 终端输入 df -h 检查一下，结束，收工。That’s it.
+                                    </p>
+
+
+
+                                </div>
+
+                            </div>
+                        </div> -->
+                    <div class="about-section">
+                        <div class="auto-container">
+                            <p>
+                                <b style="font-size: 1.5rem;">
+                                    ATTENTION：本人使用vmware pro 17，Linux版本为乌班图24.04，成功实践日期为2025.5.11
+                                </b>
+                            </p>
+                            <p>
+                                1.关闭虚拟机，然后在vmware里编辑大小（图片中虚拟机处在挂起，而非关机，故不能操作，请注意关闭虚拟机）
+                            </p>
+                            <div class="image">
+                                <img src="images\resource\news2-fig1.png" alt="" />
+                            </div>
+                            <p>
+                                2.下载Gparted sudo apt-get install gparted，打开，选择需要扩充的盘 <br>
+                                3.选择resize/xxx 那个，（就一个看起来能选，you can never miss) <br>
+                                4.打开后上方有个条，你把它拉到底就行
+                            </p>
+                            <div class="image">
+                                <img src="images\resource\news2-fig2.png" alt="" />
+                            </div>
+                            <p>
+                                5. 终端输入 df -h 检查一下，结束，收工。That’s it.
+                            </p>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!--Main Footer-->
+    <div class="main-footer">
+        <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
+    </div>
+    <!--Main Footer-->
+
+    </div>
+    <!--End pagewrapper-->
+
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.fancybox-media.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
