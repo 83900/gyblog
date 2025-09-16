@@ -1,16 +1,131 @@
-<html>
-<style>
-	.btlink {
-	color: #20a53a;
-	text-decoration: none;
-}
-</style>
-<meta charset="UTF-8">
-<html>
-<head><title>404 Not Found</title></head>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>页面未找到 - Seek4nothing技术博客</title>
+    <meta name="description" content="抱歉，您访问的页面不存在。请返回首页或查看其他技术文章。">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    
+    <style>
+        .error-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        .error-code {
+            font-size: 120px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .error-description {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 40px;
+        }
+        .back-home-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .back-home-btn:hover {
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+        }
+        .recent-posts {
+            margin-top: 60px;
+        }
+        .recent-posts h3 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .post-link {
+            display: block;
+            padding: 10px 0;
+            color: #007bff;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        .post-link:hover {
+            color: #0056b3;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
 <body>
-<center><h1>404 Not Found</h1></center>
-<hr>
-<div style="text-align: center;font-size: 15px" >Power by <a class="btlink" href="https://www.bt.cn/?from=404" target="_blank">堡塔 (免费，高效和安全的托管控制面板)</a></div>
+    <div class="page-wrapper">
+        <!-- Main Header-->
+        <header class="main-header">
+            <!--Header-Upper-->
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="outer-container clearfix">
+                        <!--Logo Outer-->
+                        <div class="logo-outer">
+                            <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--End Main Header -->
+
+        <!-- Error Section -->
+        <section class="error-section">
+            <div class="auto-container">
+                <div class="error-code">404</div>
+                <div class="error-message">页面未找到</div>
+                <div class="error-description">
+                    抱歉，您访问的页面不存在或已被移动。<br>
+                    请检查URL是否正确，或返回首页浏览其他内容。
+                </div>
+                <a href="index.html" class="back-home-btn">返回首页</a>
+                
+                <div class="recent-posts">
+                    <h3>推荐阅读</h3>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <a href="news1.html" class="post-link">历年奥斯卡最佳电影经典台词</a>
+                            <a href="news2.html" class="post-link">使用Gparted为vmware的Linux虚拟机扩容</a>
+                            <a href="news3.html" class="post-link">树莓派5使用ollama部署本地视觉LLM教程</a>
+                            <a href="news4.html" class="post-link">树莓派5实现LLM多模态输入教程</a>
+                            <a href="about.html" class="post-link">关于我</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--End Error Section-->
+
+        <!--Main Footer-->
+        <div class="main-footer">
+            <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
+        </div>
+        <!--Main Footer-->
+    </div>
+    <!--End pagewrapper-->
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

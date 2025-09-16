@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://guyivip.top/sitemap.xml
+
+# Allow crawling of CSS and JS files for better rendering
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /fonts/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

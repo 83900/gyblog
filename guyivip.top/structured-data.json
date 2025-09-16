@@ -1,0 +1,70 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Seek4nothing技术博客",
+  "description": "专注于技术分享的个人博客，涵盖树莓派、人工智能、Linux系统等技术内容",
+  "url": "https://guyivip.top",
+  "author": {
+    "@type": "Person",
+    "name": "Seek4nothing",
+    "description": "技术博主，摄影爱好者，热爱游泳和阅读"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Seek4nothing技术博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://guyivip.top/images/logo.png"
+    }
+  },
+  "blogPost": [
+    {
+      "@type": "BlogPosting",
+      "headline": "历年奥斯卡最佳电影经典台词",
+      "description": "收集整理历年奥斯卡最佳电影中的经典台词，包含阿甘正传、肖申克的救赎等经典影片",
+      "url": "https://guyivip.top/news1.html",
+      "datePublished": "2024-12-15",
+      "author": {
+        "@type": "Person",
+        "name": "Seek4nothing"
+      },
+      "image": "https://guyivip.top/images/resource/news1.png"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "使用Gparted为vmware的Linux虚拟机扩容",
+      "description": "详细介绍如何使用Gparted工具为VMware中的Linux虚拟机进行磁盘扩容操作",
+      "url": "https://guyivip.top/news2.html",
+      "datePublished": "2024-12-10",
+      "author": {
+        "@type": "Person",
+        "name": "Seek4nothing"
+      },
+      "image": "https://guyivip.top/images/resource/news2.png"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "树莓派5使用ollama部署本地视觉LLM教程",
+      "description": "详细介绍如何在树莓派5上使用ollama部署本地视觉大语言模型，包含完整的安装配置和使用指南",
+      "url": "https://guyivip.top/news3.html",
+      "datePublished": "2025-01-15",
+      "author": {
+        "@type": "Person",
+        "name": "Seek4nothing"
+      },
+      "image": "https://guyivip.top/images/resource/news3.png"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "树莓派5实现LLM多模态输入教程",
+      "description": "详细介绍如何在树莓派5上实现LLM多模态输入，包含麦克风和摄像头的配置使用指南",
+      "url": "https://guyivip.top/news4.html",
+      "datePublished": "2025-09-16",
+      "author": {
+        "@type": "Person",
+        "name": "Seek4nothing"
+      },
+      "image": "https://guyivip.top/images/resource/news4-fig1.png"
+    }
+  ]
+}
