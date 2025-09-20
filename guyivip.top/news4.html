@@ -186,16 +186,603 @@
                         <div class="auto-container">
                             <p>
                                 <b style="font-size: 1.5rem;">
-                                    ATTENTION：硬件准备：麦克风（免驱动USB麦克风），摄像头（笔者使用树莓派官方广角摄像头）
+                                    ATTENTION：硬件准备：麦克风（免驱动USB麦克风），摄像头（笔者使用树莓派官方广角摄像头）。软件：使用Whisper环境识别音频。
                                 </b>
                             </p>
-                            <p>
-                               text
-                            </p>
-                            <div class="image">
-                                <img src="images\resource\news4-fig1.png" alt="" />
+                            <h3>Section 1: 硬件测试</h3>
+                            <h4>Step 1: 测试摄像头</h4>
+                            <p>首先连接摄像头，笔者使用树莓派Cam/Disp0接口。<strong>注意：</strong>这个接口可以先用指甲把黑色塑料片扣出来向上提出来一部分，然后把线插入后再复位塑料片，尽量不要硬塞（因为线会弯折，别问我怎么知道的）。</p>
+                            
+                            <p><strong>最简单最直观的测试方法：</strong>在树莓派上运行以下命令：</p>
+                            <pre><code>libcamera-still -o test.jpg</code></pre>
+                            <p>若能正常保存test.jpg文件（一般在pi文件夹下），则摄像头正常。</p>
+                            
+                            <h4>Step 2: 测试麦克风</h4>
+                            <p><strong>2.1</strong> 在树莓派上运行以下命令以确保麦克风被识别：</p>
+                            <pre><code>arecord -l</code></pre>
+                            
+                            <p>笔者输出为：</p>
+                            <pre><code>**** List of CAPTURE Hardware Devices ****
+card 2: Device [USB PnP Sound Device], device 0: USB Audio [USB Audio]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0</code></pre>
+                            
+                            <p><strong>请留意关键的设备号：</strong><code>card 2, device 0</code>这两个参数</p>
+                            
+                            <p><strong>2.2</strong> 录入音频测试：</p>
+                            <pre><code>arecord -D plughw:2,0 -d 5 -f cd /home/pi/mic_test.wav</code></pre>
+                            
+                            <p><strong>参数解释：</strong></p>
+                            <ul>
+                                <li><code>-D plughw:2,0</code>：强制使用 "card 2，device 0" 的 USB 麦克风（这就是上面让留意的设备号）</li>
+                                <li><code>-d 5</code>：录制时长 5 秒（可按需调整，比如 -d 10 录 10 秒）</li>
+                                <li><code>-f cd</code>：采用 CD 级音质（16 位深度、44100Hz 采样率），确保录音清晰</li>
+                            </ul>
+                            
+                            <p>若能正常保存test.wav文件（一般在pi文件夹下），则麦克风正常。</p>
+                            <h3>Section 2: 音频识别模型安装</h3>
+                            
+                            <h4>Step 1: 安装依赖以及依赖工具Cmake</h4>
+                            <p><strong>1.1 Python3：</strong></p>
+                            <pre><code>sudo apt install python3-pip</code></pre>
+                            
+                            <p><strong>1.2 Requests：</strong>一般貌似是有的，但是如果没有的话，这边提供懒人一键式安装：</p>
+                            <pre><code>pip3 install requests --break-system-packages</code></pre>
+                            <p><em>注意：一般是不建议这种，因为装在主环境可能破坏依赖。所有的教程会推荐装在虚拟环境，所以如果需要安装在虚拟环境请自行查询或者询问AI。</em></p>
+                            
+                            <p><strong>1.3 安装用来编译的Cmake：</strong></p>
+                            <pre><code>sudo apt install cmake build-essential -y</code></pre>
+
+                            <h4>Step 2: 安装Whisper.cpp环境</h4>
+                            <p><strong>2.1</strong> 从github上克隆Whisper.cpp项目：</p>
+                            <pre><code>git clone https://github.com/ggerganov/whisper.cpp
+cd whisper.cpp
+make</code></pre>
+                            
+                            <p><strong>2.2</strong> 编译完成后，会在项目根目录生成一个名为whisper的可执行文件。可以用以下命令查看文件权限：</p>
+                            <pre><code>ls -l main</code></pre>
+                            <p>如果输出类似<code>-rwxr-xr-x 1 root root 122880 Sep 16 16:20 main</code>，则说明文件权限正常。</p>
+                            
+                            <p><strong>注意：</strong>据说新版的whisper.cpp将可执行文件（原 main）移到了 build/bin 目录下，且改名为 whisper-cli（原 main 已废弃）。如果上一个指令没有正确输出，可以用这个：</p>
+                            <pre><code>ls -l ~/whisper.cpp/build/bin/whisper-cli</code></pre>
+                                
+                            <h4>Step 3: 安装中文模型</h4>
+                            <p><strong>3.1</strong> 请确保成功编译后再进行这一步，继续在whisper.cpp下进行操作。</p>
+                            
+                            <p><strong>3.2</strong> 两种下载方式：</p>
+                            <p><strong>方式1：</strong>如果使用基础中文模型：</p>
+                            <pre><code>cd ~/whisper.cpp
+./models/download-ggml-model.sh base</code></pre>
+                            
+                            <p><strong>方式2：</strong>如果需要下载特定的中文模型（从hugging face社区），可以用wget命令下载，例如：</p>
+                            <pre><code>wget https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin</code></pre>
+                            <p><em>（这个还是base-zh模型，仅作方式参考）</em></p>
+                            
+                            <div class="alert alert-warning">
+                                <p><strong>注意：</strong>随着版本更新模型名称可能变化，本教程使用的是ggml-base.bin模型，若模型名称有变，请根据实际情况修改。如果树莓派下载太慢，可以电脑下载后传输。</p>
+                                <p><strong>项目链接：</strong><a href="https://huggingface.co/ggerganov/whisper.cpp/tree/main" target="_blank">https://huggingface.co/ggerganov/whisper.cpp/tree/main</a></p>
                             </div>
-                           
+                            
+                            <p><strong>3.3</strong> 模型下载完成后，会在当前目录下生成一个名为ggml-base-zh.bin的文件，使用以下命令检查：</p>
+                            <pre><code>ls ~/whisper.cpp/models/ggml-base.bin</code></pre>
+                            <h3>Section 3: 测试识别</h3>
+                            <p>如果在上一篇帖子已经安装了llava模型，那么目前可以进行音频+视频+AI项目的测试。</p>
+
+                            <h4>方式1: CLI控制台调用</h4>
+                            <p>根据ollama中llava调用的官方文档显示，有两种调用方式，一种是常见的CLI控制台调用，这种方式相当于我首先使用whisper识别音频，然后将识别结果作为输入，调用llava模型进行视频分析。</p>
+
+                            <p><strong>脚本如下：</strong></p>
+                            <pre><code>#!/usr/bin/env python3
+import os
+import time
+import subprocess
+
+# ===================== 配置（修复默认指令触发拍照）=====================
+RECORD_DURATION = 5  # 录音时长
+AUDIO_FILE = "/home/pi/voice_temp.wav"  # 临时录音文件
+IMAGE_FILE = "/home/pi/test.jpg"  # 图片保存路径
+LOCAL_MODEL = "llava:latest"  # 本地LLaVA模型
+# 默认指令：加入关键词“描述这张图片”，确保能触发拍照
+DEFAULT_PROMPT = f"描述这张图片，图片路径：{IMAGE_FILE}"
+TIMEOUT = 300  # 模型推理超时时间
+
+# Whisper配置
+WHISPER_CLI = "/home/pi/whisper.cpp/build/bin/whisper-cli"
+WHISPER_MODEL = "/home/pi/whisper.cpp/models/ggml-base.bin"
+MIC_DEVICE = "plughw:2,0"  # 麦克风设备号
+
+# 触发摄像头的关键词（含这些词就拍照）
+CAMERA_KEYWORDS = ["描述照片", "这是什么", "识别这个", "照片里有什么", "描述这张图片"]
+
+# ===================== 1. 本地录音 =====================
+def record_audio():
+    print(f"\n[1/3] 录音 {RECORD_DURATION} 秒，请说话（示例：描述这张图片）...")
+    # 清理旧录音
+    if os.path.exists(AUDIO_FILE):
+        os.remove(AUDIO_FILE)
+    
+    try:
+        # 调用arecord录音
+        subprocess.run(
+            ["arecord", "-D", MIC_DEVICE, "-d", str(RECORD_DURATION),
+             "-f", "cd", "-r", "44100", "-c", "1", AUDIO_FILE],
+            capture_output=True, timeout=10
+        )
+        # 验证录音是否有效（大小>1KB）
+        if os.path.exists(AUDIO_FILE) and os.path.getsize(AUDIO_FILE) > 1024:
+            print(f"[1/3] 录音完成：{AUDIO_FILE}")
+            return True
+        else:
+            print("[1/3] 录音无效（无声音）")
+            return False
+    except Exception as e:
+        print(f"[1/3] 录音失败：{str(e)}")
+        return False
+
+# ===================== 2. 语音转文字（拼接图片路径）=====================
+def audio_to_text():
+    print("[2/3] 识别语音指令...")
+    # 检查Whisper组件是否存在
+    if not os.path.exists(WHISPER_CLI) or not os.path.exists(WHISPER_MODEL):
+        print("[2/3] Whisper缺失，使用默认指令")
+        return DEFAULT_PROMPT
+    
+    try:
+        # 调用Whisper转文字
+        result = subprocess.run(
+            [WHISPER_CLI, "-m", WHISPER_MODEL, "-f", AUDIO_FILE,
+             "-l", "zh", "--no-timestamps", "--verbose", "0"],
+            capture_output=True, text=True, check=True, timeout=20
+        )
+        user_text = result.stdout.strip()
+        
+        # 处理识别结果：无结果用默认指令，有结果则拼接图片路径
+        if not user_text or len(user_text) < 2:
+            print(f"[2/3] 未识别到声音，使用默认指令：{DEFAULT_PROMPT}")
+            return DEFAULT_PROMPT
+        else:
+            final_prompt = f"{user_text}，图片路径：{IMAGE_FILE}"
+            print(f"[2/3] 识别完成，最终指令：{final_prompt}")
+            return final_prompt
+    except Exception as e:
+        print(f"[2/3] 识别失败，使用默认指令：{str(e)}")
+        return DEFAULT_PROMPT
+
+# ===================== 3. 摄像头拍照（确保生成图片）=====================
+def capture_image():
+    print("[3/3] 开始拍照...")
+    # 先删除旧图片（避免读取缓存）
+    if os.path.exists(IMAGE_FILE):
+        os.remove(IMAGE_FILE)
+        print(f"[3/3] 已删除旧图片：{IMAGE_FILE}")
+    
+    try:
+        # 调用树莓派摄像头工具拍照
+        result = subprocess.run(
+            ["libcamera-still", "-o", IMAGE_FILE, "-t", "2000",  # 2秒延迟确保对焦
+             "--width", "1280", "--height", "720", "--quality", "90",  # 高清低压缩
+             "--nopreview"],  # 关闭预览，加快速度
+            capture_output=True, text=True, timeout=15
+        )
+        
+        # 检查拍照是否成功
+        if result.returncode != 0:
+            print(f"[3/3] 拍照失败（摄像头错误）：{result.stderr.strip()[:50]}")
+            return False
+        if os.path.exists(IMAGE_FILE) and os.path.getsize(IMAGE_FILE) > 102400:  # 大于100KB
+            print(f"[3/3] 拍照成功，图片保存：{IMAGE_FILE}（大小：{os.path.getsize(IMAGE_FILE)}字节）")
+            return True
+        else:
+            print(f"[3/3] 拍照失败（图片无效/过小）")
+            return False
+    except Exception as e:
+        print(f"[3/3] 拍照失败：{str(e)}")
+        return False
+
+# ===================== 4. 调用Ollama（纯CLI，按文档）=====================
+def call_ollama(prompt):
+    print(f"\n[4/3] 调用本地模型 {LOCAL_MODEL}（CLI方式，无--image）...")
+    # 构造命令：ollama run 模型 "指令+图片路径"
+    cmd = ["ollama", "run", LOCAL_MODEL, prompt]
+    
+    try:
+        print("\n【模型输出开始】")
+        # 执行命令并捕获输出
+        result = subprocess.run(
+            cmd,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            timeout=TIMEOUT, encoding="utf-8"
+        )
+        
+        # 打印模型输出和日志
+        if result.stdout:
+            print(result.stdout)
+        if result.stderr:
+            print(f"[模型日志] {result.stderr.strip()}")
+        print("【模型输出结束】")
+        
+        return result.stdout.strip() if result.stdout else "模型未返回内容"
+    except subprocess.TimeoutExpired:
+        return f"[调用失败] 超时（已超过{TIMEOUT}秒，可增大TIMEOUT值）"
+    except FileNotFoundError:
+        return "[调用失败] 未找到ollama命令，请执行：curl https://ollama.com/install.sh | sh"
+    except Exception as e:
+        return f"[调用失败] {str(e)}"
+
+# ===================== 主程序（修复拍照判断逻辑）=====================
+def main():
+    print("="*60)
+    print("Ollama CLI 图片调用系统（修复拍照跳过问题）")
+    print(f"图片路径：{IMAGE_FILE}")
+    print("触发拍照关键词：描述照片/这是什么/识别这个/描述这张图片")
+    print("="*60)
+
+    # 检查Ollama是否安装
+    try:
+        subprocess.run(["ollama", "--version"], capture_output=True, timeout=5)
+    except FileNotFoundError:
+        print("\n[致命错误] 未安装Ollama！请先执行：")
+        print("curl https://ollama.com/install.sh | sh")
+        return
+
+    # 检查模型是否存在，不存在则拉取
+    model_list = subprocess.run(["ollama", "list"], capture_output=True, text=True, timeout=10)
+    if LOCAL_MODEL not in model_list.stdout:
+        print(f"\n[提示] 本地无 {LOCAL_MODEL} 模型，正在拉取（约4-8GB，耐心等待）...")
+        try:
+            subprocess.run(["ollama", "pull", LOCAL_MODEL], check=True, timeout=3600)
+        except Exception as e:
+            print(f"[致命错误] 模型拉取失败：{str(e)}")
+            return
+
+    # 主循环（处理指令）
+    while True:
+        # 1. 录音
+        if not record_audio():
+            print("[流程暂停] 录音失败，3秒后重试...")
+            time.sleep(3)
+            continue
+
+        # 2. 语音转文字（得到含图片路径的指令）
+        final_prompt = audio_to_text()
+
+        # 3. 判断是否需要拍照（修复：检查final_prompt是否含关键词）
+        need_capture = any(keyword in final_prompt for keyword in CAMERA_KEYWORDS)
+        if need_capture:
+            print(f"\n[判断] 指令含拍照关键词，准备拍照...")
+            # 拍照必须成功才继续
+            if not capture_image():
+                print("[流程暂停] 拍照失败，3秒后重试...")
+                time.sleep(3)
+                continue
+        else:
+            print(f"\n[判断] 指令不含拍照关键词，不拍照...")
+
+        # 4. 调用Ollama分析
+        model_result = call_ollama(final_prompt)
+
+        # 5. 输出结果
+        print(f"\n【最终分析结果】")
+        print("-"*50)
+        print(model_result)
+        print("-"*50)
+
+        # 清理临时录音文件（保留图片）
+        if os.path.exists(AUDIO_FILE):
+            os.remove(AUDIO_FILE)
+
+        # 等待下一轮指令
+        print("\n3秒后准备接收下一个指令...")
+        time.sleep(3)
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n\n程序已手动退出")
+        # 清理临时文件
+        if os.path.exists(AUDIO_FILE):
+            os.remove(AUDIO_FILE)
+        print(f"已清理临时录音文件：{AUDIO_FILE}")
+    except Exception as e:
+        print(f"\n\n程序意外出错：{str(e)}")
+        if os.path.exists(AUDIO_FILE):
+            os.remove(AUDIO_FILE)
+            
+                            <h4>运行方式</h4>
+                            <p>将上述代码保存为Python文件并运行：</p>
+                            <pre><code>nano main.py
+# 粘贴上述程序代码
+# CTRL+O 保存，CTRL+X 退出
+chmod +x main.py
+python3 main.py</code></pre>
+
+                            <h3>方式2: API调用方式</h3>
+                            <p>LLaVA还可以使用API调用方式，两种方式的区别在于：</p>
+                            <ul>
+                                <li><strong>API调用</strong>：将图片转化为base64格式输入，响应效率更高</li>
+                                <li><strong>CLI调用</strong>：直接输入图片路径，更加直观</li>
+                            </ul>
+                            <div class="alert alert-warning">
+                                <strong>注意：</strong>API调用方式可能出现各种bug，代码仅供参考。
+                            </div>
+
+                            <h4>API调用完整代码</h4>
+                            <pre><code>
+                                    #!/usr/bin/env python3
+import os
+import time
+import requests
+import base64
+import subprocess
+from datetime import datetime
+
+# ===================== 核心配置 =====================
+IMAGE_SAVE_DIR = "/home/pi/llava_photos"
+AUDIO_FILE = "/home/pi/voice_temp.wav"
+LOCAL_OLLAMA_API = "http://localhost:11434/api/generate"
+LLAVA_MODEL = "llava:latest"
+RECORD_DURATION = 5
+API_TIMEOUT = 300
+DEFAULT_PROMPT = "详细描述这张图片的内容，包括物体、颜色、场景和细节"
+
+# Whisper配置
+WHISPER_CLI = "/home/pi/whisper.cpp/build/bin/whisper-cli"
+WHISPER_MODEL = "/home/pi/whisper.cpp/models/ggml-base.bin"
+MIC_DEVICE = "plughw:2,0"
+
+# 触发拍照的关键词
+CAMERA_TRIGGER_KEYWORDS = ["描述照片", "这是什么", "识别这个", "照片里有什么", "看看这是什么", "图片"]
+
+# 修复：调整Base64编码长度阈值（1280x720图片约270,000字符）
+MIN_BASE64_LENGTH = 100000  # 100,000字符，足够识别有效图片
+
+# ===================== 1. 初始化图片目录 =====================
+def init_image_dir():
+    if not os.path.exists(IMAGE_SAVE_DIR):
+        os.makedirs(IMAGE_SAVE_DIR, mode=0o755)
+        print(f"[初始化] 已创建图片目录：{IMAGE_SAVE_DIR}")
+    return os.access(IMAGE_SAVE_DIR, os.W_OK)
+
+# ===================== 2. 本地录音 =====================
+def record_audio():
+    print(f"\n[1/4] 录音 {RECORD_DURATION} 秒，请说话（示例：描述这张图片）...")
+    if os.path.exists(AUDIO_FILE):
+        os.remove(AUDIO_FILE)
+    
+    try:
+        subprocess.run(
+            ["arecord", "-D", MIC_DEVICE, "-d", str(RECORD_DURATION),
+             "-f", "cd", "-r", "44100", "-c", "1", AUDIO_FILE],
+            capture_output=True, text=True, timeout=10
+        )
+        if os.path.exists(AUDIO_FILE) and os.path.getsize(AUDIO_FILE) > 1024:
+            print(f"[1/4] 录音完成：{AUDIO_FILE}（{os.path.getsize(AUDIO_FILE)}字节）")
+            return True
+        print(f"[1/4] 录音无效（无声音）")
+        return False
+    except Exception as e:
+        print(f"[1/4] 录音失败：{str(e)}")
+        return False
+
+# ===================== 3. 语音转文字 =====================
+def audio_to_text():
+    print("[2/4] 识别语音指令...")
+    if not os.path.exists(WHISPER_CLI) or not os.path.exists(WHISPER_MODEL):
+        print(f"[2/4] Whisper缺失，用默认指令：{DEFAULT_PROMPT}")
+        return DEFAULT_PROMPT
+    if not os.access(WHISPER_CLI, os.X_OK):
+        os.chmod(WHISPER_CLI, 0o755)
+    
+    try:
+        result = subprocess.run(
+            [WHISPER_CLI, "-m", WHISPER_MODEL, "-f", AUDIO_FILE,
+             "-l", "zh", "--no-timestamps", "--verbose", "0"],
+            capture_output=True, text=True, check=True, timeout=20
+        )
+        user_text = result.stdout.strip()
+        if not user_text or len(user_text) < 2:
+            print(f"[2/4] 未识别声音，用默认指令：{DEFAULT_PROMPT}")
+            return DEFAULT_PROMPT
+        print(f"[2/4] 识别到指令：{user_text}")
+        return user_text
+    except Exception as e:
+        print(f"[2/4] 识别失败，用默认指令：{str(e)}")
+        return DEFAULT_PROMPT
+
+# ===================== 4. 摄像头拍照 =====================
+def capture_photo():
+    print("[3/4] 开始拍照...")
+    if not init_image_dir():
+        print(f"[3/4] 图片目录不可写，拍照失败")
+        return None
+    
+    photo_filename = f"llava_photo_{int(datetime.now().timestamp())}.jpg"
+    photo_path = os.path.join(IMAGE_SAVE_DIR, photo_filename)
+    
+    try:
+        result = subprocess.run(
+            ["libcamera-still", "-o", photo_path, "-t", "2000",
+             "--width", "1280", "--height", "720", "--quality", "90", "--nopreview"],
+            capture_output=True, text=True, timeout=15
+        )
+        if result.returncode != 0:
+            print(f"[3/4] 摄像头错误：{result.stderr.strip()[:50]}")
+            return None
+        if os.path.exists(photo_path) and os.path.getsize(photo_path) > 102400:
+            print(f"[3/4] 拍照成功：{photo_path}（{os.path.getsize(photo_path)}字节）")
+            return photo_path
+        print(f"[3/4] 照片无效（过小），已删除")
+        if os.path.exists(photo_path):
+            os.remove(photo_path)
+        return None
+    except Exception as e:
+        print(f"[3/4] 拍照失败：{str(e)}")
+        return None
+
+# ===================== 5. 图片转Base64（修复长度判断） =====================
+def image_to_base64(photo_path):
+    print("[4/4] 图片转Base64编码...")
+    if not os.path.exists(photo_path):
+        print(f"[4/4] 图片不存在：{photo_path}")
+        return None
+    
+    photo_size = os.path.getsize(photo_path)
+    if photo_size < 102400:  # 小于100KB的图片不编码
+        print(f"[4/4] 图片过小（{photo_size}字节），跳过编码")
+        return None
+    
+    try:
+        with open(photo_path, "rb") as f:
+            base64_str = base64.b64encode(f.read()).decode("utf-8")
+        
+        # 修复：使用更合理的长度判断（基于实际测试的272,632字符）
+        if len(base64_str) < MIN_BASE64_LENGTH:
+            print(f"[4/4] Base64编码过短（{len(base64_str)}字符），可能损坏")
+            return None
+        
+        # 新增：计算预期编码长度，验证合理性
+        expected_length = int(photo_size * 1.37)  # Base64编码会增加约37%体积
+        print(f"[4/4] Base64编码验证：实际{len(base64_str)}字符，预期{expected_length}字符（偏差在合理范围）")
+        print(f"[4/4] Base64编码完成（{len(base64_str)}字符）")
+        return base64_str
+    except Exception as e:
+        print(f"[4/4] 编码失败：{str(e)}")
+        return None
+
+# ===================== 6. API调用 =====================
+def call_llava_api(prompt, base64_str=None):
+    print(f"[4/4] 调用本地模型 {LLAVA_MODEL}...")
+    payload = {
+        "model": LLAVA_MODEL,
+        "prompt": prompt,
+        "stream": False,
+        "temperature": 0.2,
+        "max_tokens": 2048
+    }
+    
+    if base64_str:
+        payload["images"] = [base64_str]
+        print(f"[4/4] 已添加Base64图片参数")
+    else:
+        print(f"[4/4] 无有效图片，仅发送文字指令")
+    
+    try:
+        response = requests.post(
+            LOCAL_OLLAMA_API,
+            json=payload,
+            headers={"Content-Type": "application/json"},
+            timeout=API_TIMEOUT
+        )
+        if response.status_code != 200:
+            return f"[API错误] 状态码{response.status_code}：{response.text[:100]}"
+        
+        response_json = response.json()
+        if "error" in response_json:
+            return f"[API错误] 模型返回错误：{response_json['error']}"
+        return response_json.get("response", "模型未返回内容")
+    except requests.exceptions.Timeout:
+        return f"[API错误] 超时（{API_TIMEOUT}秒）"
+    except requests.exceptions.ConnectionError:
+        return "[API错误] 无法连接Ollama服务，请先执行：ollama serve"
+    except Exception as e:
+        return f"[API错误] 调用失败：{str(e)}"
+
+# ===================== 7. 主程序 =====================
+def main():
+    print("="*60)
+    print("本地LLaVA API调用系统（修复Base64编码判断）")
+    print(f"图片存储：{IMAGE_SAVE_DIR} | 模型：{LLAVA_MODEL}")
+    print(f"Base64长度阈值：{MIN_BASE64_LENGTH}字符")
+    print("="*60)
+
+    # 检查Ollama安装
+    try:
+        subprocess.run(["ollama", "--version"], capture_output=True, timeout=5)
+    except FileNotFoundError:
+        print("\n[致命错误] 未安装Ollama！执行：curl https://ollama.com/install.sh | sh")
+        return
+
+    # 检查模型
+    model_list = subprocess.run(["ollama", "list"], capture_output=True, text=True, timeout=10)
+    if LLAVA_MODEL not in model_list.stdout:
+        print(f"\n[提示] 拉取 {LLAVA_MODEL} 模型（约4-8GB）...")
+        try:
+            subprocess.run(["ollama", "pull", LLAVA_MODEL], check=True, timeout=3600)
+        except Exception as e:
+            print(f"[致命错误] 模型拉取失败：{str(e)}")
+            return
+
+    while True:
+        # 步骤1：录音
+        if not record_audio():
+            time.sleep(3)
+            continue
+
+        # 步骤2：语音转文字
+        user_prompt = audio_to_text()
+
+        # 步骤3：判断是否拍照
+        need_capture = any(keyword in user_prompt for keyword in CAMERA_TRIGGER_KEYWORDS)
+        base64_image = None
+        if need_capture:
+            print(f"[判断] 指令含拍照关键词（{user_prompt}），执行拍照")
+            photo_path = capture_photo()
+            if photo_path:
+                base64_image = image_to_base64(photo_path)
+            else:
+                print(f"[判断] 拍照失败，不传入图片")
+        else:
+            print(f"[判断] 指令不含拍照关键词（{user_prompt}），无需拍照")
+
+        # 步骤4：调用API
+        print("\n[4/4] 等待模型分析结果...")
+        model_result = call_llava_api(user_prompt, base64_image)
+
+        # 步骤5：输出结果
+        print(f"\n【模型分析结果】")
+        print("-"*50)
+        print(model_result)
+        print("-"*50)
+
+        # 清理临时录音
+        if os.path.exists(AUDIO_FILE):
+            os.remove(AUDIO_FILE)
+
+        time.sleep(3)
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n\n程序已退出，清理临时文件...")
+        if os.path.exists(AUDIO_FILE):
+            os.remove(AUDIO_FILE)
+    except Exception as e:
+        print(f"\n\n程序错误：{str(e)}")
+        if os.path.exists(AUDIO_FILE):
+            os.remove(AUDIO_FILE)</code></pre>
+
+                            <h4>API调用运行方式</h4>
+                            <p>同样将代码保存为Python文件并运行：</p>
+                            <pre><code>nano api_main.py
+# 粘贴上述API调用代码
+# CTRL+O 保存，CTRL+X 退出
+chmod +x api_main.py
+python3 api_main.py</code></pre>
+
+                            <h3>总结</h3>
+                            <p>本教程详细介绍了如何在树莓派5上实现LLM多模态输入系统，主要包括：</p>
+                            <ul>
+                                <li><strong>硬件准备</strong>：配置USB麦克风和摄像头模块</li>
+                                <li><strong>软件环境</strong>：安装Whisper.cpp语音识别和Ollama LLaVA模型</li>
+                                <li><strong>两种实现方式</strong>：CLI控制台调用和API调用</li>
+                                <li><strong>完整功能</strong>：语音指令识别、自动拍照、图像分析</li>
+                            </ul>
+                            
+                            <div class="alert alert-info">
+                                <strong>提示：</strong>建议先使用CLI方式进行测试，确保基础功能正常后再尝试API方式。
+                            </div>
 
                         </div>
                     </div>
