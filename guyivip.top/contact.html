@@ -2,11 +2,46 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Gretzia - Personal Blog HTML Template | Contact</title>
+<title>俗人的blog | 联系我</title>
 <!-- Stylesheets -->
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/responsive.css" rel="stylesheet">
+
+<style>
+.contact-info {
+    margin-top: 30px;
+}
+.contact-item {
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+.contact-item h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+.contact-item h3 i {
+    margin-right: 10px;
+    color: #007bff;
+}
+.contact-item p {
+    color: #666;
+    margin-bottom: 15px;
+}
+.wechat-qr {
+    text-align: center;
+    margin-top: 15px;
+}
+.wechat-qr img {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+}
+</style>
 
 <!--Favicon-->
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
@@ -148,32 +183,35 @@
                 <div class="content-side col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 	<div class="content-inner">
                         
-                        <h2>Contact</h2>
-                        <div class="image">
-                        	<img src="images/resource/contact-img.jpg" alt="" />
+                        <h2>联系我</h2>
+                        <div class="text">
+                            <p>欢迎通过以下方式与我联系，分享技术心得或进行交流讨论。</p>
                         </div>
-                        <div class="text">Aenean commodo ligula eget dolor. Aenean massa. Sed mi diam, viverra ac scelerisque in, ullamcorper  erat. Aenean quis urna sit amet metus laoreet feugiat. Aliquam lobortis, leo at elementum sodales, veli purus consequat justo, ornare nibh urna eu odio. Aliquam erat volutpat. Maecenas nec iaculis m eu lorem eget augue efficitur aliquet vitae sit ametmauris. In ut augue turpis. Mauris vitae rutrum risus. Sed t libero enim. Curabitur cursus metus suscipit mi fermentum, id posu ere massa consequat. Nunc ultrices augue libere lectus elementum magnis dis parturient fames ac turpis egestas. </div>
-                        <!-- Contact Form -->
-                        <div class="contact-form">
-                        	<!--Contact Form-->
-                            <form method="post" action="sendemail.php" id="contact-form">
-                                <div class="form-group">
-                                    <input type="text" name="username" placeholder="Name" required>
+                        
+                        <!-- 联系方式 -->
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <h3><i class="fa fa-github"></i> GitHub</h3>
+                                <p>查看我的开源项目和代码仓库</p>
+                                <a href="https://github.com/83900/GuYi.git" target="_blank" class="theme-btn btn-style-one">访问 GitHub</a>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <h3><i class="fa fa-video-camera"></i> 哔哩哔哩</h3>
+                                <p>观看我的技术分享视频和教程</p>
+                                <a href="https://space.bilibili.com/381365412?spm_id_from=333.1007.0.0" target="_blank" class="theme-btn btn-style-one">访问 B站</a>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <h3><i class="fa fa-wechat"></i> 微信</h3>
+                                <p>扫描二维码添加微信好友</p>
+                                <div class="wechat-qr">
+                                    <img src="images/resource/wechat.jpg" alt="微信二维码" style="max-width: 200px;" />
+                                    <p><strong>微信号：</strong>13814262342</p>
                                 </div>
-
-                                <div class="form-group">
-                                    <input type="email" name="email" placeholder="Email" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <textarea name="message" placeholder="Your comment..."></textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <button class="theme-btn btn-style-one" type="submit" name="submit-form">POST COMMENT</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
+
                         
                     </div>
                 </div>
@@ -188,58 +226,14 @@
                         	<div class="inner-box">
                             	<!--Social Icon Two-->
                                 <ul class="social-icon-two">
-                                    <li><a href="#"><span class="icon fa fa-twitter"></span></a></li>
-                                    <li><a href="#"><span class="icon fa fa-pinterest-p"></span></a></li>
-                                    <li><a href="#"><span class="icon fa fa-facebook"></span></a></li>
-                                    <li><a href="#"><span class="icon fa fa-instagram"></span></a></li>
+                                    <li><a href="https://github.com/83900/GuYi.git" target="_blank"><span class="icon fa fa-github"></span></a></li>
+                                    <li><a href="https://space.bilibili.com/381365412?spm_id_from=333.1007.0.0" target="_blank"><span class="icon fa fa-video-camera"></span></a></li>
+                                    <li><a href="#" onclick="alert('请扫描页面中的微信二维码')"><span class="icon fa fa-wechat"></span></a></li>
                                 </ul>
                             </div>
                         </div>
                     
-                    	<!--About Widget-->
-                        <div class="sidebar-widget about-widget">
-                        	<h2>About The Author</h2>
-                        	<div class="inner-box">
-                            	<div class="image">
-                                	<img src="images/resource/about.jpg" alt="" />
-                                </div>
-                                <div class="text">Morbi accumsan ipsum velit. Nam nec tellu ale oplodio tincidunt auctor a ornare odiod non  mas vitae erat consequat auctor... <a href="about.html" class="icon fa fa-arrow-right"></a></div>
-                            </div>
-                        </div>
-                    
-                    	<!-- Instagram Widget -->
-                        <div class="sidebar-widget twitter-widget">
-                        	<h2>Twitter</h2>
-                            <div class="single-item-carousel owl-carousel owl-theme">
-                            	<!--Twiter Slide-->
-                            	<div class="twitter-slide">
-                                	<div class="inner-box">
-                                    	<span class="icon fa fa-twitter"></span>
-                                        <div class="title">@CafeNight</div>
-                                        <div class="text">To everyone who said my microphone position was wrong.  Is this right?</div>
-                                        <div class="tweet-date">March 25</div>
-                                    </div>
-                                </div>
-                                <!--Twiter Slide-->
-                            	<div class="twitter-slide">
-                                	<div class="inner-box">
-                                    	<span class="icon fa fa-twitter"></span>
-                                        <div class="title">@CafeNight</div>
-                                        <div class="text">To everyone who said my microphone position was wrong.  Is this right?</div>
-                                        <div class="tweet-date">March 25</div>
-                                    </div>
-                                </div>
-                                <!--Twiter Slide-->
-                            	<div class="twitter-slide">
-                                	<div class="inner-box">
-                                    	<span class="icon fa fa-twitter"></span>
-                                        <div class="title">@CafeNight</div>
-                                        <div class="text">To everyone who said my microphone position was wrong.  Is this right?</div>
-                                        <div class="tweet-date">March 25</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         
                     </aside>
                     
@@ -249,139 +243,11 @@
         </div>
     </div>
     
-    <!--Gallery Section-->
-    <section class="gallery-section">
-    	
-        <div class="fullwidth-section clearfix">
-        
-            <!--Default Portfolio Item-->
-            <div class="default-portfolio-item">
-                <div class="inner-box">
-                    <figure class="image-box"><img src="images/gallery/1.jpg" alt=""></figure>
-                    <!--Overlay Box-->
-                    <div class="overlay-box">
-                        <div class="overlay-inner">
-                            <div class="content">
-                                <a href="images/gallery/1.jpg" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!--Default Portfolio Item-->
-            <div class="default-portfolio-item">
-                <div class="inner-box">
-                    <figure class="image-box"><img src="images/gallery/2.jpg" alt=""></figure>
-                    <!--Overlay Box-->
-                    <div class="overlay-box">
-                        <div class="overlay-inner">
-                            <div class="content">
-                                <a href="images/gallery/2.jpg" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!--Default Portfolio Item-->
-            <div class="default-portfolio-item">
-                <div class="inner-box">
-                    <figure class="image-box"><img src="images/gallery/3.jpg" alt=""></figure>
-                    <!--Overlay Box-->
-                    <div class="overlay-box">
-                        <div class="overlay-inner">
-                            <div class="content">
-                                <a href="images/gallery/3.jpg" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!--Default Portfolio Item-->
-            <div class="default-portfolio-item">
-                <div class="inner-box">
-                    <figure class="image-box"><img src="images/gallery/4.jpg" alt=""></figure>
-                    <!--Overlay Box-->
-                    <div class="overlay-box">
-                        <div class="overlay-inner">
-                            <div class="content">
-                                <a href="images/gallery/4.jpg" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!--Default Portfolio Item-->
-            <div class="default-portfolio-item">
-                <div class="inner-box">
-                    <figure class="image-box"><img src="images/gallery/5.jpg" alt=""></figure>
-                    <!--Overlay Box-->
-                    <div class="overlay-box">
-                        <div class="overlay-inner">
-                            <div class="content">
-                                <a href="images/gallery/5.jpg" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!--Default Portfolio Item-->
-            <div class="default-portfolio-item">
-                <div class="inner-box">
-                    <figure class="image-box"><img src="images/gallery/6.jpg" alt=""></figure>
-                    <!--Overlay Box-->
-                    <div class="overlay-box">
-                        <div class="overlay-inner">
-                            <div class="content">
-                                <a href="images/gallery/6.jpg" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-        
-    </section>
-    <!--End Gallery Section-->
-    
-    <!--Subscribe Section-->
-    <section class="subscribe-section">
-    	<div class="auto-container">
-        	<h2>Subscribe</h2>
-            <div class="text">Special content every week.</div>
-            <!--Subscribe form-->
-            <div class="subscribe-form">
-                <form method="post" action="contact.html">
-                    <div class="form-group">
-                        <input type="email" name="email" value="" placeholder="Email Address" required>
-                        <button type="submit" class="theme-btn">Sign Up</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-    <!--End Subscribe Section-->
-    
-    <!--Social Box-->
-    <div class="social-boxed text-center">
-    	<!--Social Icon Two-->
-        <ul class="social-icon-two">
-            <li><a href="#"><span class="icon fa fa-twitter"></span></a></li>
-            <li><a href="#"><span class="icon fa fa-pinterest-p"></span></a></li>
-            <li><a href="#"><span class="icon fa fa-facebook"></span></a></li>
-            <li><a href="#"><span class="icon fa fa-instagram"></span></a></li>
-        </ul>
-    </div>
-    <!--Social Box-->
+
     
     <!--Main Footer-->
     <div class="main-footer">
-    	<div class="copyright">Copyright &copy 2025 Gretzia. All rights reserved.</div>
+    	<div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
     </div>
     <!--Main Footer-->
     
