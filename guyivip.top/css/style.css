@@ -3211,8 +3211,23 @@ img{
 }
 
 .sticky-top{
-	top:90px;
-	z-index:1;
+    top:90px;
+    z-index:1;
+}
+
+/* Helper: square thumbnail container for card images */
+.square-thumb{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.square-thumb img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 /*** 
