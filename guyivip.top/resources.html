@@ -166,8 +166,32 @@
                                 <li><a href="files/document.pdf" download>下载文档 (document.pdf)</a></li>
                             </ul>
 
+                            <h3>股票交易盈亏计算器</h3>
+                            <p>计算股票买卖的实际盈亏，考虑佣金、印花税、过户费等所有交易成本。</p>
+                            <div class="stock-calculator" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="buyPrice">买入价格 (元):</label>
+                                        <input type="number" id="buyPrice" step="0.001" placeholder="例: 10.500" style="width: 100%; padding: 8px; margin: 5px 0;">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="sellPrice">卖出价格 (元):</label>
+                                        <input type="number" id="sellPrice" step="0.001" placeholder="例: 11.200" style="width: 100%; padding: 8px; margin: 5px 0;">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="shares">交易股数:</label>
+                                        <input type="number" id="shares" value="100" placeholder="例: 100" style="width: 100%; padding: 8px; margin: 5px 0;">
+                                    </div>
+                                </div>
+                                <button onclick="calculateStockProfit()" class="btn btn-success" style="margin-top: 15px; padding: 10px 20px;">计算盈亏</button>
+                                <div id="stockResult" style="margin-top: 20px; display: none;">
+                                    <h4>计算结果</h4>
+                                    <div id="resultContent" style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #28a745;"></div>
+                                </div>
+                            </div>
+
                             <h3>HTML手机预览工具</h3>
-                            <p>在下面的文本框中输入您的HTML代码，然后点击“预览”按钮，在模拟手机视图中查看效果。</p>
+                            <p>在下面的文本框中输入您的HTML代码，然后点击"预览"按钮，在模拟手机视图中查看效果。</p>
                             <textarea id="htmlInput" rows="10" style="width: 100%;"></textarea>
                             <button onclick="previewHTML()" class="btn btn-primary" style="margin-top: 10px;">预览</button>
                             <div class="preview-container">
@@ -211,6 +235,97 @@
             doc.open();
             doc.write(html);
             doc.close();
+        }
+
+        function calculateStockProfit() {
+            // 获取输入值
+            const buyPrice = parseFloat(document.getElementById('buyPrice').value);
+            const sellPrice = parseFloat(document.getElementById('sellPrice').value);
+            const shares = parseInt(document.getElementById('shares').value) || 100;
+
+            // 验证输入
+            if (!buyPrice || !sellPrice || buyPrice <= 0 || sellPrice <= 0 || shares <= 0) {
+                alert('请输入有效的买入价格、卖出价格和股数！');
+                return;
+            }
+
+            // 交易费用设置
+            const commissionRate = 0.0003;  // 佣金费率 0.03%
+            const minCommission = 5.0;      // 最低佣金 5元
+            const stampTaxRate = 0.001;     // 印花税 0.1%（仅卖出收取）
+            const transferFeeRate = 0.00002; // 过户费 0.002%
+
+            // 计算交易金额
+            const buyAmount = buyPrice * shares;
+            const sellAmount = sellPrice * shares;
+
+            // 计算买入费用
+            const buyCommission = Math.max(buyAmount * commissionRate, minCommission);
+            const buyTransferFee = buyAmount * transferFeeRate;
+            const buyTotalFee = buyCommission + buyTransferFee;
+
+            // 计算卖出费用
+            const sellCommission = Math.max(sellAmount * commissionRate, minCommission);
+            const sellStampTax = sellAmount * stampTaxRate;
+            const sellTransferFee = sellAmount * transferFeeRate;
+            const sellTotalFee = sellCommission + sellStampTax + sellTransferFee;
+
+            // 总费用和盈亏
+            const totalFee = buyTotalFee + sellTotalFee;
+            const grossProfit = sellAmount - buyAmount;
+            const netProfit = grossProfit - totalFee;
+            const profitPerShare = netProfit / shares;
+            const feeRate = (totalFee / buyAmount) * 100;
+            const returnRate = (profitPerShare / buyPrice) * 100;
+
+            // 显示结果
+            const resultDiv = document.getElementById('stockResult');
+            const contentDiv = document.getElementById('resultContent');
+            
+            const profitColor = netProfit > 0 ? '#28a745' : netProfit < 0 ? '#dc3545' : '#6c757d';
+            const profitIcon = netProfit > 0 ? '📈' : netProfit < 0 ? '📉' : '⚖️';
+            
+            contentDiv.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h5>💰 交易信息</h5>
+                        <p><strong>买入价格:</strong> ¥${buyPrice.toFixed(3)}</p>
+                        <p><strong>卖出价格:</strong> ¥${sellPrice.toFixed(3)}</p>
+                        <p><strong>交易股数:</strong> ${shares} 股</p>
+                        <p><strong>买入金额:</strong> ¥${buyAmount.toFixed(2)}</p>
+                        <p><strong>卖出金额:</strong> ¥${sellAmount.toFixed(2)}</p>
+                    </div>
+                    <div>
+                        <h5>💸 费用明细</h5>
+                        <p><strong>买入佣金:</strong> ¥${buyCommission.toFixed(2)}</p>
+                        <p><strong>买入过户费:</strong> ¥${buyTransferFee.toFixed(2)}</p>
+                        <p><strong>卖出佣金:</strong> ¥${sellCommission.toFixed(2)}</p>
+                        <p><strong>印花税:</strong> ¥${sellStampTax.toFixed(2)}</p>
+                        <p><strong>卖出过户费:</strong> ¥${sellTransferFee.toFixed(2)}</p>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+                    <h5>${profitIcon} 盈亏分析</h5>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <p><strong>总交易费用:</strong> ¥${totalFee.toFixed(2)}</p>
+                            <p><strong>费用率:</strong> ${feeRate.toFixed(3)}%</p>
+                            <p><strong>毛利润:</strong> ¥${grossProfit.toFixed(2)}</p>
+                        </div>
+                        <div>
+                            <p style="color: ${profitColor}; font-size: 18px;"><strong>净利润:</strong> ¥${netProfit.toFixed(2)}</p>
+                            <p style="color: ${profitColor}; font-size: 16px;"><strong>每股盈亏:</strong> ¥${profitPerShare.toFixed(4)}</p>
+                            <p style="color: ${profitColor}; font-size: 16px;"><strong>收益率:</strong> ${returnRate.toFixed(3)}%</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; font-size: 12px; color: #6c757d;">
+                    <p><strong>费用说明:</strong></p>
+                    <p>• 佣金: 0.03% (最低5元，买卖双向收取) • 印花税: 0.1% (仅卖出时收取) • 过户费: 0.002% (买卖双向收取)</p>
+                </div>
+            `;
+            
+            resultDiv.style.display = 'block';
         }
     </script>
 </body>
