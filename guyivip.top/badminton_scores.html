@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沃特福德羽毛球比分记录</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- 添加 Font Awesome 图标 -->
+    <style>
+        body { background-color: #f4f4f4; font-family: 'Arial', sans-serif; }
+        .container { max-width: 900px; margin: 50px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: box-shadow 0.3s ease; }
+        .container:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+        h2 { text-align: center; color: #333; margin-bottom: 30px; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .player-select { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .select-box { width: 45%; }
+        .select-box label { font-weight: bold; color: #555; }
+        .select-box select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: linear-gradient(135deg, #f9f9f9, #e9e9e9); }
+        .btn-primary { background: linear-gradient(135deg, #007bff, #0056b3); border: none; padding: 10px 20px; font-size: 16px; transition: transform 0.3s, box-shadow 0.3s; color: white; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 4px 8px rgba(0,123,255,0.3); }
+        .result { margin-top: 30px; }
+        .overall-score { background: linear-gradient(135deg, #dc3545, #a71d2a); color: white; padding: 20px; border-radius: 10px; text-align: center; font-size: 48px; margin-bottom: 30px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 4px 8px rgba(220,53,69,0.3); }
+        .overall-score span { margin: 10px 30px; font-size: 36px; }
+        .player-name { font-size: 24px; color: white; display: block; margin-top: 50px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+        .player-section { text-align: center; width: 35%; padding: 10px; }
+        .vs { font-size: 36px; font-weight: bold; }
+        .match-details { cursor: pointer; margin: 10px 0; padding: 25px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 8px; border: 1px solid #ddd; transition: box-shadow 0.3s, transform 0.3s; position: relative; }
+        .match-details:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.15); transform: translateY(-5px); }
+        .match-details i { margin-right: 10px; color: #007bff; }
+        .sets { display: none; margin-left: 20px; margin-top: 10px; padding: 10px; background: #e9ecef; border-radius: 5px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .sets p { margin: 5px 0; color: #666; display: flex; justify-content: space-between; font-weight: bold; }
+        .set-score { font-weight: bold; background: rgba(40,167,69,0.1); padding: 5px; border-radius: 5px; }
+        .win-indicator { color: #28a745; font-size: 14px; margin-right: 5px; }
+        .match-header { display: flex; justify-content: space-between; align-items: center; }
+        .match-score { font-weight: bold; color: #28a745; font-size: 24px; }
+        .match-date { color: #6c757d; font-size: 14px; text-align: left; margin-bottom: 10px; font-style: italic; }
+        .match-info { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 5px; }
+        .toggle-icon { font-size: 20px; cursor: pointer; transition: transform 0.3s; }
+        .toggle-icon:hover { transform: rotate(90deg); }
+        .timeline { position: relative; }
+        .timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #ddd, #aaa); }
+        .timeline-item { position: relative; padding-left: 40px; }
+        .timeline-dot { position: absolute; left: 15px; top: 20px; width: 10px; height: 10px; border-radius: 50%; background: #28a745; box-shadow: 0 0 5px rgba(40,167,69,0.5); }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+ 	
+
+ 	
+    <!-- Main Header-->
+    <header class="main-header">
+        
+        <!--Header-Upper-->
+        <div class="header-upper">
+        	<div class="auto-container">
+            	<div class="outer-container clearfix">
+                	<!--Logo Outer-->
+                    <div class="logo-outer">
+                        <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                    </div>
+                    
+                    <div class="top-left info-block left-aligned">
+                    	<div class="inner">
+                        	<!-- Hidden Nav Toggler -->
+                            <div class="nav-toggler">
+                                <a class="mobile-nav-toggler"><i class="icon_menu"><img src="images/icons/menu-icon.png" alt="" /></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top-right info-block right-aligned">
+                    	<!--Search Box-->
+                        <div class="search-box-outer">
+                            <div class="dropdown">
+                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false"><img src="images/icons/search-icon.png" alt="" /></button>
+                                <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                    <li class="panel-outer">
+                                        <div class="form-container">
+                                            <form method="post" action="blog.html">
+                                                <div class="form-group">
+                                                    <input type="search" name="field-name" value="" placeholder="Search Here" required="">
+                                                    <button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!--End Header Upper-->
+        
+        <div class="header-lower">
+        	<div class="auto-container">
+                <div class="nav-outer clearfix">
+                    <!-- Main Menu -->
+					<nav class="main-menu navbar-expand-md">
+						<div class="navbar-header">
+                            <!-- Toggle Button -->    	
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        
+                        <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                            <!--Nav-->
+                            <ul class="navigation clearfix">
+                                <li class="dropdown"><a href="./index.html">Home</a>
+ 
+                                </li>
+                                <li class="current dropdown"><a href="#">Others</a>
+<ul>
+<li><a href="badminton_scores.html">沃特福德羽毛球比分</a></li>
+</ul>
+</li>
+
+                                <li><a href="about.html">About Me</a></li>
+                                <li><a href="resources.html">Resources</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                        
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu  -->
+		<div class="mobile-menu">
+			<div class="menu-backdrop"></div>
+			<div class="close-btn"><span class="icon fa-remove"></span></div>
+			
+			<nav class="menu-box">
+				<div class="nav-logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+				<div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+			</nav>
+		</div>
+		<!-- End Mobile Menu -->
+    
+    </header>
+    <!--End Main Header -->
+
+    <div class="container">
+        <h2><i class="fas fa-feather"></i> 沃特福德羽毛球比分查询</h2> <!-- 替换为羽毛球相关图标 -->
+        <div class="player-select">
+            <div class="select-box">
+                <label for="playerA">选手 A:</label>
+                <input type="text" id="playerA" list="players" placeholder="搜索选手">
+            </div>
+            <div class="select-box">
+                <label for="playerB">选手 B:</label>
+                <input type="text" id="playerB" list="players" placeholder="搜索选手">
+            </div>
+        </div>
+        <datalist id="players">
+            <!-- 选手列表将在 JS 中动态填充 -->
+        </datalist>
+        <button onclick="queryScores()" class="btn btn-primary"><i class="fas fa-search"></i> 查询</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        let players = [];
+        let matches = [];
+
+        // 加载数据从 score.json
+        async function loadData() {
+            try {
+                const response = await fetch('score.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load score.json');
+                }
+                const data = await response.json();
+                players = data.players;
+                matches = data.matches;
+                populatePlayers();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                alert('无法加载比分数据，请检查 score.json 文件。');
+            }
+        }
+
+        // 填充选手数据列表
+        function populatePlayers() {
+            const datalist = document.getElementById('players');
+            datalist.innerHTML = ''; // 清空现有选项
+            players.forEach(player => {
+                const option = document.createElement('option');
+                option.value = player;
+                datalist.appendChild(option);
+            });
+        }
+
+        // 查询比分
+        function queryScores() {
+            const playerA = document.getElementById('playerA').value.trim();
+            const playerB = document.getElementById('playerB').value.trim();
+            if (!playerA || !playerB || playerA === playerB || !players.includes(playerA) || !players.includes(playerB)) {
+                alert('请选择两个不同的有效选手！');
+                return;
+            }
+
+            let winsA = 0, winsB = 0;
+            let matchList = '<div class="timeline">';
+
+            matches.forEach(match => {
+                if ((match.player1 === playerA && match.player2 === playerB) || (match.player1 === playerB && match.player2 === playerA)) {
+                    // 计算总比分和胜者
+                    let setsWonA = 0, setsWonB = 0;
+                    match.scores.forEach(set => {
+                        if (set[0] > set[1]) setsWonA++;
+                        else setsWonB++;
+                    });
+                    const isPlayerAFirst = match.player1 === playerA;
+                    if (!isPlayerAFirst) {
+                        // 交换 setsWonA 和 setsWonB 以匹配 playerA 和 playerB
+                        [setsWonA, setsWonB] = [setsWonB, setsWonA];
+                    }
+                    if (setsWonA > setsWonB) {
+                        winsA++;
+                    } else if (setsWonB > setsWonA) {
+                        winsB++;
+                    } else {
+                        winsA++;
+                        winsB++;
+                    }
+                    const totalScore = `${setsWonA}:${setsWonB}`;
+
+                    // 调整比分以 playerA 为左边
+                    const adjustedPlayer1 = playerA;
+                    const adjustedPlayer2 = playerB;
+                    const adjustedScores = match.scores.map(set => isPlayerAFirst ? [set[0], set[1]] : [set[1], set[0]]);
+
+                    matchList += `<div class="timeline-item match-details" onclick="toggleSets(this)">
+                        <div class="timeline-dot"></div>
+                        <div class="match-date">${match.date} (${match.location} ${match.time})</div>
+                        <div class="match-info">
+                            <span>${adjustedPlayer1}</span>
+                            <span class="match-score">${totalScore}</span>
+                            <span>${adjustedPlayer2}</span>
+                            <i class="fas fa-plus toggle-icon"></i>
+                        </div>
+                        <div class="sets">`;
+                    adjustedScores.forEach((set, index) => {
+                        const winA = set[0] > set[1];
+                        matchList += `<p>
+                            <span class="set-score">${winA ? '<i class="fas fa-circle win-indicator"></i>' : ''} ${set[0]}</span>
+                            <span> - </span>
+                            <span class="set-score">${!winA ? '<i class="fas fa-circle win-indicator"></i>' : ''} ${set[1]}</span>
+                        </p>`;
+                    });
+                    matchList += `</div></div>`;
+                }
+            });
+            matchList += '</div>';
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <div class="overall-score">
+                    <div class="player-section">
+                        ${winsA}
+                        <span class="player-name">${playerA}</span>
+                    </div>
+                    <span class="vs">vs</span>
+                    <div class="player-section">
+                        ${winsB}
+                        <span class="player-name">${playerB}</span>
+                    </div>
+                </div>
+                ${matchList}`;
+        }
+
+        // 展开/折叠局分
+        function toggleSets(element) {
+            const sets = element.querySelector('.sets');
+            const icon = element.querySelector('.toggle-icon');
+            if (sets.style.display === 'block') {
+                sets.style.display = 'none';
+                icon.classList.remove('fa-minus');
+                icon.classList.add('fa-plus');
+            } else {
+                sets.style.display = 'block';
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+            }
+        }
+
+        // 初始化
+        loadData();
+    </script>
+
+    <!-- 页脚 -->
+    <div class="main-footer">
+        <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- 其他 JS 如果需要 -->
+</div>
+</body>
+</html>
