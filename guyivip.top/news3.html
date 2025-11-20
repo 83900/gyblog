@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>使用Gparted为VMware的Linux虚拟机扩容教程 - Seek4nothing技术博客</title>
+    <meta name="description" content="详细介绍如何使用Gparted工具为VMware虚拟机中的Linux系统进行磁盘扩容，包含Ubuntu 24.04的完整操作步骤。">
+    <meta name="keywords" content="Gparted,VMware,Linux扩容,虚拟机扩容,Ubuntu,磁盘扩容,Linux教程,虚拟机管理">
+    <meta name="author" content="Seek4nothing">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="使用Gparted为VMware的Linux虚拟机扩容教程">
+    <meta property="og:description" content="详细介绍如何使用Gparted工具为VMware虚拟机中的Linux系统进行磁盘扩容">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://guyivip.top/news2.html">
+    <meta property="og:image" content="https://guyivip.top/images/resource/news2-fig1.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="使用Gparted为VMware的Linux虚拟机扩容教程">
+    <meta name="twitter:description" content="详细介绍如何使用Gparted工具为VMware虚拟机中的Linux系统进行磁盘扩容">
+    <link rel="canonical" href="https://guyivip.top/news2.html">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "使用Gparted为vmware的Linux虚拟机扩容",
+      "description": "详细介绍如何使用Gparted工具为VMware中的Linux虚拟机进行磁盘扩容操作的完整教程",
+      "url": "https://guyivip.top/news2.html",
+      "datePublished": "2024-12-10",
+      "dateModified": "2024-12-10",
+      "author": {
+        "@type": "Person",
+        "name": "Seek4nothing"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Seek4nothing技术博客",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://guyivip.top/images/logo.png"
+        }
+      },
+      "image": "https://guyivip.top/images/resource/news2.png",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://guyivip.top/news2.html"
+      }
+    }
+    </script>
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+    <div class="page-wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+        <!-- Main Header-->
+        <header class="main-header">
+
+            <!--Header-Upper-->
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="outer-container clearfix">
+                        <!--Logo Outer-->
+                        <div class="logo-outer">
+                            <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                        </div>
+
+                        <div class="top-left info-block left-aligned">
+                            <div class="inner">
+                                <!-- Hidden Nav Toggler -->
+                                <div class="nav-toggler">
+                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img
+                                                src="images/icons/menu-icon.png" alt="" /></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-right info-block right-aligned">
+                            <!--Search Box-->
+                            <div class="search-box-outer">
+                                <div class="dropdown">
+                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
+                                        data-bs-toggle="dropdown" aria-expanded="false"><img
+                                            src="images/icons/search-icon.png" alt="" /></button>
+                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                        <li class="panel-outer">
+                                            <div class="form-container">
+                                                <form method="post" action="blog.html">
+                                                    <div class="form-group">
+                                                        <input type="search" name="field-name" value=""
+                                                            placeholder="Search Here" required="">
+                                                        <button type="submit" class="search-btn"><span
+                                                                class="fa fa-search"></span></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Header Upper-->
+
+            <div class="header-lower">
+                <div class="auto-container">
+                    <div class="nav-outer clearfix">
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md">
+                            <div class="navbar-header">
+                                <!-- Toggle Button -->
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                                <!--Nav-->
+                                <ul class="navigation clearfix">
+                                    <li class="current dropdown"><a href="./index.html">Home</a>
+                                    <li class="dropdown"><a href="#">Others</a>
+                                        <ul>
+                                            <li><a href="badminton_scores.html">沃特福德羽毛球比分</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="about.html">About Me</a></li>
+                                    <li><a href="resources.html">Resources</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu  -->
+            <div class="mobile-menu">
+                <div class="menu-backdrop"></div>
+                <div class="close-btn"><span class="icon fa-remove"></span></div>
+
+                <nav class="menu-box">
+                    <div class="nav-logo"><a href="index.html"><img src="images/logo-small.png" alt="" title=""></a>
+                    </div>
+                    <div class="menu-outer">
+                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                    </div>
+                </nav>
+            </div>
+            <!-- End Mobile Menu -->
+
+        </header>
+        <!--End Main Header -->
+
+
+
+        <div class="auto-container">
+            <div class="row clearfix">
+
+                <!--Content Side / News Single-->
+                <!-- <div class="content-side col-lg-8 col-md-8 col-sm-12 col-xs-12"> -->
+                <div class="content-inner">
+                    <!--Page Title-->
+                    <div class="sec-title">
+                        <div class="title">TECH</div>
+                        <h2>树莓派5使用ollama部署本地LLM</h2>
+                        <div class="post-date">August 25, 2025</div>
+
+                        <div class="about-section">
+                            <div class="auto-container">
+                                <p>
+                                    <b style="font-size: 1.5rem;">
+                                        ATTENTION：配置为树莓派5 8GB 版本，
+                                    </b>
+                                </p>
+                                <p>
+                                    Step 1: SD卡烧录以及远程登录树莓派 <br>
+                                        1. 下载树莓派烧录软件，我这里用的是 Raspberry Pi Imager，可以在 <a href="https://www.raspberrypi.org/software/">这里</a> 下载。 <br>
+                                        2. 插入SD卡，选择正确的系统，我这里选择的是Raspberry Pi OS (64-bit)，这个是树莓派官方系统，但是请注意，
+                                        如果你在使用目前非常常见的树莓派3.5英寸串口屏，请一定要问购买的商家要特制的系统烧录，
+                                        
+                                        由于3.5英寸屏幕并没有驱动，使用树莓派官方系统会直接导致开机后永远处于白屏，而商家一般都会提供内置屏幕驱动的特制系统（也是以树莓派官方系统为基础）。烧录软件第一页设置如下 <br>
+                                        <img src="images\resource\news3-fig1.png" alt="" srcset="">
+                                        breach：从这里开始是否有显示屏会有步骤上的部分区别，所有无屏幕连接的需要做breach的步骤，有屏幕连接的可以直接跳过 <br>
+                                        breach1:如果是无显示屏，请提前在烧录时配置好网络，如下图并且在‘服务’页面中开启ssh（但是貌似可能会失效，请务必在下一步写入配置文件确保开启ssh），否则后续无法登录树莓派 <br>
+                                        <img src="images\resource\news3-fig2.png" alt="" srcset=""> <br>
+                                        Tip：两个设备同时处在一个网络是ssh连接的基础，请确保树莓派网络与主机网络一致 <br>
+                                        
+                                        breach2：如果有显示屏，SD卡可以直接插入主机开机，但是如果需要无屏幕连接，此时你仍然需要做的是：打开SD卡文件夹，写入一个空白文件，命名为ssh，注意，千万不要
+                                        有任何扩展名，这个文件会被树莓派认为是，比如ssh.txt等，否则树莓派会认为这是一个普通的文本文件，而不是一个ssh配置文件，win电脑请打开扩展名显示，mac电脑请查看文件设置，以确保无误 <br>
+
+                                        3. 插入SD卡到树莓派，有屏幕条件的直接连接树莓派到显示器、键盘、鼠标，检查树莓派状态指示灯，灯频闪表示正在读取SD卡，常量表示SD卡已读取完成，如果没有开机，请进一步查阅
+                                        该机型指示灯不同状态的含义以定位问题，由于一般都不会出问题，此处不做赘述。 <br>
+                                        4. 登录树莓派，默认用户名是 pi，密码是 raspberry。 <br>
+                                        breach3：如果是无屏幕连接，需要通过ssh登录树莓派，在主机上打开终端，输入以下命令 <br>
+                                        ssh pi@树莓派IP地址 <br>(IP地址可以通过主机命令行ipconfig得到，或者手机使用软件查询，非常简单，网上大有教程，此处不赘述)
+                                        例如：ssh pi@192.168.1.100 <br>
+                                        如果提示连接失败，请检查树莓派是否开启ssh，并且树莓派与主机是否在同一个网络。 <br>
+                                    Step 2: 安装ollama <br>
+                                    以下两种安装ollama方法，任选其一即可 <br>
+                                    method1:直接在命令行进行拉取ollama镜像 <br>
+                                    输入以下命令 <br>
+                                    git clone https://github.com/ollama/ollama.git <br>
+                                    
+
+
+                                    Step 3: 下载模型 <br>
+                                    Step 4: 启动模型 <br>
+                                </p>
+                                <div class="image">
+                                    <img src="images\resource\news2-fig1.png" alt="" />
+                                </div>
+                                <p>
+
+                                </p>
+                                <div class="image">
+                                    <img src="images\resource\news2-fig2.png" alt="" />
+                                </div>
+                                <p>
+                                   
+                                </p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <!--Main Footer-->
+        <div class="main-footer">
+            <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
+        </div>
+        <!--Main Footer-->
+
+    </div>
+    <!--End pagewrapper-->
+
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.fancybox-media.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

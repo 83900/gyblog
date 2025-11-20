@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Git 本地到远程完整实践：初始化、提交、推送与分支管理 - Seek4nothing技术博客</title>
+    <meta name="description" content="从零开始梳理 Git 的本地初始化、克隆、提交、推送、分支管理与常见问题解决的命令与流程。">
+    <meta name="keywords" content="Git,git init,git clone,git push,git branch,分支管理,Git教程">
+    <meta name="author" content="Seek4nothing">
+    <meta name="robots" content="index, follow">
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+    <div class="page-wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+        <!-- Main Header-->
+        <header class="main-header">
+
+            <!--Header-Upper-->
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="outer-container clearfix">
+                        <!--Logo Outer-->
+                        <div class="logo-outer">
+                            <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                        </div>
+
+                        <div class="top-left info-block left-aligned">
+                            <div class="inner">
+                                <!-- Hidden Nav Toggler -->
+                                <div class="nav-toggler">
+                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img
+                                                src="images/icons/menu-icon.png" alt="" /></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-right info-block right-aligned">
+                            <!--Search Box-->
+                            <div class="search-box-outer">
+                                <div class="dropdown">
+                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
+                                        data-bs-toggle="dropdown" aria-expanded="false"><img
+                                            src="images/icons/search-icon.png" alt="" /></button>
+                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                        <li class="panel-outer">
+                                            <div class="form-container">
+                                                <form method="post" action="blog.html">
+                                                    <div class="form-group">
+                                                        <input type="search" name="field-name" value=""
+                                                            placeholder="Search Here" required="">
+                                                        <button type="submit" class="search-btn"><span
+                                                                class="fa fa-search"></span></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Header Upper-->
+
+            <div class="header-lower">
+                <div class="auto-container">
+                    <div class="nav-outer clearfix">
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md">
+                            <div class="navbar-header">
+                                <!-- Toggle Button -->
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                                <!--Nav-->
+                                <ul class="navigation clearfix">
+                                    <li class="current dropdown"><a href="./index.html">Home</a>
+                                    <li class="dropdown"><a href="#">Others</a>
+                                        <ul>
+                                            <li><a href="badminton_scores.html">沃特福德羽毛球比分</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="about.html">About Me</a></li>
+                                    <li><a href="resources.html">Resources</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu  -->
+            <div class="mobile-menu">
+                <div class="menu-backdrop"></div>
+                <div class="close-btn"><span class="icon fa-remove"></span></div>
+
+                <nav class="menu-box">
+                    <div class="nav-logo"><a href="index.html"><img src="images/logo-small.png" alt="" title=""></a>
+                    </div>
+                    <div class="menu-outer">
+                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                    </div>
+                </nav>
+            </div>
+            <!-- End Mobile Menu -->
+
+        </header>
+        <!--End Main Header -->
+
+
+
+        <div class="auto-container">
+            <div class="row clearfix">
+
+                <!--Content Side / News Single-->
+                <div class="content-inner">
+                    <!--Page Title-->
+                    <div class="sec-title">
+                        <div class="title">TECH</div>
+                        <h2>Git 从零到远程：初始化、提交、推送与分支管理命令大全</h2>
+                        <div class="post-date">November 20, 2025</div>
+                    </div>
+
+                    <div class="about-section">
+                        <div class="auto-container">
+                            <p>
+                                <b style="font-size: 1.5rem;">
+                                    本文面向初学者与日常开发者，完整记录从本地新建仓库到推送远程、分支管理与常见问题解决的命令行操作。所有命令均在 macOS/Linux 终端与 Windows PowerShell 下可用。
+                                </b>
+                            </p>
+
+                            <p>
+                                一、前置配置（全局一次即可）<br>
+                                检查 Git 版本：<br>
+                                git --version <br><br>
+                                设置用户名与邮箱（用于提交记录显示）：<br>
+                                git config --global user.name "你的名字" <br>
+                                git config --global user.email "你的邮箱" <br><br>
+                                建议将默认分支设为 main：<br>
+                                git config --global init.defaultBranch main <br>
+                            </p>
+
+                            <p>
+                                二、新建本地仓库（从 0 开始）<br>
+                                mkdir my-project && cd my-project <br>
+                                git init <br>
+                                git status <br><br>
+                                创建 .gitignore 忽略文件示例（根据项目调整）：<br>
+                                echo "node_modules/\n.DS_Store\n.env" > .gitignore <br><br>
+                                将文件加入暂存区并提交：<br>
+                                git add . <br>
+                                git commit -m "初始化项目" <br>
+                            </p>
+
+                            <p>
+                                三、连接并推送到远程仓库（GitHub/GitLab/自建 Gitea 等）<br>
+                                在远程平台先创建空仓库，复制其地址（HTTPS 或 SSH）。<br><br>
+                                添加远程并验证：<br>
+                                git remote add origin https://github.com/yourname/yourrepo.git <br>
+                                git remote -v <br><br>
+                                首次将本地 main 推送到远程并建立追踪：<br>
+                                git push -u origin main <br><br>
+                                如果远程默认分支为 master，可改本地分支名或推送到 master：<br>
+                                git branch -M master <br>
+                                git push -u origin master <br>
+                            </p>
+
+                            <p>
+                                四、从远程拉取仓库（已有项目）<br>
+                                直接克隆：<br>
+                                git clone https://github.com/yourname/yourrepo.git <br><br>
+                                克隆指定分支：<br>
+                                git clone -b develop https://github.com/yourname/yourrepo.git <br><br>
+                                使用 SSH（免密推送，需预先配置公钥）：<br>
+                                git clone git@github.com:yourname/yourrepo.git <br>
+                            </p>
+
+                            <p>
+                                五、同步与更新本地代码<br>
+                                拉取远程最新提交（合并到当前分支）：<br>
+                                git pull <br><br>
+                                先获取，再选择合并：<br>
+                                git fetch <br>
+                                git merge origin/main <br><br>
+                                推荐：保持线性历史的拉取方式：<br>
+                                git pull --rebase <br>
+                            </p>
+
+                            <p>
+                                六、分支管理日常操作<br>
+                                查看本地与远程分支：<br>
+                                git branch -a <br><br>
+                                新建分支：<br>
+                                git branch feature/login <br>
+                                或创建并切换：<br>
+                                git switch -c feature/login <br>
+                                （兼容老命令）git checkout -b feature/login <br><br>
+                                切换分支：<br>
+                                git switch main <br>
+                                （兼容）git checkout main <br><br>
+                                重命名当前分支：<br>
+                                git branch -m feature/auth <br><br>
+                                删除本地分支：<br>
+                                git branch -d feature/login <br>
+                                强制删除（未合并也删）：<br>
+                                git branch -D feature/login <br><br>
+                                推送分支并建立追踪：<br>
+                                git push -u origin feature/login <br><br>
+                                合并分支到 main（先切到 main）：<br>
+                                git switch main <br>
+                                git merge feature/login <br>
+                            </p>
+
+                            <p>
+                                七、解决合并冲突的基本流程<br>
+                                发生冲突时，Git 会标记冲突文件：<br>
+                                git status <br>
+                                手动编辑冲突文件，保留正确内容后：<br>
+                                git add . <br>
+                                git commit <br><br>
+                                放弃本次合并：<br>
+                                git merge --abort <br>
+                            </p>
+
+                            <p>
+                                八、暂存与清理<br>
+                                临时搁置未提交的改动：<br>
+                                git stash <br>
+                                恢复并移除暂存：<br>
+                                git stash pop <br>
+                                仅恢复不删除：<br>
+                                git stash apply <br><br>
+                                清理未跟踪文件（谨慎）：<br>
+                                git clean -fd <br>
+                            </p>
+
+                            <p>
+                                九、历史、回退与恢复<br>
+                                查看提交历史（精简图示）：<br>
+                                git log --oneline --graph --decorate --all <br><br>
+                                恢复某个文件到指定提交：<br>
+                                git checkout <commit> -- path/to/file <br><br>
+                                反做一个提交（创建新的“抵消”提交）：<br>
+                                git revert <commit> <br><br>
+                                回退分支到某提交（会改历史，谨慎）：<br>
+                                git reset --hard <commit> <br>
+                                注意：reset 会改变历史，团队协作请先沟通。<br>
+                            </p>
+
+                            <p>
+                                十、远程分支与上游设置<br>
+                                删除远程分支：<br>
+                                git push origin --delete feature/login <br><br>
+                                为本地分支设置上游：<br>
+                                git branch --set-upstream-to=origin/develop develop <br><br>
+                                修改远程地址（HTTPS → SSH 或仓库迁移）：<br>
+                                git remote set-url origin git@github.com:yourname/yourrepo.git <br>
+                            </p>
+
+                            <p>
+                                十一、常见错误速查<br>
+                                fatal: not a git repository → 请先进入项目目录或执行 git init <br>
+                                fatal: Authentication failed → 检查 HTTPS 令牌或配置 SSH 公钥 <br>
+                                ! [rejected] non-fast-forward → 先 git pull --rebase 再推送，或与团队确认重写历史 <br>
+                                File too large → 使用 Git LFS：git lfs install；git lfs track "*.bin" <br>
+                            </p>
+
+                            <p>
+                                十二、变基（高级但常用）<br>
+                                将功能分支基于最新 main（减少无意义合并）：<br>
+                                git switch feature/login <br>
+                                git fetch <br>
+                                git rebase origin/main <br><br>
+                                交互式整理最近 N 次提交（合并/改注释/重排）：<br>
+                                git rebase -i HEAD~5 <br>
+                            </p>
+
+                            <p>
+                                结语与速查清单（复制即用）<br>
+                                新建并推送：<br>
+                                git init && git add . && git commit -m "init" <br>
+                                git branch -M main && git remote add origin <远程地址> <br>
+                                git push -u origin main <br><br>
+                                分支日常：<br>
+                                git switch -c feature/x <br>
+                                git push -u origin feature/x <br>
+                                git switch main && git pull --rebase && git merge feature/x <br>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!--Main Footer-->
+    <div class="main-footer">
+        <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
+    </div>
+    <!--Main Footer-->
+
+    </div>
+    <!--End pagewrapper-->
+
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.fancybox-media.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
