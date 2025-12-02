@@ -149,7 +149,7 @@
                     </div>
 
                     <div class="about-section">
-                        <div class="auto-container">
+                        <div class="auto-container" style="max-width: 860px; margin: 0 auto; font-size: 16px; line-height: 2.0; text-align: left; letter-spacing: 0.2px;">
                             <p>
                                 <b style="font-size: 1.5rem;">
                                     本文面向初学者与日常开发者，完整记录从本地新建仓库到推送远程、分支管理与常见问题解决的命令行操作。所有命令均在 macOS/Linux 终端与 Windows PowerShell 下可用。
@@ -157,161 +157,165 @@
                             </p>
 
                             <p>
-                                一、前置配置（全局一次即可）<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">一、前置配置（全局一次即可）</span><br>
                                 检查 Git 版本：<br>
-                                git --version <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git --version</code><br>
                                 设置用户名与邮箱（用于提交记录显示）：<br>
-                                git config --global user.name "你的名字" <br>
-                                git config --global user.email "你的邮箱" <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git config --global user.name "你的名字"</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git config --global user.email "你的邮箱"</code><br>
                                 建议将默认分支设为 main：<br>
-                                git config --global init.defaultBranch main <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git config --global init.defaultBranch main</code><br>
                             </p>
 
                             <p>
-                                二、新建本地仓库（从 0 开始）<br>
-                                mkdir my-project && cd my-project <br>
-                                git init <br>
-                                git status <br><br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">二、新建本地仓库（从 0 开始）</span><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">mkdir my-project && cd my-project</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git init</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git status</code><br>
                                 创建 .gitignore 忽略文件示例（根据项目调整）：<br>
-                                echo "node_modules/\n.DS_Store\n.env" > .gitignore <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">echo "node_modules/\n.DS_Store\n.env" &gt; .gitignore</code><br>
                                 将文件加入暂存区并提交：<br>
-                                git add . <br>
-                                git commit -m "初始化项目" <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git add .</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git commit -m "初始化项目"</code>
                             </p>
 
                             <p>
-                                三、连接并推送到远程仓库（GitHub/GitLab/自建 Gitea 等）<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">三、连接并推送到远程仓库（GitHub/GitLab/自建 Gitea 等）</span><br>
                                 在远程平台先创建空仓库，复制其地址（HTTPS 或 SSH）。<br><br>
                                 添加远程并验证：<br>
-                                git remote add origin https://github.com/yourname/yourrepo.git <br>
-                                git remote -v <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git remote add origin https://github.com/yourname/yourrepo.git</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git remote -v</code><br>
                                 首次将本地 main 推送到远程并建立追踪：<br>
-                                git push -u origin main <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git push -u origin main</code><br>
                                 如果远程默认分支为 master，可改本地分支名或推送到 master：<br>
-                                git branch -M master <br>
-                                git push -u origin master <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git branch -M master</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git push -u origin master</code>
                             </p>
 
                             <p>
-                                四、从远程拉取仓库（已有项目）<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">四、从远程拉取仓库（已有项目）</span><br>
                                 直接克隆：<br>
-                                git clone https://github.com/yourname/yourrepo.git <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git clone https://github.com/yourname/yourrepo.git</code><br>
                                 克隆指定分支：<br>
-                                git clone -b develop https://github.com/yourname/yourrepo.git <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git clone -b develop https://github.com/yourname/yourrepo.git</code><br>
                                 使用 SSH（免密推送，需预先配置公钥）：<br>
-                                git clone git@github.com:yourname/yourrepo.git <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git clone git@github.com:yourname/yourrepo.git</code>
                             </p>
 
                             <p>
-                                五、同步与更新本地代码<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">五、同步与更新本地代码</span><br>
                                 拉取远程最新提交（合并到当前分支）：<br>
-                                git pull <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git pull</code><br>
                                 先获取，再选择合并：<br>
-                                git fetch <br>
-                                git merge origin/main <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git fetch</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git merge origin/main</code><br>
                                 推荐：保持线性历史的拉取方式：<br>
-                                git pull --rebase <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git pull --rebase</code>
+                                如果提示本地有修改，如果需要本地修改保留，可使用：<br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git pull --rebase --autostash</code>
+                                如果不需要，直接重置到远程最新：<br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git reset --hard origin/main</code>
                             </p>
 
                             <p>
-                                六、分支管理日常操作<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">六、分支管理日常操作</span><br>
                                 查看本地与远程分支：<br>
-                                git branch -a <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git branch -a</code><br>
                                 新建分支：<br>
-                                git branch feature/login <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git branch feature/login</code>
                                 或创建并切换：<br>
-                                git switch -c feature/login <br>
-                                （兼容老命令）git checkout -b feature/login <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git switch -c feature/login</code>
+                                （兼容老命令）<code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git checkout -b feature/login</code><br>
                                 切换分支：<br>
-                                git switch main <br>
-                                （兼容）git checkout main <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git switch main</code>
+                                （兼容）<code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git checkout main</code><br>
                                 重命名当前分支：<br>
-                                git branch -m feature/auth <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git branch -m feature/auth</code><br>
                                 删除本地分支：<br>
-                                git branch -d feature/login <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git branch -d feature/login</code>
                                 强制删除（未合并也删）：<br>
-                                git branch -D feature/login <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git branch -D feature/login</code><br>
                                 推送分支并建立追踪：<br>
-                                git push -u origin feature/login <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git push -u origin feature/login</code><br>
                                 合并分支到 main（先切到 main）：<br>
-                                git switch main <br>
-                                git merge feature/login <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git switch main</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git merge feature/login</code>
                             </p>
 
                             <p>
-                                七、解决合并冲突的基本流程<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">七、解决合并冲突的基本流程</span><br>
                                 发生冲突时，Git 会标记冲突文件：<br>
-                                git status <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git status</code>
                                 手动编辑冲突文件，保留正确内容后：<br>
-                                git add . <br>
-                                git commit <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git add .</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git commit</code><br>
                                 放弃本次合并：<br>
-                                git merge --abort <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git merge --abort</code>
                             </p>
 
                             <p>
-                                八、暂存与清理<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">八、暂存与清理</span><br>
                                 临时搁置未提交的改动：<br>
-                                git stash <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git stash</code>
                                 恢复并移除暂存：<br>
-                                git stash pop <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git stash pop</code>
                                 仅恢复不删除：<br>
-                                git stash apply <br><br>
-                                清理未跟踪文件（谨慎）：<br>
-                                git clean -fd <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git stash apply</code><br>
+                                <span style="display:block; background:#fff8e1; padding:8px 12px; border-left:4px solid #f0ad4e; border-radius:6px;">清理未跟踪文件（谨慎）：</span>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git clean -fd</code>
                             </p>
 
                             <p>
-                                九、历史、回退与恢复<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">九、历史、回退与恢复</span><br>
                                 查看提交历史（精简图示）：<br>
-                                git log --oneline --graph --decorate --all <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git log --oneline --graph --decorate --all</code><br>
                                 恢复某个文件到指定提交：<br>
-                                git checkout <commit> -- path/to/file <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git checkout &lt;commit&gt; -- path/to/file</code><br>
                                 反做一个提交（创建新的“抵消”提交）：<br>
-                                git revert <commit> <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git revert &lt;commit&gt;</code><br>
                                 回退分支到某提交（会改历史，谨慎）：<br>
-                                git reset --hard <commit> <br>
-                                注意：reset 会改变历史，团队协作请先沟通。<br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git reset --hard &lt;commit&gt;</code>
+                                <span style="display:block; background:#fff8e1; padding:8px 12px; border-left:4px solid #f0ad4e; border-radius:6px;">注意：reset 会改变历史，团队协作请先沟通。</span>
                             </p>
 
                             <p>
-                                十、远程分支与上游设置<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">十、远程分支与上游设置</span><br>
                                 删除远程分支：<br>
-                                git push origin --delete feature/login <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git push origin --delete feature/login</code><br>
                                 为本地分支设置上游：<br>
-                                git branch --set-upstream-to=origin/develop develop <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git branch --set-upstream-to=origin/develop develop</code><br>
                                 修改远程地址（HTTPS → SSH 或仓库迁移）：<br>
-                                git remote set-url origin git@github.com:yourname/yourrepo.git <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git remote set-url origin git@github.com:yourname/yourrepo.git</code>
                             </p>
 
                             <p>
-                                十一、常见错误速查<br>
-                                fatal: not a git repository → 请先进入项目目录或执行 git init <br>
-                                fatal: Authentication failed → 检查 HTTPS 令牌或配置 SSH 公钥 <br>
-                                ! [rejected] non-fast-forward → 先 git pull --rebase 再推送，或与团队确认重写历史 <br>
-                                File too large → 使用 Git LFS：git lfs install；git lfs track "*.bin" <br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">十一、常见错误速查</span><br>
+                                <span style="display:block; background:#fff8e1; padding:8px 12px; border-left:4px solid #f0ad4e; border-radius:6px;">fatal: not a git repository → 请先进入项目目录或执行 <code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; white-space: pre; line-height: 1.6;">git init</code></span>
+                                <span style="display:block; background:#fff8e1; padding:8px 12px; border-left:4px solid #f0ad4e; border-radius:6px; margin-top:6px;">fatal: Authentication failed → 检查 HTTPS 令牌或配置 SSH 公钥</span>
+                                <span style="display:block; background:#fff8e1; padding:8px 12px; border-left:4px solid #f0ad4e; border-radius:6px; margin-top:6px;">! [rejected] non-fast-forward → 先 <code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; white-space: pre; line-height: 1.6;">git pull --rebase</code> 再推送，或与团队确认重写历史</span>
+                                <span style="display:block; background:#fff8e1; padding:8px 12px; border-left:4px solid #f0ad4e; border-radius:6px; margin-top:6px;">File too large → 使用 Git LFS：<code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; white-space: pre; line-height: 1.6;">git lfs install</code>；<code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; white-space: pre; line-height: 1.6;">git lfs track "*.bin"</code></span>
                             </p>
 
                             <p>
-                                十二、变基（高级但常用）<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">十二、变基（高级但常用）</span><br>
                                 将功能分支基于最新 main（减少无意义合并）：<br>
-                                git switch feature/login <br>
-                                git fetch <br>
-                                git rebase origin/main <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git switch feature/login</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git fetch</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git rebase origin/main</code><br>
                                 交互式整理最近 N 次提交（合并/改注释/重排）：<br>
-                                git rebase -i HEAD~5 <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git rebase -i HEAD~5</code>
                             </p>
 
                             <p>
-                                结语与速查清单（复制即用）<br>
+                                <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">结语与速查清单（复制即用）</span><br>
                                 新建并推送：<br>
-                                git init && git add . && git commit -m "init" <br>
-                                git branch -M main && git remote add origin <远程地址> <br>
-                                git push -u origin main <br><br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git init && git add . && git commit -m "init"</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git branch -M main && git remote add origin &lt;远程地址&gt;</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git push -u origin main</code><br>
                                 分支日常：<br>
-                                git switch -c feature/x <br>
-                                git push -u origin feature/x <br>
-                                git switch main && git pull --rebase && git merge feature/x <br>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git switch -c feature/x</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git push -u origin feature/x</code>
+                                <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git switch main && git pull --rebase && git merge feature/x</code>
                             </p>
 
                         </div>
