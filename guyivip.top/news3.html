@@ -4,29 +4,29 @@
 <head>
     <meta charset="utf-8">
     <title>在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM - 俗人的技术博客</title>
-    <meta name="description" content="详细介绍如何使用Gparted工具为VMware虚拟机中的Linux系统进行磁盘扩容，包含Ubuntu 24.04的完整操作步骤。">
-    <meta name="keywords" content="Gparted,VMware,Linux扩容,虚拟机扩容,Ubuntu,磁盘扩容,Linux教程,虚拟机管理">
+    <meta name="description" content="在树莓派5上部署 Ollama 并配置 8GB 交换空间的完整指南，覆盖无屏/有屏差异、网络与 SSH、安装与 systemd 开机自启等步骤。">
+    <meta name="keywords" content="树莓派5,Ollama,LLM,交换空间,swap,SSH,Raspberry Pi OS,arm64,systemd,安装教程">
     <meta name="author" content="Seek4nothing">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="使用Gparted为VMware的Linux虚拟机扩容教程">
-    <meta property="og:description" content="详细介绍如何使用Gparted工具为VMware虚拟机中的Linux系统进行磁盘扩容">
+    <meta property="og:title" content="在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM">
+    <meta property="og:description" content="在树莓派5上部署 Ollama 并配置 8GB 交换空间的完整指南，覆盖无屏/有屏差异、网络与 SSH、安装与 systemd 开机自启等步骤。">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://guyivip.top/news2.html">
-    <meta property="og:image" content="https://guyivip.top/images/resource/news2-fig1.png">
+    <meta property="og:url" content="https://guyivip.top/news3.html">
+    <meta property="og:image" content="https://guyivip.top/images/resource/news3-fig1.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="使用Gparted为VMware的Linux虚拟机扩容教程">
-    <meta name="twitter:description" content="详细介绍如何使用Gparted工具为VMware虚拟机中的Linux系统进行磁盘扩容">
-    <link rel="canonical" href="https://guyivip.top/news2.html">
+    <meta name="twitter:title" content="在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM">
+    <meta name="twitter:description" content="在树莓派5上部署 Ollama 并配置 8GB 交换空间的完整指南，覆盖无屏/有屏差异、网络与 SSH、安装与 systemd 开机自启等步骤。">
+    <link rel="canonical" href="https://guyivip.top/news3.html">
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": "使用Gparted为vmware的Linux虚拟机扩容",
-      "description": "详细介绍如何使用Gparted工具为VMware中的Linux虚拟机进行磁盘扩容操作的完整教程",
-      "url": "https://guyivip.top/news2.html",
-      "datePublished": "2024-12-10",
-      "dateModified": "2024-12-10",
+      "headline": "在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM",
+      "description": "在树莓派5上部署 Ollama 并配置 8GB 交换空间的完整指南，覆盖无屏/有屏差异、网络与 SSH、安装与 systemd 开机自启等步骤。",
+      "url": "https://guyivip.top/news3.html",
+      "datePublished": "2025-08-25",
+      "dateModified": "2025-08-25",
       "author": {
         "@type": "Person",
         "name": "Seek4nothing"
@@ -39,10 +39,10 @@
           "url": "https://guyivip.top/images/logo.png"
         }
       },
-      "image": "https://guyivip.top/images/resource/news2.png",
+      "image": "https://guyivip.top/images/resource/news3-fig1.png",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://guyivip.top/news2.html"
+        "@id": "https://guyivip.top/news3.html"
       }
     }
     </script>
@@ -190,7 +190,7 @@
                             <div class="auto-container" style="max-width: 860px; margin: 0 auto; font-size: 16px; line-height: 2.0; text-align: left; letter-spacing: 0.2px;">
                                 <p>
                                     <b style="font-size: 1.5rem;">
-                                        ATTENTION：配置为树莓派5 8GB 版本，
+                                        ATTENTION：配置为树莓派5 8GB 版本，实践成功实践为2025.8.25，可能部分指令以及配置步骤会有所变化。
                                     </b>
                                 </p>
                                 <p>
