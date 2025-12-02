@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>使用Gparted为VMware的Linux虚拟机扩容教程 - Seek4nothing技术博客</title>
+    <title>在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM - 俗人的技术博客</title>
     <meta name="description" content="详细介绍如何使用Gparted工具为VMware虚拟机中的Linux系统进行磁盘扩容，包含Ubuntu 24.04的完整操作步骤。">
     <meta name="keywords" content="Gparted,VMware,Linux扩容,虚拟机扩容,Ubuntu,磁盘扩容,Linux教程,虚拟机管理">
     <meta name="author" content="Seek4nothing">
@@ -183,62 +183,185 @@
                     <!--Page Title-->
                     <div class="sec-title">
                         <div class="title">TECH</div>
-                        <h2>树莓派5使用ollama部署本地LLM</h2>
+                        <h2>在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM</h2>
                         <div class="post-date">August 25, 2025</div>
 
                         <div class="about-section">
-                            <div class="auto-container">
+                            <div class="auto-container" style="max-width: 860px; margin: 0 auto; font-size: 16px; line-height: 2.0; text-align: left; letter-spacing: 0.2px;">
                                 <p>
                                     <b style="font-size: 1.5rem;">
                                         ATTENTION：配置为树莓派5 8GB 版本，
                                     </b>
                                 </p>
                                 <p>
-                                    Step 1: SD卡烧录以及远程登录树莓派 <br>
-                                        1. 下载树莓派烧录软件，我这里用的是 Raspberry Pi Imager，可以在 <a href="https://www.raspberrypi.org/software/">这里</a> 下载。 <br>
-                                        2. 插入SD卡，选择正确的系统，我这里选择的是Raspberry Pi OS (64-bit)，这个是树莓派官方系统，但是请注意，
-                                        如果你在使用目前非常常见的树莓派3.5英寸串口屏，请一定要问购买的商家要特制的系统烧录，
-                                        
-                                        由于3.5英寸屏幕并没有驱动，使用树莓派官方系统会直接导致开机后永远处于白屏，而商家一般都会提供内置屏幕驱动的特制系统（也是以树莓派官方系统为基础）。烧录软件第一页设置如下 <br>
-                                        <img src="images\resource\news3-fig1.png" alt="" srcset="">
-                                        breach：从这里开始是否有显示屏会有步骤上的部分区别，所有无屏幕连接的需要做breach的步骤，有屏幕连接的可以直接跳过 <br>
-                                        breach1:如果是无显示屏，请提前在烧录时配置好网络，如下图并且在‘服务’页面中开启ssh（但是貌似可能会失效，请务必在下一步写入配置文件确保开启ssh），否则后续无法登录树莓派 <br>
-                                        <img src="images\resource\news3-fig2.png" alt="" srcset=""> <br>
-                                        Tip：两个设备同时处在一个网络是ssh连接的基础，请确保树莓派网络与主机网络一致 <br>
-                                        
-                                        breach2：如果有显示屏，SD卡可以直接插入主机开机，但是如果需要无屏幕连接，此时你仍然需要做的是：打开SD卡文件夹，写入一个空白文件，命名为ssh，注意，千万不要
-                                        有任何扩展名，这个文件会被树莓派认为是，比如ssh.txt等，否则树莓派会认为这是一个普通的文本文件，而不是一个ssh配置文件，win电脑请打开扩展名显示，mac电脑请查看文件设置，以确保无误 <br>
+                                    <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">Step 1: SD卡烧录以及远程登录树莓派</span><br>
+                                    1. 下载树莓派烧录软件，我这里用的是 Raspberry Pi Imager，可以在 <a
+                                        href="https://www.raspberrypi.org/software/">这里</a> 下载。 <br>
+                                    2. 插入SD卡，选择正确的系统，我这里选择的是Raspberry Pi OS (64-bit)，这个是树莓派官方系统，但是请注意，如果你在使用目前非常常见的树莓派3.5英寸串口屏，请一定要问购买的商家要特制的系统烧录，
+                                    由于3.5英寸屏幕并没有驱动，使用树莓派官方系统会直接导致开机后永远处于白屏，而商家一般都会提供内置屏幕驱动的特制系统（也是以树莓派官方系统为基础）。烧录软件第一页设置如下
+                                    <br>
+                                    <img src="images\resource\news3-fig1.png" alt="" srcset="" style="max-width: 720px; width: 85%; height: auto; display: block; margin: 16px auto;">
+                                    <span style="display:block; font-weight:600; background:#f1f8e9; padding:8px 12px; border-left:4px solid #66bb6a; border-radius:6px;">breach：从这里开始是否有显示屏会有步骤上的部分区别，所有无屏幕连接的需要做breach的步骤，有屏幕连接的可以直接跳过</span> <br>
+                                    <span style="display:block; background:#f1f8e9; padding:8px 12px; border-left:4px solid #66bb6a; border-radius:6px;">breach1:如果是无显示屏，请提前在烧录时配置好网络，如下图并且在‘服务’页面中开启ssh（但是貌似可能会失效，请务必在下一步写入配置文件确保开启ssh），否则后续无法登录树莓派</span>
+                                    <br>
+                                    <img src="images\resource\news3-fig2.png" alt="" srcset="" style="max-width: 720px; width: 85%; height: auto; display: block; margin: 16px auto;"> <br>
+                                    <span style="display:block; background:#fff8e1; padding:8px 12px; border-left:4px solid #f0ad4e; border-radius:6px;">Tip：两个设备同时处在一个网络是ssh连接的基础，请确保树莓派网络与主机网络一致</span> <br>
 
-                                        3. 插入SD卡到树莓派，有屏幕条件的直接连接树莓派到显示器、键盘、鼠标，检查树莓派状态指示灯，灯频闪表示正在读取SD卡，常量表示SD卡已读取完成，如果没有开机，请进一步查阅
-                                        该机型指示灯不同状态的含义以定位问题，由于一般都不会出问题，此处不做赘述。 <br>
-                                        4. 登录树莓派，默认用户名是 pi，密码是 raspberry。 <br>
-                                        breach3：如果是无屏幕连接，需要通过ssh登录树莓派，在主机上打开终端，输入以下命令 <br>
-                                        ssh pi@树莓派IP地址 <br>(IP地址可以通过主机命令行ipconfig得到，或者手机使用软件查询，非常简单，网上大有教程，此处不赘述)
-                                        例如：ssh pi@192.168.1.100 <br>
-                                        如果提示连接失败，请检查树莓派是否开启ssh，并且树莓派与主机是否在同一个网络。 <br>
-                                    Step 2: 安装ollama <br>
-                                    以下两种安装ollama方法，任选其一即可 <br>
-                                    method1:直接在命令行进行拉取ollama镜像 <br>
-                                    输入以下命令 <br>
-                                    git clone https://github.com/ollama/ollama.git <br>
+                                    <span style="display:block; background:#f1f8e9; padding:8px 12px; border-left:4px solid #66bb6a; border-radius:6px;">breach2：如果有显示屏，SD卡可以直接插入主机开机，但是如果需要无屏幕连接，此时你仍然需要做的是：打开SD卡文件夹，写入一个空白文件，命名为ssh，注意，千万不要 有任何扩展名，这个文件会被树莓派认为是，比如ssh.txt等，否则树莓派会认为这是一个普通的文本文件，而不是一个ssh配置文件，win电脑请打开扩展名显示，mac电脑请查看文件设置，以确保无误</span>
+                                    <br>
+                                    3. 插入SD卡到树莓派，有屏幕条件的直接连接树莓派到显示器、键盘、鼠标，检查树莓派状态指示灯，灯频闪表示正在读取SD卡，常量表示SD卡已读取完成，如果没有开机，请进一步查阅
+                                    该机型指示灯不同状态的含义以定位问题，由于一般都不会出问题，此处不做赘述。 <br>
+                                    4. 登录树莓派，默认用户名是 pi，密码是 raspberry。 <br>
+                                    <span style="display:block; background:#f1f8e9; padding:8px 12px; border-left:4px solid #66bb6a; border-radius:6px;">breach3：如果是无屏幕连接，需要通过ssh登录树莓派，在主机上打开终端，输入以下命令</span> <br>
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ssh pi@树莓派IP地址</code>
+                                    (IP地址可以通过主机命令行ipconfig得到，或者手机使用软件查询，非常简单，网上大有教程，此处不赘述)
+                                    例如：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ssh pi@192.168.1.100</code>
+                                    如果提示连接失败，请检查树莓派是否开启ssh，并且树莓派与主机是否在同一个网络。 <br>
+
+                                    <span style="display:block; font-weight:600; font-size:18px; margin-top:16px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">step2:配置交换空间（可选但推荐）</span>
+
+                                    由于树莓派5 8GB 版本内存只有8GB，而ollama默认需要16GB内存，因此需要配置交换空间。 <br>
+                                    1.检查 SD 卡挂载情况：
+                                    打开树莓派的终端，输入命令
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">df -h</code>
+                                    查看当前 SD 卡的挂载情况以及各分区的使用情况。
+                                    2.创建交换文件：
+                                    在终端中输入
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo fallocate -l 8G /mnt/swapfile</code>
+                                    （如果 SD 卡挂载在 /mnt 下，若不是，请根据实际挂载路径修改），这条命令会在
+                                    SD 卡上创建一个 8GB 的交换文件。
+                                    3.设置交换文件权限：
+                                    输入
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo chmod 600 /mnt/swapfile</code>
+                                    ，确保只有 root 用户可以读写这个交换文件。
+                                    4.格式化为交换格式：
+                                    输入
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo mkswap /mnt/swapfile</code>
+                                    ，将创建的文件格式化为交换空间格式。
+                                    5.启用交换文件：
+                                    输入
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo swapon /mnt/swapfile</code>
+                                    ，启用刚刚创建的交换空间，再次输入
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">df -h</code>
+                                    检查交换空间是否已被挂载。
+                                    6.设置开机自动挂载交换文件：
+                                    输入
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo nano /etc/fstab</code>
+                                    ，在文件末尾添加一行
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">/mnt/swapfile none swap defaults 0 0</code>
+                                    ，然后按 Ctrl+X，再按 Y，最后按 Enter 保存并退出。
+                                    
+                                    <span style="display:block; font-weight:600; font-size:18px; margin-top:20px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">Step 3: 安装ollama</span> <br>
+                                    1.以下两种安装ollama方法，任选其一即可 <br>
+                                    <span style="display:inline-block; font-weight:600; background:#e0f7fa; padding:6px 10px; border-left:4px solid #00acc1; border-radius:6px;">method1:直接在命令行进行拉取ollama镜像</span> <br>
+                                    输入以下命令（git 拉取） <br>
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">git clone https://github.com/ollama/ollama.git</code>
+                                    或者
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">curl -fsSL https://ollama.com/install.sh | sh</code>（直接下载链接）
+                                    这个办法并不推荐，原因是在无代理的情况下，GitHub拉取成功概率较低，而且就算成功
+                                    连接，拉取时间会很长（因为网速同样很慢）。
+                                    个人建议在无代理情况下不要使用这种方法。<br>
+                                    <span style="display:inline-block; font-weight:600; background:#e0f7fa; padding:6px 10px; border-left:4px solid #00acc1; border-radius:6px;">method2:电脑下载后传输到树莓派（推荐）</span>
+                                    直接在本地电脑下载对应的可供树莓派使用的版本，链接：
+                                    <a href="https://github.com/ollama/ollama/releases/latest" target="_blank"
+                                        rel="noopener" style="display:inline-block; padding:4px 8px; background:#f6f6f6; border: 1px solid #e6e6e6; border-radius:6px;">Ollama Releases（选择 Linux arm64 版本）</a>
+                                    下载后可以使用u盘直接拷贝，拷贝到树莓派的/home/pi目录下（推荐），也可以使用scp命令传输到树莓派，例如：<br>
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">scp ollama-linux-arm64 pi@树莓派IP地址:/home/pi</code>
+                                    （折腾并且也不快）<br>
+                                    2.下面解压ollama-linux-arm64文件，进入ollama存放目录（home/pi），执行以下命令 <br>
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">tar -xzvf ollama-linux-arm64.tar.gz</code>
+                                    输入
+                                    <code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; margin:4px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ls</code>
+                                    观察，如果直接出现了bin，lib等文件夹，说明解压成功。<br><br>
+                                    3.让系统全局可调用ollama命令，执行以下命令 <br>
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo mv bin/ollama /usr/local/bin/</code>
+                                    4.处理依赖库
+                                    lib 目录下的 cuda_sbsa 等文件是 Ollama 运行的依赖库，需要将
+                                    5.配置依赖库路径
+                                    执行命令让系统识别新移动的依赖库：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo ldconfig</code>
+                                    6.验证安装
+                                    执行以下命令验证ollama是否安装成功：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama --version</code>
+                                    如果显示出版本号，说明安装成功。<br>
+                                    7.设置ollama开机自启动（可选）
+                                    要让 Ollama 服务在树莓派开机时自动启动，最可靠的方法是创建一个systemd服务配置文件
+                                    7.1 创建文件：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo nano /etc/systemd/system/ollama.service</code>
+                                    7.2添加服务配置内容
+                                    将以下内容粘贴到文件中（确保路径与你的 Ollama 安装位置一致）：
+                                    <pre style="background:#f7f7f8; border:1px solid #e6e6e6; padding:10px 12px; border-radius:6px; overflow:auto;">
+<code>[Unit]
+Description=Ollama Service
+After=network.target
+
+[Service]
+User=pi
+Group=pi
+ExecStart=/usr/local/bin/ollama serve
+Restart=always
+RestartSec=3
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+[Install]
+WantedBy=multi-user.target</code>
+                                    </pre>
+
+                                    7.3 保存并退出：
+                                    按 Ctrl+X，再按 Y，最后按 Enter 保存并退出。
+                                    7.4 重新加载 systemd 配置：
+                                    执行以下命令重新加载 systemd 配置，使新创建的服务生效：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo systemctl daemon-reload</code>
+                                    7.5启动服务：
+                                    执行以下命令启动 Ollama 服务：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo systemctl start ollama</code>
+                                    7.6 检查服务状态：
+                                    执行以下命令检查 Ollama 服务的运行状态：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; margin:8px 0; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo systemctl status ollama</code>
+                                    如果显示 Active: active (running)，说明服务已成功启动。
+                                    <span style="display:block; background:#fff8e1; padding:8px 12px; border-left:4px solid #f0ad4e; border-radius:6px;">Tip：如果没有进行第7步，请在每次树莓派启动后直接执行以下命令启动ollama服务：</span>
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">sudo systemctl start ollama</code>
+                                    或者：
+                                    <code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama serve</code>
+
                                     
 
 
-                                    Step 3: 下载模型 <br>
-                                    Step 4: 启动模型 <br>
-                                </p>
-                                <div class="image">
-                                    <img src="images\resource\news2-fig1.png" alt="" />
-                                </div>
-                                <p>
 
-                                </p>
-                                <div class="image">
-                                    <img src="images\resource\news2-fig2.png" alt="" />
-                                </div>
-                                <p>
-                                   
-                                </p>
+                                    <span style="display:block; font-weight:600; font-size:18px; margin-top:20px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">Step 3: 下载（拉取）模型</span> <br>
+                                    1.执行以下命令下载（拉取）模型（例如：llama）：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama pull llama:latest</code>
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama pull llama:7b</code>
+                                    等待下载完成，下载时间会很长（因为网速同样很慢）。
+                                    所有模型列表：<a href="https://ollama.ai/library" target="_blank" rel="noopener">Ollama Library</a>
+                                    可以查询所有可用模型，包括模型名称、模型大小、模型参数等，选择你需要的模型（例如是否需要视觉模型）。
+                                    例如：
+                                    <code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama pull llama:latest</code> （拉取最新版本的llama模型）
+                                    <code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama pull llama:7b</code> （拉取7b参数的llama模型）<br>
+                                    2.查看模型列表
+                                    执行以下命令查看已下载的模型列表：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama list</code>
+                                    3.删除模型（如果需要）
+                                    执行以下命令删除已下载的模型（例如：llama:latest）：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama rm llama:latest</code>
+                                    
+
+
+
+                                    <span style="display:block; font-weight:600; font-size:18px; margin-top:20px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">Step 4: 启动模型</span> <br>
+                                    执行以下命令启动模型（例如：llama）：
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama run llama:latest</code>
+                                    <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama run llama:7b</code>
+                                    这种时候你就可以直接打字跟模型对话了。对于视觉模型，可以直接在对话中上传图片，指令请参照模型文档（就上面给的那个链接）。
+                                    由于指令可能变更，此处不提供具体指令。请根据模型文档进行操作。<br>
+                                    退出模型对话：
+                                    要退出模型对话，你可以输入如下指令（具体取决于模型文档）：
+                                    <code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">exit</code>
+                                    <code style="display:inline-block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:4px 6px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">bye</code>
+                                    
+
+
 
 
                             </div>
