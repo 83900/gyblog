@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>流水 - ShareSim</title>
+  <meta name="app-base" content="/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold app-link" data-file="dashboard.html" href="/dashboard.html">ShareSim</a>
+      <div class="ms-auto d-flex align-items-center gap-3">
+        <a class="nav-link text-light app-link" data-file="dashboard.html" href="/dashboard.html">概览</a>
+        <a class="nav-link text-light app-link" data-file="trade.html" href="/trade.html">交易</a>
+        <a class="nav-link text-light app-link" data-file="portfolio.html" href="/portfolio.html">持仓</a>
+        <button id="logout-btn" class="btn btn-outline-light btn-sm">退出</button>
+      </div>
+    </div>
+  </nav>
+  <div class="container py-4">
+    <div class="card shadow-sm">
+      <div class="card-header fw-bold">交易流水</div>
+      <div class="table-responsive">
+        <table class="table table-striped mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>时间</th>
+              <th>方向</th>
+              <th>代码</th>
+              <th class="text-end">价格</th>
+              <th class="text-end">股数</th>
+            </tr>
+          </thead>
+          <tbody id="txBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/transactions.js"></script>
+</body>
+</html>
