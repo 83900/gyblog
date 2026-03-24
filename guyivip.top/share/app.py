@@ -233,6 +233,17 @@ def create_app():
             return _mod.get_history(ts_code, limit)
         except Exception:
             return []
+    def _get_realtime(ts_code):
+        try:
+            import importlib.util as _importlib_util
+            from pathlib import Path as _P
+            _pp = _P(__file__).with_name("price_provider.py")
+            _spec = _importlib_util.spec_from_file_location("price_provider", str(_pp))
+            _mod = _importlib_util.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            return _mod.get_realtime_quote(ts_code)
+        except Exception:
+            return None
 
     @app.get("/api/quote")
     @require_login
@@ -361,19 +372,18 @@ def create_app():
         conn.close()
         return jsonify({"ok": True, "price": price})
 
-    
-@app.get("/api/realtime")
-@require_login
-def get_realtime():
-    ts_code = request.args.get("ts_code", "").strip()
-    if not ts_code:
-        return jsonify({"error": "missing ts_code"}), 400
-    data = get_realtime_quote(ts_code)
-    if not data:
-        return jsonify({"error": "quote unavailable"}), 502
-    return jsonify({"ts_code": ts_code, "quote": data})
+    @app.get("/api/realtime")
+    @require_login
+    def get_realtime():
+        ts_code = request.args.get("ts_code", "").strip()
+        if not ts_code:
+            return jsonify({"error": "missing ts_code"}), 400
+        data = _get_realtime(ts_code)
+        if not data:
+            return jsonify({"error": "quote unavailable"}), 502
+        return jsonify({"ts_code": ts_code, "quote": data})
 
-@app.get("/api/history")
+    @app.get("/api/history")
     @require_login
     def history():
         ts_code = request.args.get("ts_code", "").strip()
@@ -384,7 +394,7 @@ def get_realtime():
         if not ts_code:
             return jsonify({"error": "missing ts_code"}), 400
         candles = _get_history(ts_code, limit)
-        return jsonify({"ts_code": ts_code, "candles": candles})
+        return jsonify({"ts_code": ts_code, "kline": candles})
 
     return app
 
