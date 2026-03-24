@@ -10,17 +10,22 @@
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg ">
     <div class="container">
       <a class="navbar-brand fw-bold app-link" data-file="dashboard.html" href="/dashboard.html">ShareSim</a>
       <div class="ms-auto d-flex align-items-center gap-3">
-        <a class="nav-link text-light app-link" data-file="dashboard.html" href="/dashboard.html">概览</a>
-        <a class="nav-link text-light app-link" data-file="trade.html" href="/trade.html">交易</a>
-        <a class="nav-link text-light app-link" data-file="portfolio.html" href="/portfolio.html">持仓</a>
-        <button id="logout-btn" class="btn btn-outline-light btn-sm">退出</button>
+        <a class="nav-link  app-link" data-file="dashboard.html" href="/dashboard.html">概览</a>
+        <a class="nav-link  app-link" data-file="trade.html" href="/trade.html">交易</a>
+        <a class="nav-link  app-link" data-file="portfolio.html" href="/portfolio.html">持仓</a>
+        <button id="logout-btn" class="btn btn-outline-primary btn-sm">退出</button>
       </div>
     </div>
   </nav>
+
+  <div class="hero-section mt-5 pt-5">
+    <h1>Transactions</h1>
+    <p>History of your trades.</p>
+  </div>
   <div class="container py-4">
     <div class="card shadow-sm">
       <div class="card-header fw-bold">交易流水</div>

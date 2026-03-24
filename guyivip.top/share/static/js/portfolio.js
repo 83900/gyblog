@@ -1,6 +1,10 @@
 async function getQuote(ts_code) {
+  try {
+    const res = await api('/api/realtime?ts_code=' + encodeURIComponent(ts_code));
+    if (res.quote) return { price: res.quote.price, name: res.quote.name };
+  } catch(e) {}
   const q = await api('/api/quote?ts_code=' + encodeURIComponent(ts_code));
-  return q.price;
+  return { price: q.price, name: ts_code };
 }
 
 async function loadHoldings() {
@@ -40,7 +44,7 @@ function renderHoldings(rows) {
 async function refreshValuation() {
   let rows = await loadHoldings();
   for (let i = 0; i < rows.length; i++) {
-    try { rows[i].lastPrice = await getQuote(rows[i].ts_code); } catch {}
+    try { const q = await getQuote(rows[i].ts_code); rows[i].lastPrice = q.price; rows[i].name = q.name; } catch {}
   }
   renderHoldings(rows);
 }

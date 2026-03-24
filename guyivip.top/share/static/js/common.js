@@ -11,6 +11,9 @@ const APP_BASE = (() => {
       if (idx > 0) { base = path.slice(0, idx); break; }
     }
   }
+  if (base.endsWith('/static')) {
+    base = base.slice(0, -7);
+  }
   return base || '';
 })();
 

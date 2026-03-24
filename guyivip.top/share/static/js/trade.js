@@ -1,107 +1,214 @@
-let chart;
-let candleSeries;
-let currentCode = '';
+const qCode = document.getElementById('inputTsCode');
+const qShares = document.getElementById('inputShares');
+const lQuote = document.getElementById('labelQuote');
+const btnQuote = document.getElementById('btnQuote');
+const btnBuy = document.getElementById('btnBuy');
+const btnSell = document.getElementById('btnSell');
+const btnAddWatch = document.getElementById('btnAddWatch');
+const listWatch = document.getElementById('watchlist');
 
-async function getQuote(ts_code) {
-  const q = await api('/api/quote?ts_code=' + encodeURIComponent(ts_code));
-  return q.price;
-}
+let chart, candleSeries;
 
-async function loadHistory(ts_code, limit = 200) {
-  const data = await api('/api/history?ts_code=' + encodeURIComponent(ts_code) + '&limit=' + limit);
-  return data.candles || [];
-}
+document.addEventListener('DOMContentLoaded', () => {
+    initChart();
+    loadWatchlist();
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('ts_code');
+    if (code) {
+        qCode.value = code;
+        fetchQuote(code);
+        loadChartData(code, 200);
+    }
+});
 
 function initChart() {
-  const el = document.getElementById('chartContainer');
-  if (!el || !window.LightweightCharts) return;
-  chart = LightweightCharts.createChart(el, {
-    width: el.clientWidth, height: 420,
-    layout: { background: { color: '#fff' }, textColor: '#222' },
-    grid: { vertLines: { color: '#eee' }, horzLines: { color: '#eee' } },
-    rightPriceScale: { borderVisible: false },
-    timeScale: { timeVisible: true, secondsVisible: false },
-  });
-  candleSeries = chart.addCandlestickSeries({
-    upColor: '#26a69a', downColor: '#ef5350',
-    borderUpColor: '#26a69a', borderDownColor: '#ef5350',
-    wickUpColor: '#26a69a', wickDownColor: '#ef5350',
-  });
-  const ro = new ResizeObserver(() => {
-    chart.applyOptions({ width: el.clientWidth, height: 420 });
-    chart.timeScale().fitContent();
-  });
-  ro.observe(el);
+    const container = document.getElementById('chartContainer');
+    chart = LightweightCharts.createChart(container, {
+        layout: {
+            background: { type: 'solid', color: 'transparent' },
+            textColor: '#1d1d1f',
+        },
+        grid: {
+            vertLines: { color: 'rgba(0, 0, 0, 0.05)' },
+            horzLines: { color: 'rgba(0, 0, 0, 0.05)' },
+        },
+        crosshair: {
+            mode: LightweightCharts.CrosshairMode.Normal,
+        },
+        rightPriceScale: {
+            borderColor: 'rgba(0, 0, 0, 0.1)',
+        },
+        timeScale: {
+            borderColor: 'rgba(0, 0, 0, 0.1)',
+        },
+    });
+    
+    // Check dark mode
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        chart.applyOptions({
+            layout: { textColor: '#f5f5f7' },
+            grid: {
+                vertLines: { color: 'rgba(255, 255, 255, 0.05)' },
+                horzLines: { color: 'rgba(255, 255, 255, 0.05)' },
+            }
+        });
+    }
+
+    candleSeries = chart.addCandlestickSeries({
+        upColor: '#ff3b30',
+        downColor: '#34c759',
+        borderDownColor: '#34c759',
+        borderUpColor: '#ff3b30',
+        wickDownColor: '#34c759',
+        wickUpColor: '#ff3b30',
+    });
 }
 
-function getWatchlist() {
-  try { const v = localStorage.getItem('watchlist'); if (!v) return []; const arr = JSON.parse(v); return Array.isArray(arr) ? arr : []; } catch { return []; }
-}
-function setWatchlist(arr) { localStorage.setItem('watchlist', JSON.stringify(arr)); }
-function ensureDefaultWatchlist() {
-  let list = getWatchlist();
-  if (list.length === 0) { list = ['000001.SZ','600000.SH','600519.SH','000002.SZ']; setWatchlist(list); }
-}
-function renderWatchlist() {
-  ensureDefaultWatchlist();
-  const list = getWatchlist();
-  const box = document.getElementById('watchlist');
-  box.innerHTML = '';
-  list.forEach(code => {
-    const a = document.createElement('a');
-    a.href = 'javascript:void(0)';
-    a.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
-    a.innerHTML = `<span>${code}</span><i class="bi bi-chevron-right"></i>`;
-    a.onclick = () => selectCode(code);
-    box.appendChild(a);
-  });
-}
-function addCurrentToWatch() {
-  const code = document.getElementById('inputTsCode').value.trim();
-  if (!code) return;
-  const list = getWatchlist();
-  if (!list.includes(code)) {
-    list.unshift(code); if (list.length > 30) list.pop();
-    setWatchlist(list); renderWatchlist();
-  }
+async function loadChartData(tsCode, limit=200) {
+    if (!tsCode) return;
+    try {
+        const res = await api(`/api/history?ts_code=${tsCode}&limit=${limit}`);
+        if (res.kline && res.kline.length > 0) {
+            const data = res.kline.map(k => ({
+                time: k.time,
+                open: k.open,
+                high: k.high,
+                low: k.low,
+                close: k.close
+            }));
+            candleSeries.setData(data);
+            chart.timeScale().fitContent();
+        } else {
+            console.warn("No K-line data");
+        }
+    } catch (e) {
+        console.error(e);
+    }
 }
 
-async function selectCode(code) {
-  document.getElementById('inputTsCode').value = code;
-  currentCode = code;
-  const price = await getQuote(code);
-  document.getElementById('labelQuote').textContent = '价格：' + Number(price).toFixed(4);
-  const candles = await loadHistory(code, 200);
-  if (candleSeries) {
-    candleSeries.setData(candles);
-    chart.timeScale().fitContent();
-  }
+async function fetchQuote(code) {
+    if (!code) return;
+    lQuote.innerHTML = '<span class="spinner-border spinner-border-sm text-secondary" role="status"></span>';
+    try {
+        // try realtime
+        const rt = await api(`/api/realtime?ts_code=${code}`);
+        if (rt.quote && rt.quote.price) {
+            const p = rt.quote.price;
+            lQuote.textContent = `￥${p.toFixed(2)}`;
+            lQuote.className = "fw-bold text-primary";
+            return p;
+        }
+    } catch(e) {
+        // fallback to old quote
+        try {
+            const res = await api(`/api/quote?ts_code=${code}`);
+            if (res.price) {
+                lQuote.textContent = `￥${res.price.toFixed(2)}`;
+                lQuote.className = "fw-bold text-primary";
+                return res.price;
+            } else {
+                lQuote.textContent = '暂无数据';
+                lQuote.className = "fw-bold text-danger";
+            }
+        } catch(e2) {
+            lQuote.textContent = '查价失败';
+            lQuote.className = "fw-bold text-danger";
+        }
+    }
+    return null;
 }
 
-async function onQuote() {
-  const code = document.getElementById('inputTsCode').value.trim();
-  if (!code) return;
-  await selectCode(code);
-}
-
-async function onBuySell(side) {
-  const code = document.getElementById('inputTsCode').value.trim();
-  const shares = Number(document.getElementById('inputShares').value);
-  if (!code || !shares || shares <= 0) { showAlert('请输入正确的代码与股数'); return; }
-  showAlert('');
-  const path = side === 'BUY' ? '/api/buy' : '/api/sell';
-  await api(path, { method: 'POST', body: JSON.stringify({ ts_code: code, shares }) });
-  await onQuote();
-}
-
-document.addEventListener('DOMContentLoaded', async () => {
-  await requireAuth();
-  initChart();
-  renderWatchlist();
-  document.getElementById('btnAddWatch').addEventListener('click', () => addCurrentToWatch());
-  document.getElementById('btnLoad50').addEventListener('click', () => { if (currentCode) loadHistory(currentCode, 50).then(c => { candleSeries.setData(c); chart.timeScale().fitContent(); }); });
-  document.getElementById('btnLoadDay').addEventListener('click', () => { if (currentCode) loadHistory(currentCode, 200).then(c => { candleSeries.setData(c); chart.timeScale().fitContent(); }); });
-  document.getElementById('btnQuote').addEventListener('click', () => onQuote().catch(e => showAlert(e.message)));
-  document.getElementById('btnBuy').addEventListener('click', () => onBuySell('BUY').catch(e => showAlert(e.message)));
-  document.getElementById('btnSell').addEventListener('click', () => onBuySell('SELL').catch(e => showAlert(e.message)));
+btnQuote.addEventListener('click', () => {
+    const c = qCode.value.trim();
+    if(c) {
+        fetchQuote(c);
+        loadChartData(c, 200);
+    }
 });
+
+[document.getElementById('btnLoadDay'), document.getElementById('btnLoad50')].forEach(btn => {
+    if(btn) {
+        btn.addEventListener('click', (e) => {
+            const c = qCode.value.trim();
+            if(c) loadChartData(c, e.target.dataset.range);
+        });
+    }
+});
+
+async function placeOrder(action) {
+    const tsCode = qCode.value.trim();
+    const shares = parseFloat(qShares.value);
+    if (!tsCode || isNaN(shares) || shares <= 0) {
+        alert('请输入正确的代码和股数');
+        return;
+    }
+    btnBuy.disabled = true;
+    btnSell.disabled = true;
+    try {
+        const p = await fetchQuote(tsCode);
+        if (!p) {
+            alert('获取最新价格失败，无法下单');
+            return;
+        }
+        const endpoint = action === 'buy' ? '/api/buy' : '/api/sell';
+        const res = await api(endpoint, {
+            method: 'POST',
+            body: JSON.stringify({ ts_code: tsCode, shares: shares, price: p })
+        });
+        if (res.error) {
+            alert(res.error);
+        } else {
+            alert(`${action === 'buy'?'买入':'卖出'}成功！成交价: ${p}`);
+        }
+    } catch (e) {
+        alert(e.message || '操作失败');
+    } finally {
+        btnBuy.disabled = false;
+        btnSell.disabled = false;
+    }
+}
+
+btnBuy.addEventListener('click', () => placeOrder('buy'));
+btnSell.addEventListener('click', () => placeOrder('sell'));
+
+// Simple local storage watchlist
+function loadWatchlist() {
+    const list = JSON.parse(localStorage.getItem('sharesim_watchlist') || '["000001.SZ", "600000.SH"]');
+    listWatch.innerHTML = '';
+    list.forEach(c => {
+        const a = document.createElement('a');
+        a.href = '#';
+        a.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
+        a.innerHTML = `<span>${c}</span> <button class="btn btn-sm btn-link text-danger p-0 del-watch" data-code="${c}">&times;</button>`;
+        a.addEventListener('click', (e) => {
+            if(e.target.classList.contains('del-watch')) {
+                removeWatch(c);
+            } else {
+                e.preventDefault();
+                qCode.value = c;
+                fetchQuote(c);
+                loadChartData(c, 200);
+            }
+        });
+        listWatch.appendChild(a);
+    });
+}
+
+function removeWatch(c) {
+    let list = JSON.parse(localStorage.getItem('sharesim_watchlist') || '[]');
+    list = list.filter(x => x !== c);
+    localStorage.setItem('sharesim_watchlist', JSON.stringify(list));
+    loadWatchlist();
+}
+
+btnAddWatch.addEventListener('click', () => {
+    const c = qCode.value.trim();
+    if(!c) return;
+    let list = JSON.parse(localStorage.getItem('sharesim_watchlist') || '[]');
+    if(!list.includes(c)) {
+        list.push(c);
+        localStorage.setItem('sharesim_watchlist', JSON.stringify(list));
+        loadWatchlist();
+    }
+});
+

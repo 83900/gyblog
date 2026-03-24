@@ -10,17 +10,24 @@
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg ">
     <div class="container">
       <a class="navbar-brand fw-bold app-link" data-file="dashboard.html" href="/dashboard.html">ShareSim</a>
       <div class="ms-auto d-flex align-items-center gap-3">
-        <a class="nav-link text-light app-link" data-file="trade.html" href="/trade.html">交易</a>
-        <a class="nav-link text-light app-link" data-file="portfolio.html" href="/portfolio.html">持仓</a>
-        <a class="nav-link text-light app-link" data-file="transactions.html" href="/transactions.html">流水</a>
-        <button id="logout-btn" class="btn btn-outline-light btn-sm">退出</button>
+        <a class="nav-link  app-link" data-file="trade.html" href="/trade.html">交易</a>
+        <a class="nav-link  app-link" data-file="portfolio.html" href="/portfolio.html">持仓</a>
+        <a class="nav-link  app-link" data-file="transactions.html" href="/transactions.html">流水</a>
+        <button id="logout-btn" class="btn btn-outline-primary btn-sm">退出</button>
       </div>
     </div>
   </nav>
+
+  <!-- Hero Section -->
+  <div class="hero-section mt-5 pt-5">
+    <h1>Your Portfolio. Reimagined.</h1>
+    <p>Track your assets, analyze market trends, and trade seamlessly in one beautiful interface.</p>
+  </div>
+
   <div class="container py-4">
     <div class="row g-3 mb-3">
       <div class="col-md-4">
@@ -39,7 +46,7 @@
           <div class="card-header fw-bold d-flex justify-content-between align-items-center">最近持仓<a class="btn btn-sm btn-outline-primary app-link" data-file="portfolio.html" href="/portfolio.html">查看全部</a></div>
           <div class="table-responsive">
             <table class="table table-hover mb-0 align-middle">
-              <thead class="table-light"><tr><th>代码</th><th class="text-end">股数</th><th class="text-end">均价</th><th class="text-end">估值</th><th class="text-end">盈亏</th></tr></thead>
+              <thead class="table-light"><tr><th>名称/代码</th><th class="text-end">股数</th><th class="text-end">均价</th><th class="text-end">估值</th><th class="text-end">盈亏</th></tr></thead>
               <tbody id="dashHoldings"></tbody>
             </table>
           </div>
@@ -50,7 +57,7 @@
           <div class="card-header fw-bold d-flex justify-content-between align-items-center">最近流水<a class="btn btn-sm btn-outline-primary app-link" data-file="transactions.html" href="/transactions.html">查看全部</a></div>
           <div class="table-responsive">
             <table class="table table-striped mb-0 align-middle">
-              <thead class="table-light"><tr><th>时间</th><th>方向</th><th>代码</th><th class="text-end">价格</th><th class="text-end">股数</th></tr></thead>
+              <thead class="table-light"><tr><th>时间</th><th>方向</th><th>名称/代码</th><th class="text-end">价格</th><th class="text-end">股数</th></tr></thead>
               <tbody id="dashTx"></tbody>
             </table>
           </div>

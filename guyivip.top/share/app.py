@@ -361,7 +361,19 @@ def create_app():
         conn.close()
         return jsonify({"ok": True, "price": price})
 
-    @app.get("/api/history")
+    
+@app.get("/api/realtime")
+@require_login
+def get_realtime():
+    ts_code = request.args.get("ts_code", "").strip()
+    if not ts_code:
+        return jsonify({"error": "missing ts_code"}), 400
+    data = get_realtime_quote(ts_code)
+    if not data:
+        return jsonify({"error": "quote unavailable"}), 502
+    return jsonify({"ts_code": ts_code, "quote": data})
+
+@app.get("/api/history")
     @require_login
     def history():
         ts_code = request.args.get("ts_code", "").strip()

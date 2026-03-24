@@ -10,17 +10,22 @@
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg ">
     <div class="container">
       <a class="navbar-brand fw-bold app-link" data-file="dashboard.html" href="/dashboard.html">ShareSim</a>
       <div class="ms-auto d-flex align-items-center gap-3">
-        <a class="nav-link text-light app-link" data-file="dashboard.html" href="/dashboard.html">概览</a>
-        <a class="nav-link text-light app-link" data-file="trade.html" href="/trade.html">交易</a>
-        <a class="nav-link text-light app-link" data-file="transactions.html" href="/transactions.html">流水</a>
-        <button id="logout-btn" class="btn btn-outline-light btn-sm">退出</button>
+        <a class="nav-link  app-link" data-file="dashboard.html" href="/dashboard.html">概览</a>
+        <a class="nav-link  app-link" data-file="trade.html" href="/trade.html">交易</a>
+        <a class="nav-link  app-link" data-file="transactions.html" href="/transactions.html">流水</a>
+        <button id="logout-btn" class="btn btn-outline-primary btn-sm">退出</button>
       </div>
     </div>
   </nav>
+
+  <div class="hero-section mt-5 pt-5">
+    <h1>Portfolio</h1>
+    <p>View your current holdings.</p>
+  </div>
   <div class="container py-4">
     <div id="alertBox" class="alert alert-danger d-none" role="alert"></div>
     <div class="card shadow-sm">
@@ -35,7 +40,7 @@
         <table class="table table-hover mb-0 align-middle">
           <thead class="table-light">
             <tr>
-              <th>代码</th>
+              <th>名称/代码</th>
               <th class="text-end">股数</th>
               <th class="text-end">均价</th>
               <th class="text-end">最新价</th>
