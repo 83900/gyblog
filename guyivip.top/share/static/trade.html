@@ -5,77 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>交易 - ShareSim</title>
   <meta name="app-base" content="/">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg ">
-    <div class="container">
-      <a class="navbar-brand fw-bold app-link" data-file="dashboard.html" href="/dashboard.html">ShareSim</a>
-      <div class="ms-auto d-flex align-items-center gap-3">
-        <a class="nav-link  app-link" data-file="dashboard.html" href="/dashboard.html">概览</a>
-        <a class="nav-link  app-link" data-file="portfolio.html" href="/portfolio.html">持仓</a>
-        <a class="nav-link  app-link" data-file="transactions.html" href="/transactions.html">流水</a>
-        <button id="logout-btn" class="btn btn-outline-primary btn-sm">退出</button>
-      </div>
+  <nav class="navbar">
+    <div class="apple-container container">
+      <a class="navbar-brand app-link" data-file="dashboard.html" href="dashboard.html">ShareSim</a>
+      <ul class="navbar-nav">
+        <li><a class="nav-link app-link" data-file="dashboard.html" href="dashboard.html">Dashboard</a></li>
+        <li><a class="nav-link app-link" data-file="trade.html" href="trade.html">Trade</a></li>
+        <li><a class="nav-link app-link" data-file="portfolio.html" href="portfolio.html">Portfolio</a></li>
+        <li><a class="nav-link app-link" data-file="transactions.html" href="transactions.html">Transactions</a></li>
+        <li><a class="nav-link" href="#" id="logout-btn">Sign Out</a></li>
+      </ul>
     </div>
   </nav>
-  <div class="container py-4">
-    <div id="alertBox" class="alert alert-danger d-none" role="alert"></div>
-    <div class="row g-3">
-      <div class="col-xl-3">
-        <div class="card shadow-sm h-100">
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <span class="fw-bold">自选</span>
-            <button id="btnAddWatch" class="btn btn-sm btn-outline-secondary">添加当前</button>
+
+  <div class="section-light" style="min-height: calc(100vh - 48px);">
+    <div class="apple-container">
+      
+      <div id="alertBox" class="body-text text-danger text-center mb-4 d-none" style="padding: 16px; border: 1px solid #ff3b30; border-radius: 8px;"></div>
+      
+      <div class="d-flex gap-3" style="flex-wrap: wrap;">
+        
+        <!-- Watchlist -->
+        <div class="apple-card" style="flex: 1; min-width: 250px;">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="card-title" style="margin: 0;">自选 (Watchlist)</h2>
+            <button id="btnAddWatch" class="btn-apple-pill" style="padding: 4px 12px; font-size: 12px;">+ Add</button>
           </div>
-          <div class="list-group list-group-flush" id="watchlist"></div>
+          <div id="watchlist" style="display: flex; flex-direction: column; gap: 8px;"></div>
         </div>
-      </div>
-      <div class="col-xl-6">
-        <div class="card shadow-sm h-100">
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <span class="fw-bold">图表</span>
+        
+        <!-- Chart -->
+        <div class="apple-card" style="flex: 3; min-width: 400px; padding: 0; overflow: hidden;">
+          <div class="d-flex justify-content-between align-items-center" style="padding: 16px 24px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+            <h2 class="card-title" style="margin: 0;">图表 (Chart)</h2>
             <div class="d-flex gap-2">
-              <button id="btnLoadDay" class="btn btn-sm btn-outline-secondary" data-range="200">日K</button>
-              <button id="btnLoad50" class="btn btn-sm btn-outline-secondary" data-range="50">近50</button>
+              <button id="btnLoadDay" class="btn-apple-pill" data-range="200" style="padding: 4px 12px; font-size: 12px;">200 Days</button>
+              <button id="btnLoad50" class="btn-apple-pill" data-range="50" style="padding: 4px 12px; font-size: 12px;">50 Days</button>
             </div>
           </div>
-          <div class="card-body p-0">
-            <div id="chartContainer" style="width: 100%; height: 420px;"></div>
-            <div class="text-end small text-muted px-2 py-1"><a href="https://www.tradingview.com/" target="_blank" rel="noopener">Charts by TradingView</a></div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3">
-        <div class="card shadow-sm h-100">
-          <div class="card-header fw-bold">交易</div>
-          <div class="card-body">
-            <div class="mb-3">
-              <label class="form-label">代码 ts_code</label>
-              <input id="inputTsCode" class="form-control" placeholder="如 000001.SZ">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">股数</label>
-              <input id="inputShares" type="number" step="0.01" class="form-control" placeholder="输入股数">
-            </div>
-            <div class="d-flex align-items-center gap-2 mb-3">
-              <button id="btnQuote" class="btn btn-outline-secondary">查价</button>
-              <span id="labelQuote" class="fw-bold"></span>
-            </div>
-            <div class="d-grid gap-2">
-              <button id="btnBuy" class="btn btn-primary">买入</button>
-              <button id="btnSell" class="btn btn-danger">卖出</button>
-            </div>
+          <div id="chartContainer" style="border-radius: 0;"></div>
+          <div class="text-end text-muted" style="padding: 8px 16px; font-size: 12px;">
+            <a href="https://www.tradingview.com/" target="_blank" rel="noopener" class="apple-link" style="font-size: 12px;">Charts by TradingView</a>
           </div>
         </div>
+
+        <!-- Trade Panel -->
+        <div class="apple-card" style="flex: 1; min-width: 250px;">
+          <h2 class="card-title mb-4">交易 (Trade)</h2>
+          
+          <div class="mb-3">
+            <label class="body-emphasis text-muted" style="display: block; margin-bottom: 8px;">代码 (Symbol)</label>
+            <input id="inputTsCode" class="apple-input" placeholder="e.g. 000001.SZ">
+          </div>
+          
+          <div class="mb-3">
+            <label class="body-emphasis text-muted" style="display: block; margin-bottom: 8px;">股数 (Shares)</label>
+            <input id="inputShares" type="number" step="0.01" class="apple-input" placeholder="Quantity">
+          </div>
+          
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <button id="btnQuote" class="btn-apple-pill">查价 (Quote)</button>
+            <span id="labelQuote" class="body-emphasis">--</span>
+          </div>
+          
+          <div class="d-flex gap-2">
+            <button id="btnBuy" class="btn-apple-primary" style="flex: 1;">买入 (Buy)</button>
+            <button id="btnSell" class="btn-apple-primary" style="flex: 1; background-color: #ff3b30;">卖出 (Sell)</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
   <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
-  <script src="/static/js/common.js"></script>
-  <script src="/static/js/trade.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/trade.js"></script>
 </body>
 </html>

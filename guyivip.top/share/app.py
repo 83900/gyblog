@@ -69,7 +69,7 @@ def require_login(fn):
 
 
 def create_app():
-    app = Flask(__name__, static_folder="static", static_url_path="/static")
+    app = Flask(__name__, static_folder="static", static_url_path="")
     secret = os.environ.get("STOCKSIM_SECRET_KEY")
     if not secret:
         secret = os.urandom(32)

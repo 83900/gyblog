@@ -35,8 +35,8 @@ function renderHoldings(rows) {
   tb.querySelectorAll('.code-cell').forEach(td => {
     td.ondblclick = () => {
       const code = td.getAttribute('data-code');
-      if (typeof makeUrl === 'function') location.href = makeUrl('/trade.html');
-      else location.href = '/trade.html';
+      if (typeof makeUrl === 'function') location.href = makeUrl('trade.html');
+      else location.href = 'trade.html';
     };
   });
 }

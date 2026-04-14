@@ -5,56 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>持仓 - ShareSim</title>
   <meta name="app-base" content="/">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg ">
-    <div class="container">
-      <a class="navbar-brand fw-bold app-link" data-file="dashboard.html" href="/dashboard.html">ShareSim</a>
-      <div class="ms-auto d-flex align-items-center gap-3">
-        <a class="nav-link  app-link" data-file="dashboard.html" href="/dashboard.html">概览</a>
-        <a class="nav-link  app-link" data-file="trade.html" href="/trade.html">交易</a>
-        <a class="nav-link  app-link" data-file="transactions.html" href="/transactions.html">流水</a>
-        <button id="logout-btn" class="btn btn-outline-primary btn-sm">退出</button>
-      </div>
+  <nav class="navbar">
+    <div class="apple-container container">
+      <a class="navbar-brand app-link" data-file="dashboard.html" href="dashboard.html">ShareSim</a>
+      <ul class="navbar-nav">
+        <li><a class="nav-link app-link" data-file="dashboard.html" href="dashboard.html">Dashboard</a></li>
+        <li><a class="nav-link app-link" data-file="trade.html" href="trade.html">Trade</a></li>
+        <li><a class="nav-link app-link" data-file="portfolio.html" href="portfolio.html">Portfolio</a></li>
+        <li><a class="nav-link app-link" data-file="transactions.html" href="transactions.html">Transactions</a></li>
+        <li><a class="nav-link" href="#" id="logout-btn">Sign Out</a></li>
+      </ul>
     </div>
   </nav>
 
-  <div class="hero-section mt-5 pt-5">
-    <h1>Portfolio</h1>
-    <p>View your current holdings.</p>
-  </div>
-  <div class="container py-4">
-    <div id="alertBox" class="alert alert-danger d-none" role="alert"></div>
-    <div class="card shadow-sm">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center gap-2">
-          <span class="fw-bold">持仓</span>
-          <button id="btnRefreshValuation" class="btn btn-sm btn-outline-primary">刷新估值</button>
-        </div>
-        <div class="text-muted small">双击代码跳转到图表</div>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-hover mb-0 align-middle">
-          <thead class="table-light">
-            <tr>
-              <th>名称/代码</th>
-              <th class="text-end">股数</th>
-              <th class="text-end">均价</th>
-              <th class="text-end">最新价</th>
-              <th class="text-end">市值</th>
-              <th class="text-end">盈亏</th>
-            </tr>
-          </thead>
-          <tbody id="holdingsBody"></tbody>
-        </table>
-      </div>
+  <div class="section-dark text-center" style="padding-top: 120px; padding-bottom: 80px;">
+    <div class="apple-container">
+      <h1 class="hero-title">Portfolio</h1>
+      <p class="sub-heading text-muted" style="max-width: 600px; margin: 0 auto 32px auto;">
+        View your current holdings.
+      </p>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/static/js/common.js"></script>
-  <script src="/static/js/portfolio.js"></script>
+
+  <div class="section-light">
+    <div class="apple-container">
+      
+      <div id="alertBox" class="body-text text-danger text-center mb-4 d-none" style="padding: 16px; border: 1px solid #ff3b30; border-radius: 8px;"></div>
+      
+      <div class="apple-card">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="d-flex align-items-center gap-3">
+            <h2 class="card-title" style="margin: 0;">持仓明细 (Holdings)</h2>
+            <button id="btnRefreshValuation" class="btn-apple-pill" style="padding: 4px 12px; font-size: 12px;">Refresh Valuation</button>
+          </div>
+          <div class="body-text text-muted" style="font-size: 12px;">双击代码跳转交易</div>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="apple-table">
+            <thead>
+              <tr>
+                <th>名称/代码</th>
+                <th class="text-end">股数</th>
+                <th class="text-end">均价</th>
+                <th class="text-end">最新价</th>
+                <th class="text-end">市值</th>
+                <th class="text-end">盈亏</th>
+              </tr>
+            </thead>
+            <tbody id="holdingsBody"></tbody>
+          </table>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/portfolio.js"></script>
 </body>
 </html>

@@ -44,7 +44,7 @@ function renderHoldings(rows) {
     const pnl = price != null ? (price - avg) * shares : null;
     const tr = document.createElement('tr');
     tr.innerHTML = [
-      `<td><a href="${(typeof makeUrl==='function')? makeUrl('/trade.html?ts_code='+r.ts_code) : '/trade.html?ts_code='+r.ts_code}" class="text-decoration-none app-link fw-bold" data-file="trade.html">${r.name || r.ts_code} <br><small class="text-muted fw-normal">${r.ts_code}</small></a></td>`,
+      `<td><a href="${(typeof makeUrl==='function')? makeUrl('trade.html?ts_code='+r.ts_code) : 'trade.html?ts_code='+r.ts_code}" class="text-decoration-none app-link fw-bold" data-file="trade.html">${r.name || r.ts_code} <br><small class="text-muted fw-normal">${r.ts_code}</small></a></td>`,
       `<td class="text-end">${shares.toFixed(2)}</td>`,
       `<td class="text-end">${avg.toFixed(4)}</td>`,
       `<td class="text-end">${price != null ? price.toFixed(4) : '--'}</td>`,

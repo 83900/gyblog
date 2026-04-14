@@ -88,7 +88,7 @@ async function loadChartData(tsCode, limit=200) {
 
 async function fetchQuote(code) {
     if (!code) return;
-    lQuote.innerHTML = '<span class="spinner-border spinner-border-sm text-secondary" role="status"></span>';
+    lQuote.innerHTML = '...';
     try {
         // try realtime
         const rt = await api(`/api/realtime?ts_code=${code}`);
@@ -178,8 +178,10 @@ function loadWatchlist() {
     list.forEach(c => {
         const a = document.createElement('a');
         a.href = '#';
-        a.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
-        a.innerHTML = `<span>${c}</span> <button class="btn btn-sm btn-link text-danger p-0 del-watch" data-code="${c}">&times;</button>`;
+        a.className = 'd-flex justify-content-between align-items-center apple-link';
+        a.style.padding = '8px 12px';
+        a.style.borderBottom = '1px solid rgba(0,0,0,0.1)';
+        a.innerHTML = `<span>${c}</span> <button class="btn-apple-pill del-watch" style="padding: 2px 8px; font-size: 10px; color: #ff3b30; border-color: #ff3b30;" data-code="${c}">&times;</button>`;
         a.addEventListener('click', (e) => {
             if(e.target.classList.contains('del-watch')) {
                 removeWatch(c);
