@@ -322,6 +322,7 @@ def create_app():
         data = request.get_json(silent=True) or {}
         ts_code = (data.get("ts_code") or "").strip()
         shares = data.get("shares")
+        req_price = data.get("price")
         if not ts_code or shares is None:
             return jsonify({"error": "missing ts_code or shares"}), 400
         try:
@@ -330,7 +331,14 @@ def create_app():
             return jsonify({"error": "invalid shares"}), 400
         if shares <= 0:
             return jsonify({"error": "shares must be > 0"}), 400
-        price = _get_price(ts_code)
+        price = None
+        if req_price is not None:
+            try:
+                price = float(req_price)
+            except Exception:
+                price = None
+        if price is None or price <= 0:
+            price = _get_price(ts_code)
         if price is None:
             return jsonify({"error": "quote unavailable"}), 502
         conn = get_db()
@@ -350,6 +358,7 @@ def create_app():
         data = request.get_json(silent=True) or {}
         ts_code = (data.get("ts_code") or "").strip()
         shares = data.get("shares")
+        req_price = data.get("price")
         if not ts_code or shares is None:
             return jsonify({"error": "missing ts_code or shares"}), 400
         try:
@@ -358,7 +367,14 @@ def create_app():
             return jsonify({"error": "invalid shares"}), 400
         if shares <= 0:
             return jsonify({"error": "shares must be > 0"}), 400
-        price = _get_price(ts_code)
+        price = None
+        if req_price is not None:
+            try:
+                price = float(req_price)
+            except Exception:
+                price = None
+        if price is None or price <= 0:
+            price = _get_price(ts_code)
         if price is None:
             return jsonify({"error": "quote unavailable"}), 502
         conn = get_db()
