@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Mac 从 0 开始部署 Hermes 完整教程 - Seek4nothing技术博客</title>
+    <meta name="description" content="详细教程：在 Mac 上从零开始部署 Hermes AI Agent，包括环境准备、项目拉取、基础配置、Web UI 部署、渠道接入和启动使用。">
+    <meta name="keywords" content="Hermes,AI Agent,Mac部署,安装教程,Hermes Web UI,飞书接入,微信接入,AI助手">
+    <meta name="author" content="Seek4nothing">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Mac 从 0 开始部署 Hermes 完整教程">
+    <meta property="og:description" content="详细教程：在 Mac 上从零开始部署 Hermes AI Agent，包括环境准备、项目拉取、基础配置、Web UI 部署、渠道接入和启动使用">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://guyivip.top/news6.html">
+    <meta property="og:image" content="https://guyivip.top/images/resource/news6.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mac 从 0 开始部署 Hermes 完整教程">
+    <meta name="twitter:description" content="详细教程：在 Mac 上从零开始部署 Hermes AI Agent，包括环境准备、项目拉取、基础配置、Web UI 部署、渠道接入和启动使用">
+    <link rel="canonical" href="https://guyivip.top/news6.html">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Mac 从 0 开始部署 Hermes 完整教程",
+      "description": "详细教程：在 Mac 上从零开始部署 Hermes AI Agent，包括环境准备、项目拉取、基础配置、Web UI 部署、渠道接入和启动使用",
+      "url": "https://guyivip.top/news6.html",
+      "datePublished": "2025-04-19",
+      "dateModified": "2025-04-19",
+      "author": {
+        "@type": "Person",
+        "name": "Seek4nothing"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Seek4nothing技术博客",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://guyivip.top/images/logo.png"
+        }
+      },
+      "image": "https://guyivip.top/images/resource/news6.png",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://guyivip.top/news6.html"
+      }
+    }
+    </script>
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+    <div class="page-wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+        <!-- Main Header-->
+        <header class="main-header">
+
+            <!--Header-Upper-->
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="outer-container clearfix">
+                        <!--Logo Outer-->
+                        <div class="logo-outer">
+                            <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                        </div>
+
+                        <div class="top-left info-block left-aligned">
+                            <div class="inner">
+                                <!-- Hidden Nav Toggler -->
+                                <div class="nav-toggler">
+                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img
+                                                src="images/icons/menu-icon.png" alt="" /></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-right info-block right-aligned">
+                            <!--Search Box-->
+                            <div class="search-box-outer">
+                                <div class="dropdown">
+                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
+                                        data-bs-toggle="dropdown" aria-expanded="false"><img
+                                            src="images/icons/search-icon.png" alt="" /></button>
+                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                        <li class="panel-outer">
+                                            <div class="form-container">
+                                                <form method="post" action="blog.html">
+                                                    <div class="form-group">
+                                                        <input type="search" name="field-name" value=""
+                                                            placeholder="Search Here" required="">
+                                                        <button type="submit" class="search-btn"><span
+                                                                class="fa fa-search"></span></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Header Upper-->
+
+            <div class="header-lower">
+                <div class="auto-container">
+                    <div class="nav-outer clearfix">
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md">
+                            <div class="navbar-header">
+                                <!-- Toggle Button -->
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                                <!--Nav-->
+                                <ul class="navigation clearfix">
+                                    <li class="current dropdown"><a href="./index.html">Home</a>
+                                    <li><a href="post-side.html">Categories</a></li>
+                                    <li><a href="about.html">About Me</a></li>
+                                    <li><a href="resources.html">Resources</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu  -->
+            <div class="mobile-menu">
+                <div class="menu-backdrop"></div>
+                <div class="close-btn"><span class="icon fa-remove"></span></div>
+
+                <nav class="menu-box">
+                    <div class="nav-logo"><a href="index.html"><img src="images/logo-small.png" alt="" title=""></a>
+                    </div>
+                    <div class="menu-outer">
+                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                    </div>
+                </nav>
+            </div>
+            <!-- End Mobile Menu -->
+
+        </header>
+        <!--End Main Header -->
+
+
+        <div class="auto-container">
+            <div class="back-home" style="margin: 12px 0 6px;">
+                <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; color:#6b7280; text-decoration:none;">← 返回主页</a>
+            </div>
+            <div class="row clearfix">
+
+                <!--Content Side / News Single-->
+                <div class="content-inner">
+                    <!--Page Title-->
+                    <div class="sec-title">
+                        <div class="title">TECH</div>
+                        <h2>Mac 从 0 开始部署 Hermes 完整教程</h2>
+                        <div class="post-date">April 19, 2025</div>
+                    </div>
+
+                    <!--News Detail-->
+                    <div class="news-detail">
+                        <div class="inner-box">
+                            <div class="lower-content">
+                                <div class="text">
+
+                                    <p>
+                                        <b style="font-size: 1.3rem;">
+                                            什么是 Hermes？
+                                        </b>
+                                    </p>
+                                    <p>
+                                        Hermes 是由 Nous Research 开发的自进化 AI Agent。它是唯一一个内置学习循环的 Agent —— 能从经验中创建技能、在使用中改进技能、搜索过去的对话记录，并在跨会话中建立对用户的深度了解。支持 Telegram、Discord、Slack、WhatsApp、Signal、飞书、微信等多种平台接入。
+                                    </p>
+
+                                    <blockquote>
+                                        一、环境准备
+                                    </blockquote>
+
+                                    <p>
+                                        在安装 Hermes 之前，需要确保 Mac 上已安装以下依赖：
+                                    </p>
+
+                                    <p>
+                                        <b>1. Homebrew（macOS 包管理器）</b>
+                                    </p>
+                                    <p>
+                                        如果尚未安装 Homebrew，在终端执行：
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+
+                                    <p>
+                                        安装完成后，按照终端提示将 Homebrew 添加到 PATH：
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+source ~/.zshrc</code></pre>
+
+                                    <p>
+                                        <b>2. Node.js（版本 22 或更高）</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>brew install node@22
+# 或者使用 nvm 管理多版本
+brew install nvm
+nvm install 22</code></pre>
+
+                                    <p>
+                                        <b>3. Git</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>brew install git</code></pre>
+
+                                    <p>
+                                        <b>4. 验证安装</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>node --version    # 应显示 v22.x.x
+npm --version     # 应显示 10.x.x
+git --version     # 应显示 git version 2.x.x
+brew --version    # 应显示 Homebrew 4.x.x</code></pre>
+
+                                    <blockquote>
+                                        二、项目拉取
+                                    </blockquote>
+
+                                    <p>
+                                        <b>方式一：使用官方安装脚本（推荐）</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash</code></pre>
+
+                                    <p>
+                                        安装脚本会自动完成以下操作：
+                                    </p>
+                                    <p>
+                                        - 克隆项目到 ~/.hermes/hermes-agent<br>
+                                        - 安装 Python 依赖（使用 uv）<br>
+                                        - 创建虚拟环境<br>
+                                        - 运行初始配置向导
+                                    </p>
+
+                                    <p>
+                                        <b>方式二：手动 Git 克隆</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>mkdir -p ~/.hermes
+cd ~/.hermes
+git clone https://github.com/NousResearch/hermes-agent.git
+cd hermes-agent</code></pre>
+
+                                    <p>
+                                        <b>常见报错及解决方案：</b>
+                                    </p>
+                                    <p>
+                                        <i>报错：xcrun: error: invalid active developer path</i><br>
+                                        解决方案：安装 Xcode Command Line Tools
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>xcode-select --install</code></pre>
+
+                                    <p>
+                                        <i>报错：git: 'credential-osxkeychain' is not a git command</i><br>
+                                        解决方案：重新安装 Git
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>brew reinstall git</code></pre>
+
+                                    <blockquote>
+                                        三、拉取验证
+                                    </blockquote>
+
+                                    <p>
+                                        确认项目拉取成功：
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code># 检查项目目录是否存在
+ls -la ~/.hermes/hermes-agent
+
+# 检查主要文件
+ls ~/.hermes/hermes-agent/README.md
+ls ~/.hermes/hermes-agent/pyproject.toml
+
+# 验证 Git 仓库状态
+cd ~/.hermes/hermes-agent
+git status</code></pre>
+
+                                    <p>
+                                        如果看到项目文件和 Git 仓库信息，说明拉取成功。
+                                    </p>
+
+                                    <blockquote>
+                                        四、基础配置
+                                    </blockquote>
+
+                                    <p>
+                                        <b>1. 运行配置向导</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>hermes setup</code></pre>
+
+                                    <p>
+                                        配置向导会引导你完成：
+                                    </p>
+                                    <p>
+                                        - 选择 LLM 提供商（OpenRouter、OpenAI、Nous Portal 等）<br>
+                                        - 配置 API Key<br>
+                                        - 选择默认模型<br>
+                                        - 设置基本偏好
+                                    </p>
+
+                                    <p>
+                                        <b>2. 手动配置（可选）</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code># 查看当前配置
+hermes config show
+
+# 设置配置项
+hermes config set provider openrouter
+hermes config set model anthropic/claude-sonnet-4
+
+# 编辑配置文件（高级）
+hermes config edit</code></pre>
+
+                                    <p>
+                                        <b>3. 配置文件位置</b>
+                                    </p>
+                                    <p>
+                                        所有配置存储在 <code>~/.hermes/</code> 目录：
+                                    </p>
+                                    <p>
+                                        - <code>~/.hermes/config.yaml</code> - 主配置文件<br>
+                                        - <code>~/.hermes/auth.json</code> - API 密钥和凭证<br>
+                                        - <code>~/.hermes/.env</code> - 环境变量（平台 Token 等）
+                                    </p>
+
+                                    <blockquote>
+                                        五、推荐项目：Hermes Web UI
+                                    </blockquote>
+
+                                    <p>
+                                        <b>什么是 Hermes Web UI？</b>
+                                    </p>
+                                    <p>
+                                        Hermes Web UI 是 Hermes Agent 的全功能 Web 管理面板。提供 AI 对话、会话管理、平台渠道配置、定时任务、使用统计等功能，全部通过简洁的 Web 界面完成。
+                                    </p>
+
+                                    <p>
+                                        <b>功能亮点：</b>
+                                    </p>
+                                    <p>
+                                        - 实时流式 AI 对话（SSE）<br>
+                                        - 多会话管理（创建、重命名、删除、切换）<br>
+                                        - 统一管理 8 个平台渠道配置<br>
+                                        - 使用量统计和成本追踪<br>
+                                        - 定时任务管理<br>
+                                        - 技能和记忆浏览
+                                    </p>
+
+                                    <p>
+                                        <b>完整部署方式：</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code># 全局安装
+npm install -g hermes-web-ui
+
+# 启动 Web UI
+hermes-web-ui start
+
+# 默认访问地址：http://localhost:3000</code></pre>
+
+                                    <p>
+                                        <b>自定义端口启动：</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>hermes-web-ui start --port 8080</code></pre>
+
+                                    <blockquote>
+                                        六、渠道接入
+                                    </blockquote>
+
+                                    <p>
+                                        <b>方式一：通过 Web UI 配置（推荐）</b>
+                                    </p>
+                                    <p>
+                                        启动 Hermes Web UI 后，在浏览器访问 <code>http://localhost:3000</code>，进入"Platform Channels"页面，可以统一配置所有平台。
+                                    </p>
+
+                                    <p>
+                                        <b>方式二：通过终端配置</b>
+                                    </p>
+
+                                    <p>
+                                        <b>飞书（Feishu / Lark）接入：</b>
+                                    </p>
+                                    <p>
+                                        1. 在飞书开放平台创建应用，获取 App ID 和 App Secret<br>
+                                        2. 配置权限和事件订阅<br>
+                                        3. 在 <code>~/.hermes/.env</code> 中添加：
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>FEISHU_APP_ID=cli_xxxxxxxxxxxxxxxx
+FEISHU_APP_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+FEISHU_ENABLED=true</code></pre>
+
+                                    <p>
+                                        在 <code>~/.hermes/config.yaml</code> 中配置行为：
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code>feishu:
+  mention_control: true
+  allowed_users:
+    - ou_xxxxxxxxxxxxxxxx</code></pre>
+
+                                    <p>
+                                        <b>微信（WeChat）接入：</b>
+                                    </p>
+                                    <p>
+                                        微信接入支持扫码登录方式：
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code># 启用微信渠道
+hermes config set wechat.enabled true
+
+# 启动网关后会弹出二维码，使用微信扫码登录
+hermes gateway start</code></pre>
+
+                                    <p>
+                                        <b>Web UI 配置项 vs 终端配置项的区别：</b>
+                                    </p>
+                                    <p>
+                                        - <b>Web UI 配置项</b>：存储在 <code>~/.hermes/.env</code>（凭证）和 <code>~/.hermes/config.yaml</code>（行为），通过 Web 界面修改后自动写入文件<br>
+                                        - <b>终端配置项</b>：使用 <code>hermes config set</code> 命令直接修改配置文件<br>
+                                        - 两种方式修改的是同一份配置，效果相同
+                                    </p>
+
+                                    <blockquote>
+                                        七、启动使用
+                                    </blockquote>
+
+                                    <p>
+                                        <b>1. 启动 Hermes 终端交互</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code># 重新加载 shell 配置
+source ~/.zshrc
+
+# 启动 Hermes 终端界面
+hermes</code></pre>
+
+                                    <p>
+                                        <b>2. 启动消息网关（用于 Telegram、Discord 等平台）</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code># 安装为系统服务（macOS launchd）
+hermes gateway install
+
+# 启动网关
+hermes gateway start
+
+# 查看网关状态
+hermes gateway status</code></pre>
+
+                                    <p>
+                                        <b>3. 常用命令速查</b>
+                                    </p>
+                                    <p>
+                                        - <code>hermes</code> - 启动交互式终端<br>
+                                        - <code>hermes model</code> - 切换模型<br>
+                                        - <code>hermes tools</code> - 配置工具<br>
+                                        - <code>hermes gateway start</code> - 启动消息网关<br>
+                                        - <code>hermes doctor</code> - 诊断问题<br>
+                                        - <code>hermes update</code> - 更新到最新版本
+                                    </p>
+
+                                    <p>
+                                        <b>4. 终端内快捷操作</b>
+                                    </p>
+                                    <p>
+                                        - <code>/new</code> 或 <code>/reset</code> - 开始新对话<br>
+                                        - <code>/model [provider:model]</code> - 切换模型<br>
+                                        - <code>/skills</code> - 浏览技能<br>
+                                        - <code>Ctrl+C</code> - 中断当前工作
+                                    </p>
+
+                                    <blockquote>
+                                        八、提交上线
+                                    </blockquote>
+
+                                    <p>
+                                        完成所有配置后，将你的配置和自定义内容提交到 GitHub：
+                                    </p>
+
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code># 进入项目目录
+cd ~/.hermes/hermes-agent
+
+# 查看状态
+git status
+
+# 添加修改（注意：不要提交包含 API Key 的文件）
+git add .
+# 或者选择性添加
+git add SKILL.md
+git add custom-config.yaml
+
+# 提交
+git commit -m "feat: 添加自定义配置和技能"
+
+# 推送到远程仓库（如果有 fork）
+git remote add origin https://github.com/你的用户名/hermes-agent.git
+git push -u origin main</code></pre>
+
+                                    <p>
+                                        <b style="color: #e74c3c;">⚠️ 安全提醒：</b>
+                                    </p>
+                                    <p>
+                                        - 永远不要提交包含 API Key 的 <code>auth.json</code> 或 <code>.env</code> 文件<br>
+                                        - 在 <code>.gitignore</code> 中排除敏感文件<br>
+                                        - 使用环境变量或密钥管理服务存储敏感信息
+                                    </p>
+
+                                    <blockquote>
+                                        完
+                                    </blockquote>
+
+                                    <p>
+                                        <i>
+                                            参考资料：<br>
+                                            - Hermes Agent 官方文档：<a href="https://hermes-agent.nousresearch.com/docs/">hermes-agent.nousresearch.com/docs</a><br>
+                                            - GitHub 仓库：<a href="https://github.com/NousResearch/hermes-agent">github.com/NousResearch/hermes-agent</a><br>
+                                            - Hermes Web UI：<a href="https://github.com/EKKOLearnAI/hermes-web-ui">github.com/EKKOLearnAI/hermes-web-ui</a>
+                                        </i>
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+    </div>
+
+
+
+
+    <!--Main Footer-->
+    <div class="main-footer">
+        <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
+    </div>
+    <!--Main Footer-->
+
+    </div>
+    <!--End pagewrapper-->
+
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.fancybox-media.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
