@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0a"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <circle cx="200" cy="150" r="80" fill="none" stroke="#74aa9c" stroke-width="3" opacity="0.5"/>
+  <circle cx="200" cy="150" r="50" fill="none" stroke="#74aa9c" stroke-width="2" opacity="0.3"/>
+  <text x="200" y="165" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" fill="white" font-weight="bold">C</text>
+  <text x="200" y="110" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#74aa9c">OpenAI</text>
+  <line x1="60" y1="250" x2="340" y2="250" stroke="#74aa9c" stroke-width="2" opacity="0.4"/>
+  <text x="200" y="290" text-anchor="middle" font-family="Courier New,monospace" font-size="28" fill="white" font-weight="bold">Codex CLI</text>
+  <text x="200" y="330" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#a0a0a0">终端里的 AI 编程助手</text>
+  <text x="200" y="365" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#666">Rust · Terminal · GPT-4</text>
+</svg>
