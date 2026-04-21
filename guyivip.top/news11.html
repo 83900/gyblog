@@ -1,276 +1,465 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mac 与 Windows 从零部署本地 LaTeX 完整教程</title>
+    <meta charset="utf-8">
+    <title>Mac 与 Windows 从零部署本地 LaTeX 完整教程 - 俗人的技术博客</title>
+    <meta name="description" content="LaTeX 入门到进阶完整教程，涵盖安装配置、与 Word 的对比、AI 辅助写作、中英文排版规则及常用命令。">
+    <meta name="keywords" content="LaTeX,TeXStudio,MiKTeX,MacTeX,排版,论文写作,PDF,Pandoc">
+    <meta name="author" content="Seek4nothing">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Mac 与 Windows 从零部署本地 LaTeX 完整教程">
+    <meta property="og:description" content="LaTeX 入门到进阶完整教程，涵盖安装配置、与 Word 的对比、AI 辅助写作、中英文排版规则及常用命令。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://guyivip.top/news11.html">
+    <meta property="og:image" content="https://guyivip.top/images/resource/news11-cover.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mac 与 Windows 从零部署本地 LaTeX 完整教程">
+    <meta name="twitter:description" content="LaTeX 入门到进阶完整教程，涵盖安装配置、与 Word 的对比、AI 辅助写作、中英文排版规则及常用命令。">
+    <link rel="canonical" href="https://guyivip.top/news11.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Mac 与 Windows 从零部署本地 LaTeX 完整教程",
+      "description": "LaTeX 入门到进阶完整教程，涵盖安装配置、与 Word 的对比、AI 辅助写作、中英文排版规则及常用命令。",
+      "url": "https://guyivip.top/news11.html",
+      "datePublished": "2026-04-20",
+      "dateModified": "2026-04-20",
+      "author": {
+        "@type": "Person",
+        "name": "Seek4nothing"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Seek4nothing技术博客",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://guyivip.top/images/logo.png"
+        }
+      },
+      "image": "https://guyivip.top/images/resource/news11-cover.png",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://guyivip.top/news11.html"
+      }
+    }
+    </script>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+    <style>
+        .latex-article { max-width: 800px; margin: 0 auto; font-size: 16px; line-height: 1.8; color: #333; }
+        .latex-article h2 { font-size: 24px; font-weight: 700; color: #1a1a2e; margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #4361ee; }
+        .latex-article h3 { font-size: 20px; font-weight: 600; color: #2d3436; margin: 30px 0 15px; }
+        .latex-article p { margin: 15px 0; }
+        .latex-article ul, .latex-article ol { margin: 15px 0; padding-left: 25px; }
+        .latex-article li { margin: 8px 0; }
+        .latex-article code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 14px; color: #e74c3c; }
+        .latex-article pre { background: #2d3436; color: #dfe6e9; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 20px 0; }
+        .latex-article pre code { background: none; color: #dfe6e9; font-size: 14px; line-height: 1.6; }
+        .latex-article .tip-box { background: #e8f5e9; border-left: 4px solid #27ae60; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .latex-article .warn-box { background: #fff3e0; border-left: 4px solid #f39c12; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .latex-article .info-box { background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .latex-article table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .latex-article th { background: #4361ee; color: white; padding: 12px; text-align: left; }
+        .latex-article td { padding: 10px 12px; border-bottom: 1px solid #e0e0e0; }
+        .latex-article tr:hover { background: #f8f9fa; }
+        .latex-article img { max-width: 100%; height: auto; border-radius: 8px; margin: 15px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .latex-article .step-title { background: linear-gradient(135deg, #4361ee, #3a0ca3); color: white; padding: 15px 25px; border-radius: 8px; margin: 30px 0 15px; font-size: 18px; font-weight: 600; }
+        .latex-article .compare-table th:first-child { width: 25%; }
+    </style>
 </head>
+
 <body>
-<h1>Mac 与 Windows 从零部署本地 LaTeX 完整教程</h1>
-<h2>从"为什么用"到"怎么用"，一篇讲透 LaTeX 入门到进阶</h2>
-<p>2025.04.20</p>
-<hr>
+    <div class="page-wrapper">
+        <div class="preloader"></div>
+        <header class="main-header">
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="outer-container clearfix">
+                        <div class="logo-outer">
+                            <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                        </div>
+                        <div class="top-left info-block left-aligned">
+                            <div class="inner">
+                                <div class="nav-toggler">
+                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img src="images/icons/menu-icon.png" alt="" /></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-right info-block right-aligned">
+                            <div class="search-box-outer">
+                                <div class="dropdown">
+                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false"><img src="images/icons/search-icon.png" alt="" /></button>
+                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                        <li class="panel-outer">
+                                            <div class="form-container">
+                                                <form method="post" action="https://guyivip.top/news11.html">
+                                                    <div class="form-group">
+                                                        <input type="search" name="search-field" value="" placeholder="Search ......" required>
+                                                        <button type="submit"><span class="icon fa fa-search"></span></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-menu">
+                <div class="main-menu">
+                    <div class="auto-container">
+                        <div class="outer-box clearfix">
+                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                                <ul class="navigation clearfix">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li class="current"><a href="index.html">Blog</a></li>
+                                    <li><a href="about.html">About</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
 
-<h2>一、为什么要用 LaTeX？</h2>
+        <section class="page-banner" style="background-image:url(images/background/6.jpg)">
+            <div class="auto-container">
+                <h1>Mac 与 Windows 从零部署本地 LaTeX 完整教程</h1>
+                <div class="page-banner-info">
+                    <span class="post-info">April 20, 2026</span>
+                    <span class="post-info">Author: Seek4nothing</span>
+                    <span class="post-info">Read: 5min</span>
+                </div>
+            </div>
+        </section>
 
-<h3>LaTeX vs Word：优劣对比</h3>
+        <section class="news-section" id="news">
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 content-side">
+                        <div class="blog-details-content">
+                            <div class="latex-article">
 
-<p>很多人第一次听到 LaTeX 的反应是："Word 不够用吗？" 答案取决于你要写什么。</p>
+<h2>序言</h2>
+<p>写毕业论文的时候，你有没有经历过这种场景：调了一晚上的格式，目录突然乱了，参考文献顺序全错，图片飘到下一页去了。当时我就想，有没有一种工具能让我专注于<strong>写内容</strong>，而不是<strong>调格式</strong>？</p>
+<p>LaTeX 就是这个答案。它不像 Word 那样所见即所得——你写的不是最终的样子，而是告诉计算机"我要一个标题、一个表格、一段引用"，然后它帮你生成完美的排版。听起来反直觉，但用过之后你会发现：这才是学术写作该有的样子。</p>
+<p>这篇教程会带你从零开始，在 Mac 或 Windows 上搭建一个完整的 LaTeX 写作环境，并附上 AI 辅助提示词和进阶技巧。</p>
 
-<h4>LaTeX 的优势</h4>
+<div class="step-title">Step 1：为什么要用 LaTeX？</div>
 
-<ol>
-<li><strong>排版质量碾压 Word</strong><br>
-LaTeX 由专业排版引擎驱动，公式、参考文献、目录的生成都是全自动的。你写论文时不用手动调格式，引擎帮你处理一切。</li>
-
-<li><strong>数学公式是原生支持</strong><br>
-Word 里插入公式需要点菜单、用鼠标选符号。LaTeX 里直接写 <code>$E = mc^2$</code>，又快又好看。</li>
-
-<li><strong>参考文献管理自动化</strong><br>
-配合 BibTeX，引用文献只需要一个命令 <code>\cite{key}</code>，参考文献列表自动生成，格式自动适配期刊要求。</li>
-
-<li><strong>版本控制友好</strong><br>
-LaTeX 源文件是纯文本，可以用 Git 管理版本、多人协作。Word 的 <code>.docx</code> 是二进制文件，diff 基本不可用。</li>
-
-<li><strong>跨平台一致性</strong><br>
-同样的 <code>.tex</code> 文件，在 Mac、Windows、Linux 上编译结果完全一致。不存在"我电脑上排版好的，你打开就乱了"的问题。</li>
-
-<li><strong>学术界事实标准</strong><br>
-绝大多数理工科期刊、会议论文都要求或推荐 LaTeX 格式投稿。学会它是迟早的事。</li>
-</ol>
-
-<h4>LaTeX 的弊端</h4>
-
-<ol>
-<li><strong>学习曲线陡峭</strong><br>
-入门需要记住基本语法，排版问题调试起来比 Word 麻烦得多。</li>
-
-<li><strong>实时预览缺失</strong><br>
-不像 Word "所见即所得"，LaTeX 需要编译后才能看到效果（虽然现代编辑器有实时预览）。</li>
-
-<li><strong>图形化排版困难</strong><br>
-如果需要自由拖拽图片位置、做海报或图文混排，Word / PowerPoint 更直观。</li>
-
-<li><strong>协作门槛高</strong><br>
-团队里有人不会 LaTeX，协作就变成你一个人的事。</li>
-</ol>
-
-<h4>一句话总结</h4>
-<p><strong>写论文、技术文档 → 用 LaTeX。写简历、简单报告 → 用 Word。</strong> 两者不是替代关系，是不同场景的最佳选择。</p>
-
-<hr>
-
-<h2>二、下载 LaTeX 发行版</h2>
-
-<p>LaTeX 本身是一套排版语言，需要一个「发行版」来提供编译器和宏包。就像 Python 需要解释器一样。</p>
-
-<h3>两大主流发行版</h3>
-
-<table border="1" cellpadding="8">
-<tr><th>发行版</th><th>平台</th><th>大小</th><th>推荐</th></tr>
-<tr><td><strong>TeX Live</strong></td><td>Windows / Linux / Mac</td><td>~4GB（完整版）</td><td>跨平台首选</td></tr>
-<tr><td><strong>MacTeX</strong></td><td>仅 Mac</td><td>~4GB</td><td>Mac 用户专用（基于 TeX Live）</td></tr>
-<tr><td><strong>MiKTeX</strong></td><td>Windows / Mac / Linux</td><td>~200MB（基础版）</td><td>轻量级，按需下载宏包</td></tr>
+<h3>与 Word 的对比</h3>
+<table class="compare-table">
+    <thead>
+        <tr><th>特性</th><th>LaTeX</th><th>Word</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>排版精度</strong></td><td>精确到像素，数学公式原生支持</td><td>依赖手动调整，公式编辑器体验差</td></tr>
+        <tr><td><strong>参考文献</strong></td><td>BibTeX 自动管理，一键切换格式</td><td>手动插入或依赖 EndNote 插件</td></tr>
+        <tr><td><strong>交叉引用</strong></td><td>自动编号，引用自动更新</td><td>容易出错，尤其在长文档中</td></tr>
+        <tr><td><strong>模板生态</strong></td><td>期刊/会议提供官方 .tex 模板</td><td>格式调整需要大量手动操作</td></tr>
+        <tr><td><strong>多人协作</strong></td><td>Git 版本控制，Overleaf 在线协作</td><td>Track Changes，合并冲突困难</td></tr>
+        <tr><td><strong>学习曲线</strong></td><td>较陡峭，需要学命令</td><td>即学即用</td></tr>
+        <tr><td><strong>文件格式</strong></td><td>纯文本 .tex 文件</td><td>二进制 .docx 文件</td></tr>
+    </tbody>
 </table>
 
-<h3>下载地址</h3>
-
+<h3>LaTeX 的优势总结</h3>
 <ul>
-<li><strong>TeX Live（Windows/Linux）</strong>：<a href="https://www.tug.org/texlive/">https://www.tug.org/texlive/</a></li>
-<li><strong>MacTeX（Mac）</strong>：<a href="https://www.tug.org/mactex/">https://www.tug.org/mactex/</a></li>
-<li><strong>MiKTeX</strong>：<a href="https://miktex.org/download">https://miktex.org/download</a></li>
+    <li><strong>数学公式</strong>：写 <code>$E = mc^2$</code> 就能得到完美的公式，Word 的公式编辑器体验远不如此</li>
+    <li><strong>一致性</strong>：全文格式自动统一，不会出现字体不一致的问题</li>
+    <li><strong>可复用</strong>：换期刊只需换模板，内容不变</li>
+    <li><strong>版本控制</strong>：.tex 是纯文本文件，可以用 Git 追踪每一次修改</li>
 </ul>
 
-<h3>安装建议</h3>
+<h3>LaTeX 的弊端</h3>
 <ul>
-<li><strong>Mac 用户</strong>：直接下载 MacTeX，安装包自带 TeX Live + 几个 GUI 工具，一键搞定。</li>
-<li><strong>Windows 用户</strong>：推荐 TeX Live（稳定、完整）或 MiKTeX（轻量、按需下载）。</li>
-<li>安装时选择「完整安装」，避免后面缺宏包。</li>
+    <li><strong>学习门槛高</strong>：需要记忆命令语法，新手容易报错</li>
+    <li><strong>调试困难</strong>：一个语法错误可能导致整个文档编译失败</li>
+    <li><strong>不适合短文档</strong>：写一封邮件用 LaTeX 是杀鸡用牛刀</li>
+    <li><strong>实时预览慢</strong>：不像 Word 那样即时看到效果</li>
 </ul>
 
-<hr>
+<div class="warn-box">
+    <strong>⚠️ 建议场景</strong>：如果你只是写日常文档（邮件、笔记），Word/Google Docs 更高效。LaTeX 适合<strong>论文、技术文档、书籍</strong>等需要精排版的场景。
+</div>
 
-<h2>三、安装编辑器：以 TeXStudio 为例</h2>
+<div class="step-title">Step 2：下载 LaTeX 发行版</div>
 
-<p>发行版只是编译器，写代码还需要一个编辑器。推荐 <strong>TeXStudio</strong> —— 免费、开源、跨平台、功能强大。</p>
+<h3>什么是 LaTeX 发行版？</h3>
+<p>LaTeX 不是一个软件，而是一套系统。<strong>发行版</strong>（Distribution）是打包了编译器、宏包、字体的完整工具集。</p>
 
-<h3>下载 TeXStudio</h3>
-<p><a href="https://texstudio.org/">https://texstudio.org/</a></p>
+<table>
+    <thead>
+        <tr><th>平台</th><th>发行版</th><th>下载地址</th><th>大小</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Windows</td><td><strong>MiKTeX</strong></td><td><a href="https://miktex.org/download" target="_blank">miktex.org/download</a></td><td>~200MB（按需下载）</td></tr>
+        <tr><td>Windows</td><td>TeX Live</td><td><a href="https://www.tug.org/texlive/" target="_blank">tug.org/texlive</a></td><td>~4GB（完整安装）</td></tr>
+        <tr><td>macOS</td><td><strong>MacTeX</strong></td><td><a href="https://www.tug.org/mactex/" target="_blank">tug.org/mactex</a></td><td>~4GB（完整安装）</td></tr>
+        <tr><td>macOS</td><td>BasicTeX</td><td><a href="https://www.tug.org/mactex/morepackages.html" target="_blank">同上页面底部</a></td><td>~100MB（精简版）</td></tr>
+    </tbody>
+</table>
+
+<div class="tip-box">
+    <strong>💡 推荐选择</strong>：
+    <ul>
+        <li><strong>Windows 用户</strong>：选 MiKTeX，体积小，缺包时自动下载</li>
+        <li><strong>Mac 用户</strong>：选 MacTeX（完整版），一次装好省心</li>
+    </ul>
+</div>
 
 <h3>安装步骤</h3>
 
-<h4>Windows</h4>
+<p><strong>Windows（MiKTeX）：</strong></p>
 <ol>
-<li>下载 <code>texstudio-x.x.x-win-qt6.exe</code></li>
-<li>双击安装，一路 Next</li>
-<li>首次打开 TeXStudio，它会自动检测已安装的 TeX Live / MiKTeX</li>
-<li>验证：菜单栏 → Help → Check LaTeX Installation，应该显示绿色对勾</li>
+    <li>下载 MiKTeX 安装包（.exe）</li>
+    <li>运行安装程序，选择 <code>Install MiKTeX only for me</code></li>
+    <li>选择安装路径（默认即可）</li>
+    <li>在 "Settings" 中勾选 <code>Always install packages on the fly</code>（按需下载宏包）</li>
+    <li>完成安装</li>
 </ol>
 
-<h4>Mac</h4>
+<p><strong>macOS（MacTeX）：</strong></p>
 <ol>
-<li>下载 <code>texstudio-x.x.x-osx.dmg</code></li>
-<li>拖入 Applications 文件夹</li>
-<li>首次打开可能需要在 系统偏好设置 → 安全性与隐私 中允许</li>
-<li>同样通过 Help → Check LaTeX Installation 验证</li>
+    <li>下载 MacTeX.pkg（约 4GB，耐心等待）</li>
+    <li>双击运行安装包，一路 Next</li>
+    <li>安装完成后在 <code>/Applications/TeX</code> 文件夹中可以看到 TeXShop 和 TeX Live Utility</li>
 </ol>
 
-<h3>TeXStudio 基础配置</h3>
+<div class="step-title">Step 3：安装编辑器 —— 以 TeXStudio 为例</div>
+
+<h3>为什么选 TeXStudio？</h3>
+<p>LaTeX 发行版只提供了<strong>编译器</strong>（把 .tex 转成 .pdf 的引擎），你还需要一个<strong>编辑器</strong>来写代码。TeXStudio 是最受欢迎的免费编辑器，自带：</p>
 <ul>
-<li><strong>设置默认编译器</strong>：Options → Configure TeXStudio → Build → Default Compiler → 选择 XeLaTeX（支持中文）</li>
-<li><strong>开启实时预览</strong>：Options → Configure TeXStudio → Internal PDF Viewer → 勾选实时更新</li>
-<li><strong>中文界面</strong>：Options → Configure TeXStudio → General → Language → 中文（Chinese）</li>
+    <li>语法高亮和自动补全</li>
+    <li>实时预览面板</li>
+    <li>错误提示和快速修复</li>
+    <li>集成 PDF 阅读器</li>
 </ul>
 
-<h3>测试第一个 LaTeX 文档</h3>
-<p>打开 TeXStudio，输入以下内容，按 F5 编译：</p>
-
-<pre><code>\documentclass{article}
-\usepackage[UTF8]{ctex}
-\title{我的第一篇 LaTeX 文档}
-\author{Guyi}
-\date{\today}
-\begin{document}
-\maketitle
-Hello, \LaTeX! 这是我的第一篇文章。
-\end{document}
-</code></pre>
-
-<p>如果右侧 PDF 预览区成功显示标题和内容，恭喜你，LaTeX 环境搭建成功！</p>
-
-<hr>
-
-<h2>四、AI 提示词 + 命令行快速编译</h2>
-
-<h3>用 AI 帮你写 LaTeX</h3>
-
-<p>现在有了 ChatGPT / Claude，写 LaTeX 变得极其简单。以下是几个万能 prompt：</p>
-
-<h4>Prompt 1：生成完整论文模板</h4>
-<pre><code>请帮我写一篇 IEEE 会议论文的 LaTeX 模板，包含：
-- 标题、作者、摘要
-- 三个章节（引言、方法、实验）
-- 一个表格、一个公式、一张图片的引用
-- 参考文献（使用 BibTeX）
-使用中文撰写。</code></pre>
-
-<h4>Prompt 2：公式转 LaTeX</h4>
-<pre><code>请将以下数学公式转换为 LaTeX 代码：
-勾股定理、泰勒展开、高斯积分、贝叶斯公式</code></pre>
-
-<h4>Prompt 3：表格生成</h4>
-<pre><code>请用 LaTeX 生成一个 5 行 4 列的表格，内容如下：
-姓名 | 年龄 | 专业 | 成绩
-要求带边框、居中对齐、首行加粗。</code></pre>
-
-<h4>Prompt 4：排版调试</h4>
-<pre><code>我的 LaTeX 编译报错：Undefined control sequence \xxxxx
-请帮我分析原因并给出修复方案。完整代码如下：
-[粘贴你的 .tex 代码]</code></pre>
-
-<h3>命令行快速编译</h3>
-
-<p>不打开 GUI 编辑器，直接在终端编译：</p>
-
-<pre><code># 基本编译（生成 PDF）
-xelatex myfile.tex
-
-# 编译两次（解决引用和目录）
-xelatex myfile.tex
-xelatex myfile.tex
-
-# 使用 latexmk 自动判断编译次数
-latexmk -xelatex myfile.tex
-
-# 清理中间文件
-latexmk -c myfile.tex
-
-# 一键编译并打开 PDF（Mac）
-xelatex myfile.tex &amp;&amp; open myfile.pdf
-
-# 一键编译并打开 PDF（Windows PowerShell）
-xelatex myfile.tex; Start-Process myfile.pdf</code></pre>
-
-<hr>
-
-<h2>五、进阶内容</h2>
-
-<h3>pdflatex vs xelatex：该用哪个？</h3>
-
-<table border="1" cellpadding="8">
-<tr><th>特性</th><th>pdflatex</th><th>xelatex</th></tr>
-<tr><td>中文支持</td><td>需额外配置</td><td>原生支持（配合 ctex 宏包）</td></tr>
-<tr><td>字体支持</td><td>仅限 TeX 内置字体</td><td>可直接使用系统字体</td></tr>
-<tr><td>Unicode</td><td>部分支持</td><td>完全支持</td></tr>
-<tr><td>编译速度</td><td>稍快</td><td>稍慢（可忽略）</td></tr>
-<tr><td>适用场景</td><td>纯英文文档</td><td>中文文档 / 多语言文档</td></tr>
+<h3>下载与安装</h3>
+<table>
+    <thead>
+        <tr><th>平台</th><th>下载地址</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>All</td><td><a href="https://texstudio.org/" target="_blank">texstudio.org</a></td></tr>
+    </tbody>
 </table>
 
-<p><strong>结论：直接用 xelatex，中文英文都通吃。</strong></p>
+<p>安装后首次打开 TeXStudio，需要配置编译器：</p>
+<ol>
+    <li>菜单栏 → <code>Options</code> → <code>Configure TeXStudio</code></li>
+    <li>在 <code>Build</code> 选项卡中设置：</li>
+</ol>
+<pre><code>Default Compiler: PdfLaTeX
+Default Bibliography Tool: BibTeX
+Default Viewer: Internal PDF Viewer</code></pre>
 
-<h3>中文 LaTeX 编写规则</h3>
+<h3>快速验证</h3>
+<p>在 TeXStudio 中新建文件，输入以下代码，然后按 <code>F5</code> 编译：</p>
+<pre><code>\documentclass{article}
+\usepackage[UTF8]{ctex}
 
-<h4>最小中文文档模板</h4>
-<pre><code>\documentclass[UTF8]{ctexart}
+\title{我的第一篇 LaTeX 文档}
+\author{Your Name}
+\date{\today}
+
 \begin{document}
-这是一段中文。English text is also OK.
-\end{document}
-</code></pre>
+\maketitle
 
-<h4>中英文混排注意事项</h4>
+Hello, World! 你好，世界！
+
+这是我的第一篇 LaTeX 文档。
+
+\end{document}</code></pre>
+
+<p>如果成功生成 PDF，说明环境搭建完成！🎉</p>
+
+<div class="step-title">Step 4：AI 辅助写作 & 命令行编译</div>
+
+<h3>AI 写 LaTeX 的 Prompt 模板</h3>
+<p>现在你可以让 AI 帮你生成 LaTeX 代码了。以下是一些实用的 Prompt：</p>
+
+<p><strong>生成论文模板：</strong></p>
+<pre><code>请为我生成一个 IEEE 论文的 LaTeX 模板，包含：
+- 标题、作者、摘要、关键词
+- 引言、相关工作、方法、实验、结论五个章节
+- 参考文献（使用 .bib 文件）
+- 表格和图片占位符</code></pre>
+
+<p><strong>生成表格：</strong></p>
+<pre><code>请帮我把这个表格转换成 LaTeX 代码：
+[粘贴你的表格数据]
+要求：使用 booktabs 包，带三线表样式</code></pre>
+
+<p><strong>生成数学公式：</strong></p>
+<pre><code>请为我写出以下公式的 LaTeX 代码：
+1. 贝叶斯定理
+2. 损失函数 L = 1/n Σ(yi - ŷi)²
+3. 带有上下标的积分表达式</code></pre>
+
+<p><strong>修复编译错误：</strong></p>
+<pre><code>我在编译 LaTeX 时遇到以下错误，请帮我修复：
+[粘贴错误信息]
+这是我的代码：
+[粘贴相关代码]</code></pre>
+
+<h3>命令行快速编译</h3>
+<p>如果你不想用 TeXStudio，可以直接在终端编译：</p>
+
+<p><strong>基础编译：</strong></p>
+<pre><code># 编译单个文件
+pdflatex main.tex
+
+# 如果有参考文献，按顺序执行四次
+pdflatex main.tex
+bibtex main
+pdflatex main.tex
+pdflatex main.tex</code></pre>
+
+<p><strong>使用 latexmk（自动判断编译次数）：</strong></p>
+<pre><code># 自动处理所有依赖，生成 PDF
+latexmk -pdf main.tex
+
+# 清理中间文件
+latexmk -c main.tex</code></pre>
+
+<p><strong>实时预览（修改后自动编译）：</strong></p>
+<pre><code># 每次保存后自动重新编译
+latexmk -pvc -pdf main.tex</code></pre>
+
+<div class="step-title">Step 5：进阶内容</div>
+
+<h3>pdflatex vs xelatex 的区别</h3>
+<table>
+    <thead>
+        <tr><th>特性</th><th>pdflatex</th><th>xelatex</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>编码支持</strong></td><td>需要额外配置 UTF-8</td><td>原生 UTF-8 支持</td></tr>
+        <tr><td><strong>中文字体</strong></td><td>需配合 CTeX 宏包</td><td>可直接调用系统字体</td></tr>
+        <tr><td><strong>字体嵌入</strong></td><td>仅支持 Type1/OTF</td><td>支持所有系统字体（TTF/OTF）</td></tr>
+        <tr><td><strong>编译速度</strong></td><td>较快</td><td>稍慢</td></tr>
+        <tr><td><strong>Unicode</strong></td><td>有限支持</td><td>完整支持</td></tr>
+    </tbody>
+</table>
+
+<div class="info-box">
+    <strong>💡 推荐</strong>：写<strong>中文文档</strong>用 <code>xelatex</code>；写<strong>纯英文文档</strong>用 <code>pdflatex</code>（速度更快）。
+</div>
+
+<h3>中英文 LaTeX 编写规则</h3>
+
+<p><strong>中文文档的基本配置：</strong></p>
+<pre><code>\documentclass[12pt,a4paper]{article}
+\usepackage[UTF8]{ctex}       % 中文支持（pdflatex）
+% 或者使用 xelatex，无需额外配置
+
+\begin{document}
+你好，世界！这是一个中文文档。
+\end{document}</code></pre>
+
+<p><strong>中英文混排规则：</strong></p>
 <ul>
-<li>使用 <code>ctex</code> 宏包或 <code>ctexart</code> 文档类</li>
-<li>编译器必须用 xelatex，不要用 pdflatex</li>
-<li>中英文之间自动加空格：<code>\usepackage{xeCJK}</code> 会自动处理</li>
-<li>引号：<code>``中文引号''</code> → "中文引号"</li>
-<li>破折号：直接输入中文破折号即可</li>
+    <li>中英文之间需要加<strong>空格</strong>（LaTeX 会自动处理间距，但建议手动加）</li>
+    <li>中文标点符号后不需要加空格</li>
+    <li>英文专有名词首字母大写</li>
 </ul>
 
-<h3>实用指令速查表</h3>
+<pre><code>% 推荐写法
+深度学习（Deep Learning）是机器学习的一个分支。
 
-<table border="1" cellpadding="8">
-<tr><th>功能</th><th>指令</th></tr>
-<tr><td>加粗</td><td><code>\textbf{文字}</code></td></tr>
-<tr><td>斜体</td><td><code>\textit{文字}</code></td></tr>
-<tr><td>下划线</td><td><code>\underline{文字}</code></td></tr>
-<tr><td>无序列表</td><td><code>\begin{itemize} \item 项目 \end{itemize}</code></td></tr>
-<tr><td>有序列表</td><td><code>\begin{enumerate} \item 项目 \end{enumerate}</code></td></tr>
-<tr><td>插入图片</td><td><code>\includegraphics[width=0.8\textwidth]{image.png}</code></td></tr>
-<tr><td>行内公式</td><td><code>$E = mc^2$</code></td></tr>
-<tr><td>行间公式</td><td><code>\[ \int_0^\infty e^{-x} dx = 1 \]</code></td></tr>
-<tr><td>章节标题</td><td><code>\section{标题}</code> / <code>\subsection{子标题}</code></td></tr>
-<tr><td>脚注</td><td><code>\footnote{脚注内容}</code></td></tr>
-<tr><td>超链接</td><td><code>\usepackage{hyperref}</code> + <code>\url{https://example.com}</code></td></tr>
-<tr><td>引用文献</td><td><code>\cite{bibkey}</code></td></tr>
-<tr><td>代码高亮</td><td><code>\usepackage{listings}</code></td></tr>
+% 避免写法
+深度学习（Deep Learning）是机器学习的一个分支（没有空格）。</code></pre>
+
+<p><strong>中文字体设置（xelatex）：</strong></p>
+<pre><code>\usepackage{xeCJK}
+\setCJKmainfont{Songti SC}       % 正文字体：宋体
+\setCJKsansfont{Heiti SC}        % 无衬线：黑体
+\setCJKmonofont{Kaiti SC}        % 等宽：楷体</code></pre>
+
+<h3>实用指令速查</h3>
+
+<table>
+    <thead>
+        <tr><th>功能</th><th>指令</th><th>说明</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>换页</td><td><code>\newpage</code></td><td>强制换页</td></tr>
+        <tr><td>换行</td><td><code>\\</code> 或 <code>\newline</code></td><td>同一段内换行</td></tr>
+        <tr><td>分段</td><td>空一行</td><td>自动缩进</td></tr>
+        <tr><td>粗体</td><td><code>\textbf{文字}</code></td><td>加粗</td></tr>
+        <tr><td>斜体</td><td><code>\textit{文字}</code></td><td>斜体</td></tr>
+        <tr><td>下划线</td><td><code>\underline{文字}</code></td><td>下划线</td></tr>
+        <tr><td>引用</td><td><code>\cite{key}</code></td><td>插入参考文献引用</td></tr>
+        <tr><td>脚注</td><td><code>\footnote{内容}</code></td><td>添加脚注</td></tr>
+        <tr><td>代码块</td><td><code>\begin{verbatim}...\end{verbatim}</code></td><td>原样输出代码</td></tr>
+        <tr><td>无序列表</td><td><code>\begin{itemize}...\end{itemize}</code></td><td>使用 \item</td></tr>
+        <tr><td>有序列表</td><td><code>\begin{enumerate}...\end{enumerate}</code></td><td>自动编号</td></tr>
+        <tr><td>插入图片</td><td><code>\includegraphics[width=0.8\textwidth]{img.png}</code></td><td>需 graphicx 包</td></tr>
+        <tr><td>居中</td><td><code>\begin{center}...\end{center}</code></td><td>居中对齐</td></tr>
+    </tbody>
 </table>
 
 <h3>推荐宏包</h3>
-<pre><code>\usepackage{ctex}          % 中文支持
-\usepackage{graphicx}      % 插入图片
-\usepackage{amsmath}       % 数学公式增强
-\usepackage{hyperref}      % 超链接
-\usepackage{listings}      % 代码高亮
-\usepackage{geometry}      % 页面边距设置
-\usepackage{booktabs}      % 专业表格（三线表）
-\usepackage{cite}          % 参考文献优化</code></pre>
+<table>
+    <thead>
+        <tr><th>宏包</th><th>用途</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><code>ctex</code></td><td>中文支持（一站式解决方案）</td></tr>
+        <tr><td><code>amsmath</code></td><td>高级数学公式</td></tr>
+        <tr><td><code>graphicx</code></td><td>插入图片</td></tr>
+        <tr><td><code>booktabs</code></td><td>三线表（专业表格）</td></tr>
+        <tr><td><code>hyperref</code></td><td>超链接和 PDF 书签</td></tr>
+        <tr><td><code>geometry</code></td><td>页面边距设置</td></tr>
+        <tr><td><code>fancyhdr</code></td><td>自定义页眉页脚</td></tr>
+        <tr><td><code>listings</code></td><td>代码高亮</td></tr>
+    </tbody>
+</table>
 
-<hr>
+<h2>结语</h2>
+<p>LaTeX 的学习曲线确实比 Word 陡，但一旦上手，你会发现它是<strong>写长文档的最佳工具</strong>。配合 AI 辅助（让 AI 帮你生成代码、修复错误），入门门槛已经大幅降低。</p>
+<p>建议从一个小项目开始：用 LaTeX 写一篇读书笔记或课程报告，边写边学。祝你排版愉快！</p>
 
-<h2>总结</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<p>LaTeX 的学习曲线确实比 Word 陡，但一旦上手，排版效率和质量都会大幅提升。加上 AI 工具的辅助，入门门槛已经大大降低。</p>
+        <footer class="main-footer alternate">
+            <div class="auto-container">
+                <div class="footer-bottom">
+                    <div class="copyright">Copyright &copy; 2025 <a href="index.html">俗人的技术博客</a>. All rights reserved.</div>
+                </div>
+            </div>
+        </footer>
+    </div>
 
-<p><strong>快速上手路线图</strong>：</p>
-<ol>
-<li>安装发行版（TeX Live / MacTeX）</li>
-<li>安装 TeXStudio</li>
-<li>复制一个模板，按 F5 编译</li>
-<li>遇到问题用 AI prompt 解决</li>
-<li>逐渐掌握进阶用法</li>
-</ol>
-
-<p>祝你排版愉快 ✨</p>
-
+    <script src="js/jquery.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery.fancybox.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/validate.js"></script>
+    <script src="js/script.js"></script>
 </body>
+
 </html>
