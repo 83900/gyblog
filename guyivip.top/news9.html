@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>OpenAI Codex CLI：终端里的 AI 编程助手 - Seek4nothing技术博客</title>
+    <meta name="description" content="OpenAI Codex CLI 是 OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在你的命令行中运行。它能理解你的代码库、执行代码修改、运行测试，就像一个坐在你身边的结对编程伙伴。">
+    <meta name="keywords" content="OpenAI,Codex CLI,终端编程助手,Rust,AI编程,命令行工具,代码助手,开发工具">
+    <meta name="author" content="Seek4nothing">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="OpenAI Codex CLI：终端里的 AI 编程助手">
+    <meta property="og:description" content="OpenAI Codex CLI 是 OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在你的命令行中运行。它能理解你的代码库、执行代码修改、运行测试，就像一个坐在你身边的结对编程伙伴。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://guyivip.top/news9.html">
+    <meta property="og:image" content="https://guyivip.top/images/resource/news9.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OpenAI Codex CLI：终端里的 AI 编程助手">
+    <meta name="twitter:description" content="OpenAI Codex CLI 是 OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在你的命令行中运行。它能理解你的代码库、执行代码修改、运行测试，就像一个坐在你身边的结对编程伙伴。">
+    <link rel="canonical" href="https://guyivip.top/news9.html">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "OpenAI Codex CLI：终端里的 AI 编程助手",
+      "description": "OpenAI Codex CLI 是 OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在你的命令行中运行。它能理解你的代码库、执行代码修改、运行测试，就像一个坐在你身边的结对编程伙伴。",
+      "url": "https://guyivip.top/news9.html",
+      "datePublished": "2025-04-20",
+      "dateModified": "2025-04-20",
+      "author": {
+        "@type": "Person",
+        "name": "Seek4nothing"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Seek4nothing技术博客",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://guyivip.top/images/logo.png"
+        }
+      },
+      "image": "https://guyivip.top/images/resource/news9.svg",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://guyivip.top/news9.html"
+      }
+    }
+    </script>
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+    <div class="page-wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+        <!-- Main Header-->
+        <header class="main-header">
+
+            <!--Header-Upper-->
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="outer-container clearfix">
+                        <!--Logo Outer-->
+                        <div class="logo-outer">
+                            <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                        </div>
+
+                        <div class="top-left info-block left-aligned">
+                            <div class="inner">
+                                <!-- Hidden Nav Toggler -->
+                                <div class="nav-toggler">
+                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img
+                                                src="images/icons/menu-icon.png" alt="" /></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-right info-block right-aligned">
+                            <!--Search Box-->
+                            <div class="search-box-outer">
+                                <div class="dropdown">
+                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
+                                        data-bs-toggle="dropdown" aria-expanded="false"><img
+                                            src="images/icons/search-icon.png" alt="" /></button>
+                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                        <li class="panel-outer">
+                                            <div class="form-container">
+                                                <form method="post" action="blog.html">
+                                                    <div class="form-group">
+                                                        <input type="search" name="field-name" value=""
+                                                            placeholder="Search Here" required="">
+                                                        <button type="submit" class="search-btn"><span
+                                                                class="fa fa-search"></span></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Header Upper-->
+
+            <div class="header-lower">
+                <div class="auto-container">
+                    <div class="nav-outer clearfix">
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md">
+                            <div class="navbar-header">
+                                <!-- Toggle Button -->
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                                <!--Nav-->
+                                <ul class="navigation clearfix">
+                                    <li class="current dropdown"><a href="./index.html">Home</a>
+                                    <li><a href="post-side.html">Categories</a></li>
+                                    <li><a href="about.html">About Me</a></li>
+                                    <li><a href="resources.html">Resources</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu  -->
+            <div class="mobile-menu">
+                <div class="menu-backdrop"></div>
+                <div class="close-btn"><span class="icon fa-remove"></span></div>
+
+                <nav class="menu-box">
+                    <div class="nav-logo"><a href="index.html"><img src="images/logo-small.png" alt="" title=""></a>
+                    </div>
+                    <div class="menu-outer">
+                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                    </div>
+                </nav>
+            </div>
+            <!-- End Mobile Menu -->
+
+        </header>
+        <!--End Main Header -->
+
+
+        <div class="auto-container">
+            <div class="back-home" style="margin: 12px 0 6px;">
+                <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; color:#6b7280; text-decoration:none;">← 返回主页</a>
+            </div>
+            <div class="row clearfix">
+
+                <!--Content Side / News Single-->
+                <div class="content-inner">
+                    <!--Page Title-->
+                    <div class="sec-title">
+                        <div class="title">TECH</div>
+                        <h2>OpenAI Codex CLI：终端里的 AI 编程助手</h2>
+                        <div class="post-date">April 20, 2025</div>
+                    </div>
+
+                    <!--News Detail-->
+                    <div class="news-detail">
+                        <div class="inner-box">
+                            <div class="lower-content">
+                                <div class="text">
+
+                                    <p>
+                                        <b style="font-size: 1.3rem;">
+                                            OpenAI Codex CLI 简介
+                                        </b>
+                                    </p>
+                                    <p>
+                                        OpenAI Codex CLI 是 OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在你的命令行中运行。它能理解你的代码库、执行代码修改、运行测试，就像一个坐在你身边的结对编程伙伴。
+                                    </p>
+
+                                    <blockquote>
+                                        核心亮点
+                                    </blockquote>
+
+                                    <p>
+                                        - 76,000+ GitHub Stars，Apache-2.0 开源协议<br>
+                                        - Rust 编写，启动快、内存占用低<br>
+                                        - 支持 ChatGPT 订阅直接登录使用<br>
+                                        - 可以读取、修改代码，执行 shell 命令<br>
+                                        - 支持 VS Code、Cursor 等 IDE 集成
+                                    </p>
+
+                                    <blockquote>
+                                        安装方式
+                                    </blockquote>
+
+                                    <p>
+                                        <b>Quickstart:</b>
+                                    </p>
+                                    <pre style="background:#f5f5f5; padding:15px; border-radius:5px; overflow-x:auto;"><code># 使用 npm 安装
+npm install -g @openai/codex
+
+# 或使用 Homebrew
+brew install --cask codex
+
+# 启动
+codex</code></pre>
+
+                                    <blockquote>
+                                        核心功能
+                                    </blockquote>
+
+                                    <p>
+                                        - 代码理解：读取整个代码库，理解项目结构<br>
+                                        - 代码修改：根据指令自动修改代码文件<br>
+                                        - 测试运行：自动执行测试并修复失败用例<br>
+                                        - Git 操作：自动处理 git 工作流（提交、分支等）<br>
+                                        - 终端交互：直接在终端中完成所有操作
+                                    </p>
+
+                                    <blockquote>
+                                        适用场景
+                                    </blockquote>
+
+                                    <p>
+                                        - 开发者日常编码辅助<br>
+                                        - 代码重构和迁移<br>
+                                        - Bug 修复和调试<br>
+                                        - 快速原型开发
+                                    </p>
+
+                                    <blockquote>
+                                        与 Claude Code 的区别
+                                    </blockquote>
+
+                                    <p>
+                                        Codex CLI 和 Claude Code 是同类产品，都致力于在终端中提供 AI 编程助手体验。Codex 更加轻量，适合喜欢命令行工作流的开发者。
+                                    </p>
+
+                                    <p>
+                                        GitHub: <a href="https://github.com/openai/codex">https://github.com/openai/codex</a>
+                                    </p>
+
+                                    <blockquote>
+                                        完
+                                    </blockquote>
+
+                                    <p>
+                                        <i>
+                                            参考资料：<br>
+                                            - OpenAI Codex CLI GitHub：<a href="https://github.com/openai/codex">github.com/openai/codex</a><br>
+                                            - OpenAI 官方博客：<a href="https://openai.com/blog">openai.com/blog</a>
+                                        </i>
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+    </div>
+
+
+
+
+    <!--Main Footer-->
+    <div class="main-footer">
+        <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
+    </div>
+    <!--Main Footer-->
+
+    </div>
+    <!--End pagewrapper-->
+
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.fancybox-media.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

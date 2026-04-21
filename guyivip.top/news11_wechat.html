@@ -1,0 +1,291 @@
+<html>
+<head><meta charset="UTF-8"></head>
+<body>
+<!-- 
+使用方法：全选复制（Ctrl+A → Ctrl+C），粘贴到微信公众号编辑器（Ctrl+V）
+封面建议：LaTeX logo 图片或排版对比图
+-->
+
+<div style="text-align:center; margin:20px 0;">
+<h1 style="font-size:22px; font-weight:bold; color:#333;">Mac 与 Windows 从零部署本地 LaTeX 完整教程</h1>
+<p style="color:#999; font-size:14px;">Guyi · 2025.04.20</p>
+</div>
+
+<hr style="border:none; border-top:1px solid #ddd; margin:20px 0;">
+
+<div style="background:#f0f7ff; border-left:4px solid #4a90d9; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>📖 导言</strong><br><br>
+作为一个经常和论文打交道的人，我曾经也是 Word 的忠实用户——直到某次改参考文献格式改了整整一下午，才下定决心学 LaTeX。入门的时候确实痛苦，对着一堆反斜杠和花括号一脸懵，但撑过前三天之后，回头看 Word 排版论文的那种体验，就像从智能手机回到翻盖手机一样。<br><br>
+这篇教程是我在 Mac 和 Windows 上反复折腾后总结出来的部署指南。不管你是理工科写论文、还是单纯想让文档排版更专业，跟着走一遍，半小时就能跑起来。
+</p>
+</div>
+
+<div style="background:#fffbe6; border-left:4px solid #faad14; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>⚠️ ATTENTION</strong><br><br>
+安装 LaTeX 发行版大约需要 4GB 磁盘空间。如果网络环境受限，可以使用 MiKTeX（基础版仅 200MB，按需下载宏包）。
+</p>
+</div>
+
+<!-- ====== 第一章 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 1 — 为什么要用 LaTeX？</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p>很多人第一次听到 LaTeX 的反应是："Word 不够用吗？" 答案取决于你要写什么。</p>
+
+<p><strong>LaTeX 的优势：</strong></p>
+<ol>
+<li><strong>排版质量碾压 Word</strong> — LaTeX 由专业排版引擎驱动，公式、参考文献、目录的生成都是全自动的。你写论文时不用手动调格式，引擎帮你处理一切。</li>
+<li><strong>数学公式原生支持</strong> — Word 里插入公式需要点菜单、用鼠标选符号。LaTeX 里直接写 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">$E = mc^2$</span>，又快又好看。</li>
+<li><strong>参考文献管理自动化</strong> — 配合 BibTeX，引用文献只需要一个命令 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">\cite{key}</span>，列表自动生成。</li>
+<li><strong>版本控制友好</strong> — LaTeX 源文件是纯文本，可以用 Git 管理版本、多人协作。</li>
+<li><strong>跨平台一致性</strong> — 同样的 .tex 文件，在 Mac、Windows、Linux 上编译结果完全一致。</li>
+<li><strong>学术界事实标准</strong> — 绝大多数理工科期刊、会议论文都要求或推荐 LaTeX 格式。</li>
+</ol>
+
+<p><strong>LaTeX 的弊端：</strong></p>
+<ol>
+<li>学习曲线陡峭，入门需要记住基本语法</li>
+<li>不是"所见即所得"，需要编译后才能看到效果</li>
+<li>图形化排版（拖拽图片位置）比较困难</li>
+<li>协作门槛高，团队里有人不会就很难配合</li>
+</ol>
+
+<p><strong>一句话总结：</strong>写论文、技术文档 → 用 LaTeX。写简历、简单报告 → 用 Word。</p>
+</div>
+
+<!-- ====== 第二章 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 2 — 下载 LaTeX 发行版</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p>LaTeX 本身是一套排版语言，需要一个「发行版」来提供编译器和宏包。就像 Python 需要解释器一样。</p>
+
+<table style="width:100%; border-collapse:collapse; margin:15px 0; font-size:14px;">
+<tr style="background:#f5f5f5;">
+<td style="border:1px solid #ddd; padding:10px; font-weight:bold;">发行版</td>
+<td style="border:1px solid #ddd; padding:10px; font-weight:bold;">平台</td>
+<td style="border:1px solid #ddd; padding:10px; font-weight:bold;">大小</td>
+<td style="border:1px solid #ddd; padding:10px; font-weight:bold;">推荐</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd; padding:10px;">TeX Live</td>
+<td style="border:1px solid #ddd; padding:10px;">全平台</td>
+<td style="border:1px solid #ddd; padding:10px;">~4GB</td>
+<td style="border:1px solid #ddd; padding:10px;">跨平台首选</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd; padding:10px;">MacTeX</td>
+<td style="border:1px solid #ddd; padding:10px;">仅 Mac</td>
+<td style="border:1px solid #ddd; padding:10px;">~4GB</td>
+<td style="border:1px solid #ddd; padding:10px;">Mac 用户专用</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd; padding:10px;">MiKTeX</td>
+<td style="border:1px solid #ddd; padding:10px;">全平台</td>
+<td style="border:1px solid #ddd; padding:10px;">~200MB</td>
+<td style="border:1px solid #ddd; padding:10px;">轻量级，按需下载</td>
+</tr>
+</table>
+
+<p><strong>下载地址：</strong></p>
+<ul>
+<li>TeX Live（Windows/Linux）：https://www.tug.org/texlive/</li>
+<li>MacTeX（Mac）：https://www.tug.org/mactex/</li>
+<li>MiKTeX：https://miktex.org/download</li>
+</ul>
+
+<p><strong>安装建议：</strong></p>
+<ul>
+<li>Mac 用户直接下载 MacTeX，安装包自带 TeX Live + 几个 GUI 工具</li>
+<li>Windows 用户推荐 TeX Live（稳定完整）或 MiKTeX（轻量）</li>
+<li>安装时选择「完整安装」，避免后面缺宏包</li>
+</ul>
+</div>
+
+<!-- ====== 第三章 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 3 — 安装 TeXStudio 编辑器</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p>发行版只是编译器，写代码还需要一个编辑器。推荐 <strong>TeXStudio</strong> —— 免费、开源、跨平台、功能强大。</p>
+<p>下载地址：https://texstudio.org/</p>
+
+<p><strong>Windows 安装：</strong></p>
+<ol>
+<li>下载 texstudio-x.x.x-win-qt6.exe</li>
+<li>双击安装，一路 Next</li>
+<li>首次打开会自动检测已安装的 TeX Live / MiKTeX</li>
+<li>验证：Help → Check LaTeX Installation，应显示绿色对勾</li>
+</ol>
+
+<p><strong>Mac 安装：</strong></p>
+<ol>
+<li>下载 texstudio-x.x.x-osx.dmg</li>
+<li>拖入 Applications 文件夹</li>
+<li>首次打开可能需要在系统设置中允许</li>
+</ol>
+
+<p><strong>TeXStudio 基础配置：</strong></p>
+<ul>
+<li>默认编译器设为 XeLaTeX（支持中文）：Options → Build → Default Compiler</li>
+<li>开启实时预览：Options → Internal PDF Viewer → 勾选实时更新</li>
+<li>中文界面：Options → General → Language → 中文</li>
+</ul>
+
+<p><strong>测试第一个文档</strong>（按 F5 编译）：</p>
+
+<div style="background:#f5f5f5; border-radius:8px; padding:15px; margin:15px 0; font-family:monospace; font-size:13px; line-height:1.6; white-space:pre; overflow-x:auto;">\documentclass{article}
+\usepackage[UTF8]{ctex}
+\title{我的第一篇 LaTeX 文档}
+\author{Guyi}
+\date{\today}
+\begin{document}
+\maketitle
+Hello, \LaTeX! 这是我的第一篇文章。
+\end{document}</div>
+
+<p>如果右侧 PDF 预览区成功显示内容，环境搭建成功！</p>
+</div>
+
+<!-- ====== 第四章 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 4 — AI 提示词 + 命令行编译</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p><strong>用 AI 帮你写 LaTeX：</strong> 以下是几个万能 prompt：</p>
+
+<p><strong>Prompt 1 — 生成完整论文模板：</strong></p>
+<div style="background:#f0f7ff; border-radius:8px; padding:12px; margin:10px 0; font-size:13px; line-height:1.6;">
+请帮我写一篇 IEEE 会议论文的 LaTeX 模板，包含：<br>
+- 标题、作者、摘要<br>
+- 三个章节（引言、方法、实验）<br>
+- 一个表格、一个公式、一张图片的引用<br>
+- 参考文献（使用 BibTeX）<br>
+使用中文撰写。
+</div>
+
+<p><strong>Prompt 2 — 公式转 LaTeX：</strong></p>
+<div style="background:#f0f7ff; border-radius:8px; padding:12px; margin:10px 0; font-size:13px; line-height:1.6;">
+请将以下数学公式转换为 LaTeX 代码：<br>
+勾股定理、泰勒展开、高斯积分、贝叶斯公式
+</div>
+
+<p><strong>Prompt 3 — 表格生成：</strong></p>
+<div style="background:#f0f7ff; border-radius:8px; padding:12px; margin:10px 0; font-size:13px; line-height:1.6;">
+请用 LaTeX 生成一个 5 行 4 列的表格，内容如下：<br>
+姓名 | 年龄 | 专业 | 成绩<br>
+要求带边框、居中对齐、首行加粗。
+</div>
+
+<p><strong>命令行快速编译：</strong></p>
+<div style="background:#f5f5f5; border-radius:8px; padding:15px; margin:15px 0; font-family:monospace; font-size:13px; line-height:1.8; white-space:pre;"># 基本编译
+xelatex myfile.tex
+
+# 编译两次（解决引用和目录）
+xelatex myfile.tex &amp;&amp; xelatex myfile.tex
+
+# 自动判断编译次数
+latexmk -xelatex myfile.tex
+
+# 清理中间文件
+latexmk -c myfile.tex
+
+# 一键编译并打开（Mac）
+xelatex myfile.tex &amp;&amp; open myfile.pdf</div>
+</div>
+
+<!-- ====== 第五章 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 5 — 进阶：编译器区别与实用指令</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p><strong>pdflatex vs xelatex：</strong></p>
+
+<table style="width:100%; border-collapse:collapse; margin:15px 0; font-size:14px;">
+<tr style="background:#f5f5f5;">
+<td style="border:1px solid #ddd; padding:10px; font-weight:bold;">特性</td>
+<td style="border:1px solid #ddd; padding:10px; font-weight:bold;">pdflatex</td>
+<td style="border:1px solid #ddd; padding:10px; font-weight:bold;">xelatex</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd; padding:10px;">中文支持</td>
+<td style="border:1px solid #ddd; padding:10px;">需额外配置</td>
+<td style="border:1px solid #ddd; padding:10px;">原生支持</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd; padding:10px;">字体支持</td>
+<td style="border:1px solid #ddd; padding:10px;">仅 TeX 内置</td>
+<td style="border:1px solid #ddd; padding:10px;">可使用系统字体</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd; padding:10px;">Unicode</td>
+<td style="border:1px solid #ddd; padding:10px;">部分支持</td>
+<td style="border:1px solid #ddd; padding:10px;">完全支持</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd; padding:10px;">适用场景</td>
+<td style="border:1px solid #ddd; padding:10px;">纯英文文档</td>
+<td style="border:1px solid #ddd; padding:10px;">中文 / 多语言</td>
+</tr>
+</table>
+
+<p><strong>结论：直接用 xelatex，中文英文都通吃。</strong></p>
+
+<p><strong>中文 LaTeX 最小模板：</strong></p>
+<div style="background:#f5f5f5; border-radius:8px; padding:15px; margin:15px 0; font-family:monospace; font-size:13px; line-height:1.6; white-space:pre;">\documentclass[UTF8]{ctexart}
+\begin{document}
+这是一段中文。English text is also OK.
+\end{document}</div>
+
+<p><strong>实用指令速查表：</strong></p>
+
+<table style="width:100%; border-collapse:collapse; margin:15px 0; font-size:14px;">
+<tr style="background:#f5f5f5;">
+<td style="border:1px solid #ddd; padding:10px; font-weight:bold;">功能</td>
+<td style="border:1px solid #ddd; padding:10px; font-weight:bold;">指令</td>
+</tr>
+<tr><td style="border:1px solid #ddd; padding:10px;">加粗</td><td style="border:1px solid #ddd; padding:10px; font-family:monospace;">\textbf{文字}</td></tr>
+<tr><td style="border:1px solid #ddd; padding:10px;">斜体</td><td style="border:1px solid #ddd; padding:10px; font-family:monospace;">\textit{文字}</td></tr>
+<tr><td style="border:1px solid #ddd; padding:10px;">行内公式</td><td style="border:1px solid #ddd; padding:10px; font-family:monospace;">$E = mc^2$</td></tr>
+<tr><td style="border:1px solid #ddd; padding:10px;">行间公式</td><td style="border:1px solid #ddd; padding:10px; font-family:monospace;">\[ \int_0^\infty e^{-x} dx = 1 \]</td></tr>
+<tr><td style="border:1px solid #ddd; padding:10px;">插入图片</td><td style="border:1px solid #ddd; padding:10px; font-family:monospace;">\includegraphics[width=0.8\textwidth]{img.png}</td></tr>
+<tr><td style="border:1px solid #ddd; padding:10px;">引用文献</td><td style="border:1px solid #ddd; padding:10px; font-family:monospace;">\cite{bibkey}</td></tr>
+<tr><td style="border:1px solid #ddd; padding:10px;">代码高亮</td><td style="border:1px solid #ddd; padding:10px; font-family:monospace;">\usepackage{listings}</td></tr>
+</table>
+
+<p><strong>推荐宏包：</strong></p>
+<div style="background:#f5f5f5; border-radius:8px; padding:15px; margin:15px 0; font-family:monospace; font-size:13px; line-height:1.8; white-space:pre;">\usepackage{ctex}          % 中文支持
+\usepackage{graphicx}      % 插入图片
+\usepackage{amsmath}       % 数学公式增强
+\usepackage{hyperref}      % 超链接
+\usepackage{listings}      % 代码高亮
+\usepackage{geometry}      % 页面边距
+\usepackage{booktabs}      % 专业表格</div>
+</div>
+
+<hr style="border:none; border-top:1px solid #ddd; margin:30px 0;">
+
+<div style="background:#f6ffed; border-left:4px solid #52c41a; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>💡 总结</strong><br><br>
+LaTeX 的学习曲线确实比 Word 陡，但一旦上手，排版效率和质量都会大幅提升。加上 AI 工具的辅助，入门门槛已经大大降低。<br><br>
+<strong>快速上手路线图：</strong><br>
+1. 安装发行版（TeX Live / MacTeX）<br>
+2. 安装 TeXStudio<br>
+3. 复制一个模板，按 F5 编译<br>
+4. 遇到问题用 AI prompt 解决<br>
+5. 逐渐掌握进阶用法<br><br>
+祝你排版愉快 ✨
+</p>
+</div>
+
+</body>
+</html>

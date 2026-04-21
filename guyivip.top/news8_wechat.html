@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+
+<!-- 微信公众号文章 - DeepSeek-R1：开源推理大模型的里程碑 -->
+
+<section style="text-align:center; padding:20px 0;">
+  <h1 style="font-size:22px; font-weight:bold; color:#333; margin-bottom:8px;">DeepSeek-R1：开源推理大模型的里程碑</h1>
+  <p style="color:#888; font-size:14px;">Seek4nothing · 2025年4月20日</p>
+</section>
+
+<section style="max-width:677px; margin:0 auto; font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Microsoft YaHei','Source Han Sans SC','Noto Sans CJK SC','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:1.8; color:#3f3f3f; letter-spacing:0.8px; padding:10px 0;">
+
+<!-- 导言 -->
+<section style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); border-radius:12px; padding:20px; margin-bottom:25px; color:#fff;">
+<p style="font-size:15px; line-height:1.8; margin:0;">
+<strong>📌 编者按</strong><br><br>
+大家好！今天给大家分享一个让我特别兴奋的项目——DeepSeek-R1。<br><br>
+作为一个经常折腾各种 AI 模型的技术博主，我一直在寻找"既能打又能免费用"的开源大模型。之前用 GPT-4 处理复杂推理任务确实好用，但 API 费用实在让人肉疼。直到遇到了 DeepSeek-R1，我才发现开源模型也能做到这种程度。<br><br>
+这篇文章会带你深入了解 DeepSeek-R1 的核心能力，以及如何在自己的项目中使用它。无论你是 AI 开发者还是技术爱好者，相信都会有所收获。
+</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">🌟 项目简介</h2>
+<p>DeepSeek-R1 是由深度求索（DeepSeek）开发的开源推理大模型，专注于复杂推理任务。它在数学推理、代码生成、逻辑推理等任务上达到了与顶级闭源模型相媲美的水平。</p>
+
+<p>最让我印象深刻的是，DeepSeek-R1 在 AIME 2024 数学竞赛中达到了 79.8% 的准确率，几乎追平了 OpenAI o1-1217 的表现。要知道，这可是开源模型！</p>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">💡 核心技术亮点</h2>
+
+<section style="background:#f8f9fa; border-radius:8px; padding:18px; margin:15px 0;">
+<p style="margin:0;"><strong>1. 纯强化学习训练</strong></p>
+<p style="margin:8px 0 0;">DeepSeek-R1-Zero 版本完全通过强化学习训练，没有使用任何监督微调数据。这证明了仅通过 RL 就能让模型自发产生强大的推理能力。</p>
+</section>
+
+<section style="background:#f8f9fa; border-radius:8px; padding:18px; margin:15px 0;">
+<p style="margin:0;"><strong>2. 多阶段训练框架</strong></p>
+<p style="margin:8px 0 0;">DeepSeek-R1 在此基础上加入了冷启动数据和多阶段训练，使模型输出更加清晰、结构化，同时保持强大的推理能力。</p>
+</section>
+
+<section style="background:#f8f9fa; border-radius:8px; padding:18px; margin:15px 0;">
+<p style="margin:0;"><strong>3. 知识蒸馏</strong></p>
+<p style="margin:8px 0 0;">DeepSeek-R1 的推理能力可以蒸馏到更小的模型中。蒸馏后的 7B 模型在数学推理上甚至超过了 GPT-4o，而 1.5B 模型也能在某些任务上匹敌 o1-mini。</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">📊 性能对比</h2>
+
+<section style="background:#f0f7ff; border-left:4px solid #1890ff; padding:15px; margin:15px 0;">
+<p style="margin:0;">
+<strong>数学推理：</strong><br>
+• AIME 2024：79.8% pass@1（接近 o1-1217 的 79.2%）<br>
+• MATH-500：97.3%（超过 o1-1217 的 96.4%）<br><br>
+<strong>编程能力：</strong><br>
+• Codeforces：2029 Elo rating（超过 96.3% 的人类参与者）<br>
+• SWE-bench Verified：49.2%（开源模型中最佳）<br><br>
+<strong>知识问答：</strong><br>
+• MMLU：90.8%<br>
+• GPQA Diamond：71.5%
+</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">🚀 快速上手</h2>
+
+<section style="background:#1e1e1e; color:#d4d4d4; border-radius:8px; padding:18px; margin:15px 0; font-family:monospace; font-size:14px; line-height:1.6; overflow-x:auto;">
+<p style="margin:0; color:#6a9955;"># 通过 Ollama 本地部署</p>
+<p style="margin:5px 0 0;">ollama run deepseek-r1</p>
+<p style="margin:15px 0 0; color:#6a9955;"># 选择不同大小的模型</p>
+<p style="margin:5px 0 0;">ollama run deepseek-r1:1.5b  <span style="color:#6a9955;"># 轻量版</span></p>
+<p style="margin:5px 0 0;">ollama run deepseek-r1:7b   <span style="color:#6a9955;"># 平衡版</span></p>
+<p style="margin:5px 0 0;">ollama run deepseek-r1:32b  <span style="color:#6a9955;"># 高性能版</span></p>
+<p style="margin:15px 0 0; color:#6a9955;"># 使用 API 调用</p>
+<p style="margin:5px 0 0;">curl https://api.deepseek.com/v1/chat/completions \</p>
+<p style="margin:0;">  -H "Authorization: Bearer YOUR_API_KEY" \</p>
+<p style="margin:0;">  -d '{"model": "deepseek-reasoner", "messages": [{"role": "user", "content": "解释量子纠缠"}]}'</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">💡 实际应用场景</h2>
+<p><strong>场景 1：数学辅导</strong></p>
+<p>DeepSeek-R1 可以作为 AI 数学老师，不仅给出答案，还能展示完整的解题思路和推理过程。</p>
+
+<p><strong>场景 2：代码审查</strong></p>
+<p>让 DeepSeek-R1 分析你的代码，它能找到潜在的 bug 并给出优化建议，推理过程清晰可追溯。</p>
+
+<p><strong>场景 3：逻辑推理</strong></p>
+<p>处理复杂的逻辑问题时，DeepSeek-R1 的思维链推理能力让它能够逐步分析，给出准确的结论。</p>
+
+<section style="background:#fff7e6; border-left:4px solid #faad14; padding:15px; margin:25px 0;">
+<p style="margin:0;"><strong>💡 提示：</strong>DeepSeek-R1 在处理需要多步推理的任务时表现最佳。简单的问答任务，使用 DeepSeek-V3 可能更高效。</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">🎯 适合人群</h2>
+<ul style="padding-left:20px;">
+<li>AI 开发者：需要高性能推理模型的项目</li>
+<li>研究人员：探索强化学习在 LLM 中的应用</li>
+<li>学生和教育工作者：数学和逻辑推理辅助</li>
+<li>对开源 AI 感兴趣的技术爱好者</li>
+</ul>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">🔗 相关链接</h2>
+<ul style="padding-left:20px;">
+<li>GitHub：<a href="https://github.com/deepseek-ai/DeepSeek-R1" style="color:#1890ff;">deepseek-ai/DeepSeek-R1</a></li>
+<li>官方文档：<a href="https://api-docs.deepseek.com/" style="color:#1890ff;">api-docs.deepseek.com</a></li>
+<li>HuggingFace：<a href="https://huggingface.co/deepseek-ai" style="color:#1890ff;">deepseek-ai</a></li>
+</ul>
+
+<section style="background:#f6ffed; border:1px solid #b7eb8f; border-radius:8px; padding:20px; margin:25px 0; text-align:center;">
+<p style="margin:0; font-size:16px; color:#52c41a;"><strong>感谢阅读！</strong></p>
+<p style="margin:8px 0 0; color:#666;">如果觉得有帮助，欢迎分享给更多朋友～</p>
+</section>
+
+</section>
+</body>
+</html>

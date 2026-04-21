@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+
+<!-- 微信公众号文章 - Roo-Code：你的 AI 编码队友 -->
+
+<section style="text-align:center; padding:20px 0;">
+  <h1 style="font-size:22px; font-weight:bold; color:#333; margin-bottom:8px;">Roo-Code：你的 AI 编码队友</h1>
+  <p style="color:#888; font-size:14px;">Seek4nothing · 2025年4月20日</p>
+</section>
+
+<section style="max-width:677px; margin:0 auto; font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Microsoft YaHei','Source Han Sans SC','Noto Sans CJK SC','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:1.8; color:#3f3f3f; letter-spacing:0.8px; padding:10px 0;">
+
+<!-- 导言 -->
+<section style="background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%); border-radius:12px; padding:20px; margin-bottom:25px; color:#fff;">
+<p style="font-size:15px; line-height:1.8; margin:0;">
+<strong>📌 编者按</strong><br><br>
+最近 Cursor 火得一塌糊涂，但每个月 20 美元的订阅费让不少人望而却步。有没有免费又好用的替代品？<br><br>
+答案是：有！Roo-Code 就是一个开源的 AI 编码助手，功能和 Cursor 不相上下，而且完全免费。它支持多种 AI 模型，可以连接 Claude、GPT-4，甚至本地部署的模型。<br><br>
+今天就来详细介绍一下这个神器，教你如何安装配置，以及在实际开发中怎么用它提效。
+</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">🌟 项目简介</h2>
+<p>Roo-Code 是一个开源的 AI 编码助手，集成在 VS Code 中。它能理解你的整个代码库，自动编写、修改和测试代码。作为 Cursor 的开源替代品，Roo-Code 支持多种 AI 模型，包括 Claude、GPT-4、Gemini 等。</p>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">🔥 为什么选它而不是 Cursor？</h2>
+
+<section style="background:#f8f9fa; border-radius:8px; padding:18px; margin:15px 0;">
+<p style="margin:0;"><strong>1. 完全免费开源</strong></p>
+<p style="margin:8px 0 0;">Apache 2.0 许可，源代码完全开放，不用担心突然收费或者停止服务。</p>
+</section>
+
+<section style="background:#f8f9fa; border-radius:8px; padding:18px; margin:15px 0;">
+<p style="margin:0;"><strong>2. 多模型支持</strong></p>
+<p style="margin:8px 0 0;">不绑定任何 AI 厂商，可以自由切换 Claude、GPT-4、Gemini、本地模型等。</p>
+</section>
+
+<section style="background:#f8f9fa; border-radius:8px; padding:18px; margin:15px 0;">
+<p style="margin:0;"><strong>3. 隐私优先</strong></p>
+<p style="margin:8px 0 0;">支持本地模型（如 Ollama），代码完全不离开你的电脑，不用担心数据泄露。</p>
+</section>
+
+<section style="background:#f8f9fa; border-radius:8px; padding:18px; margin:15px 0;">
+<p style="margin:0;"><strong>4. 全代码库理解</strong></p>
+<p style="margin:8px 0 0;">不只是单文件编辑，能理解整个项目结构，自动关联相关文件。</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">📦 安装方法</h2>
+
+<section style="background:#1e1e1e; color:#d4d4d4; border-radius:8px; padding:18px; margin:15px 0; font-family:monospace; font-size:14px; line-height:1.6; overflow-x:auto;">
+<p style="margin:0; color:#6a9955;"># 在 VS Code 扩展市场安装</p>
+<p style="margin:5px 0 0;">1. 打开 VS Code</p>
+<p style="margin:5px 0 0;">2. 按 Ctrl+Shift+X 打开扩展面板</p>
+<p style="margin:5px 0 0;">3. 搜索 "Roo-Code"</p>
+<p style="margin:5px 0 0;">4. 点击安装</p>
+<p style="margin:15px 0 0; color:#6a9955;"># 或者命令行安装</p>
+<p style="margin:5px 0 0;">code --install-extension RooVeterinaryInc.roo-cline</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">⚙️ 配置 AI 模型</h2>
+
+<p><strong>方案一：使用 Anthropic Claude（推荐）</strong></p>
+<section style="background:#f8f9fa; border-radius:8px; padding:15px; margin:10px 0;">
+<p style="margin:0; font-size:14px;">
+1. 访问 <a href="https://console.anthropic.com/" style="color:#1890ff;">console.anthropic.com</a> 获取 API Key<br>
+2. 在 Roo-Code 设置中选择 "Anthropic"<br>
+3. 填入 API Key<br>
+4. 选择模型：claude-3-5-sonnet（性价比最高）
+</p>
+</section>
+
+<p><strong>方案二：使用本地模型（完全免费）</strong></p>
+<section style="background:#1e1e1e; color:#d4d4d4; border-radius:8px; padding:18px; margin:10px 0; font-family:monospace; font-size:14px; line-height:1.6;">
+<p style="margin:0; color:#6a9955;"># 1. 安装 Ollama</p>
+<p style="margin:5px 0 0;">brew install ollama  <span style="color:#6a9955;"># macOS</span></p>
+<p style="margin:15px 0 0; color:#6a9955;"># 2. 下载模型</p>
+<p style="margin:5px 0 0;">ollama pull codestral</p>
+<p style="margin:15px 0 0; color:#6a9955;"># 3. 在 Roo-Code 中配置</p>
+<p style="margin:5px 0 0;">Provider: Ollama</p>
+<p style="margin:5px 0 0;">Base URL: http://localhost:11434</p>
+<p style="margin:5px 0 0;">Model: codestral</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">💡 实际使用示例</h2>
+
+<p><strong>场景 1：创建新功能</strong></p>
+<section style="background:#f8f9fa; border-radius:8px; padding:15px; margin:10px 0;">
+<p style="margin:0; font-family:monospace; font-size:14px; color:#333;">
+你在聊天框输入：<br>
+"创建一个 React 登录组件，包含邮箱和密码输入框，有表单验证，使用 Tailwind CSS"<br><br>
+Roo-Code 会：<br>
+✅ 自动创建 Login.jsx 文件<br>
+✅ 编写完整的组件代码<br>
+✅ 添加表单验证逻辑<br>
+✅ 应用 Tailwind 样式
+</p>
+</section>
+
+<p><strong>场景 2：修复 Bug</strong></p>
+<section style="background:#f8f9fa; border-radius:8px; padding:15px; margin:10px 0;">
+<p style="margin:0; font-family:monospace; font-size:14px; color:#333;">
+选中报错的代码，然后说：<br>
+"这段代码报错 'Cannot read property of undefined'，帮我修复"<br><br>
+Roo-Code 会：<br>
+✅ 分析错误原因<br>
+✅ 定位问题代码<br>
+✅ 给出修复方案<br>
+✅ 自动应用修改
+</p>
+</section>
+
+<p><strong>场景 3：代码重构</strong></p>
+<section style="background:#f8f9fa; border-radius:8px; padding:15px; margin:10px 0;">
+<p style="margin:0; font-family:monospace; font-size:14px; color:#333;">
+"这个函数太长了，帮我拆分成几个小函数"<br><br>
+Roo-Code 会：<br>
+✅ 分析函数职责<br>
+✅ 按功能拆分<br>
+✅ 保持接口不变<br>
+✅ 更新所有调用点
+</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">📊 项目数据</h2>
+<ul style="padding-left:20px;">
+<li>⭐ GitHub Stars：25,000+</li>
+<li>📝 License：Apache 2.0（完全开源）</li>
+<li>🔧 主要语言：TypeScript</li>
+<li>👥 贡献者：200+</li>
+<li>🔄 活跃更新：每周发布新版本</li>
+</ul>
+
+<section style="background:#fff7e6; border-left:4px solid #faad14; padding:15px; margin:25px 0;">
+<p style="margin:0;"><strong>💡 省钱小技巧：</strong>如果你预算有限，可以先用免费的 Gemini API（Google 提供），或者直接用本地模型。本地模型虽然响应慢一点，但完全免费，而且代码不离开你的电脑。</p>
+</section>
+
+<h2 style="color:#2b2b2b; font-size:18px; font-weight:bold; margin:30px 0 15px;">🔗 相关链接</h2>
+<ul style="padding-left:20px;">
+<li>GitHub：<a href="https://github.com/RooVetGit/Roo-Code" style="color:#1890ff;">RooVetGit/Roo-Code</a></li>
+<li>官方文档：<a href="https://docs.roocode.com" style="color:#1890ff;">docs.roocode.com</a></li>
+<li>VS Code 扩展：<a href="https://marketplace.visualstudio.com/items?itemName=RooVeterinaryInc.roo-cline" style="color:#1890ff;">点击安装</a></li>
+</ul>
+
+<section style="background:#f6ffed; border:1px solid #b7eb8f; border-radius:8px; padding:20px; margin:25px 0; text-align:center;">
+<p style="margin:0; font-size:16px; color:#52c41a;"><strong>感谢阅读！</strong></p>
+<p style="margin:8px 0 0; color:#666;">如果觉得有帮助，欢迎分享给更多朋友～</p>
+</section>
+
+</section>
+</body>
+</html>

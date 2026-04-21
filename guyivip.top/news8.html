@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>DeepSeek-R1：开源推理大模型的里程碑 - Seek4nothing技术博客</title>
+    <meta name="description" content="DeepSeek-R1 是由深度求索开发的开源推理大模型，专注于复杂推理任务，在数学推理、代码生成、逻辑推理等任务上达到了与顶级闭源模型相媲美的水平。">
+    <meta name="keywords" content="DeepSeek-R1,开源推理大模型,深度求索,强化学习,Chain-of-Thought,思维链推理,数学推理,代码生成">
+    <meta name="author" content="Seek4nothing">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="DeepSeek-R1：开源推理大模型的里程碑">
+    <meta property="og:description" content="DeepSeek-R1 是由深度求索开发的开源推理大模型，专注于复杂推理任务，在数学推理、代码生成、逻辑推理等任务上达到了与顶级闭源模型相媲美的水平。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://guyivip.top/news8.html">
+    <meta property="og:image" content="https://guyivip.top/images/resource/news8.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DeepSeek-R1：开源推理大模型的里程碑">
+    <meta name="twitter:description" content="DeepSeek-R1 是由深度求索开发的开源推理大模型，专注于复杂推理任务，在数学推理、代码生成、逻辑推理等任务上达到了与顶级闭源模型相媲美的水平。">
+    <link rel="canonical" href="https://guyivip.top/news8.html">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "DeepSeek-R1：开源推理大模型的里程碑",
+      "description": "DeepSeek-R1 是由深度求索开发的开源推理大模型，专注于复杂推理任务，在数学推理、代码生成、逻辑推理等任务上达到了与顶级闭源模型相媲美的水平。",
+      "url": "https://guyivip.top/news8.html",
+      "datePublished": "2025-04-20",
+      "dateModified": "2025-04-20",
+      "author": {
+        "@type": "Person",
+        "name": "Seek4nothing"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Seek4nothing技术博客",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://guyivip.top/images/logo.png"
+        }
+      },
+      "image": "https://guyivip.top/images/resource/news8.svg",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://guyivip.top/news8.html"
+      }
+    }
+    </script>
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+    <div class="page-wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+        <!-- Main Header-->
+        <header class="main-header">
+
+            <!--Header-Upper-->
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="outer-container clearfix">
+                        <!--Logo Outer-->
+                        <div class="logo-outer">
+                            <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                        </div>
+
+                        <div class="top-left info-block left-aligned">
+                            <div class="inner">
+                                <!-- Hidden Nav Toggler -->
+                                <div class="nav-toggler">
+                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img
+                                                src="images/icons/menu-icon.png" alt="" /></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-right info-block right-aligned">
+                            <!--Search Box-->
+                            <div class="search-box-outer">
+                                <div class="dropdown">
+                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
+                                        data-bs-toggle="dropdown" aria-expanded="false"><img
+                                            src="images/icons/search-icon.png" alt="" /></button>
+                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                        <li class="panel-outer">
+                                            <div class="form-container">
+                                                <form method="post" action="blog.html">
+                                                    <div class="form-group">
+                                                        <input type="search" name="field-name" value=""
+                                                            placeholder="Search Here" required="">
+                                                        <button type="submit" class="search-btn"><span
+                                                                class="fa fa-search"></span></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Header Upper-->
+
+            <div class="header-lower">
+                <div class="auto-container">
+                    <div class="nav-outer clearfix">
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md">
+                            <div class="navbar-header">
+                                <!-- Toggle Button -->
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                                <!--Nav-->
+                                <ul class="navigation clearfix">
+                                    <li class="current dropdown"><a href="./index.html">Home</a>
+                                    <li><a href="post-side.html">Categories</a></li>
+                                    <li><a href="about.html">About Me</a></li>
+                                    <li><a href="resources.html">Resources</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu  -->
+            <div class="mobile-menu">
+                <div class="menu-backdrop"></div>
+                <div class="close-btn"><span class="icon fa-remove"></span></div>
+
+                <nav class="menu-box">
+                    <div class="nav-logo"><a href="index.html"><img src="images/logo-small.png" alt="" title=""></a>
+                    </div>
+                    <div class="menu-outer">
+                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                    </div>
+                </nav>
+            </div>
+            <!-- End Mobile Menu -->
+
+        </header>
+        <!--End Main Header -->
+
+
+        <div class="auto-container">
+            <div class="back-home" style="margin: 12px 0 6px;">
+                <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; color:#6b7280; text-decoration:none;">← 返回主页</a>
+            </div>
+            <div class="row clearfix">
+
+                <!--Content Side / News Single-->
+                <div class="content-inner">
+                    <!--Page Title-->
+                    <div class="sec-title">
+                        <div class="title">TECH</div>
+                        <h2>DeepSeek-R1：开源推理大模型的里程碑</h2>
+                        <div class="post-date">April 20, 2025</div>
+                    </div>
+
+                    <!--News Detail-->
+                    <div class="news-detail">
+                        <div class="inner-box">
+                            <div class="lower-content">
+                                <div class="text">
+
+                                    <p>
+                                        <b style="font-size: 1.3rem;">
+                                            什么是 DeepSeek-R1？
+                                        </b>
+                                    </p>
+                                    <p>
+                                        DeepSeek-R1 是由深度求索（DeepSeek）开发的开源推理大模型，专注于复杂推理任务。它的出现打破了人们对开源模型能力的认知边界，在数学推理、代码生成、逻辑推理等任务上达到了与顶级闭源模型相媲美的水平。
+                                    </p>
+
+                                    <blockquote>
+                                        核心亮点
+                                    </blockquote>
+
+                                    <p>
+                                        DeepSeek-R1 具有以下核心亮点：
+                                    </p>
+
+                                    <p>
+                                        - 91,000+ GitHub Stars，MIT 开源协议<br>
+                                        - 首创大规模强化学习（RL）训练推理能力的方法<br>
+                                        - DeepSeek-R1-Zero：纯 RL 训练，无需人工标注的监督微调<br>
+                                        - 在数学、编程、科学推理等基准测试中表现优异<br>
+                                        - 提供从 1.5B 到 671B 的多个参数规模版本
+                                    </p>
+
+                                    <blockquote>
+                                        技术突破
+                                    </blockquote>
+
+                                    <p>
+                                        传统的 LLM 训练依赖大量人工标注数据进行监督微调（SFT），而 DeepSeek-R1-Zero 开创性地证明了通过大规模强化学习，模型可以自发学会推理能力。这包括：
+                                    </p>
+
+                                    <p>
+                                        - Chain-of-Thought（思维链）推理<br>
+                                        - 自我验证和反思<br>
+                                        - 错误纠正能力
+                                    </p>
+
+                                    <blockquote>
+                                        模型版本
+                                    </blockquote>
+
+                                    <p>
+                                        DeepSeek-R1 提供多个版本以满足不同需求：
+                                    </p>
+
+                                    <p>
+                                        - <b>DeepSeek-R1-Zero</b>：纯 RL 训练的基座模型<br>
+                                        - <b>DeepSeek-R1</b>：在 R1-Zero 基础上加入冷启动数据和多阶段训练<br>
+                                        - <b>DeepSeek-R1-Distill</b>：蒸馏版本（1.5B/7B/8B/14B/32B/70B）
+                                    </p>
+
+                                    <blockquote>
+                                        适用场景
+                                    </blockquote>
+
+                                    <p>
+                                        DeepSeek-R1 适用于以下场景：
+                                    </p>
+
+                                    <p>
+                                        - 需要高质量推理能力的应用<br>
+                                        - 数学教育和科研辅助<br>
+                                        - 代码生成和调试<br>
+                                        - 需要开源部署的企业用户
+                                    </p>
+
+                                    <blockquote>
+                                        相关资源
+                                    </blockquote>
+
+                                    <p>
+                                        <b>论文：</b>DeepSeek_R1.pdf（GitHub 仓库内）<br>
+                                        <b>GitHub：</b><a href="https://github.com/deepseek-ai/DeepSeek-R1">https://github.com/deepseek-ai/DeepSeek-R1</a>
+                                    </p>
+
+                                    <blockquote>
+                                        完
+                                    </blockquote>
+
+                                    <p>
+                                        <i>
+                                            DeepSeek-R1 作为开源推理大模型的里程碑，展示了开源社区在 AI 领域的强大创新能力。它的成功证明了通过创新的训练方法，开源模型可以在保持透明性和可定制性的同时，达到与闭源模型相媲美的性能水平。
+                                        </i>
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+    </div>
+
+
+
+
+    <!--Main Footer-->
+    <div class="main-footer">
+        <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
+    </div>
+    <!--Main Footer-->
+
+    </div>
+    <!--End pagewrapper-->
+
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.fancybox-media.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

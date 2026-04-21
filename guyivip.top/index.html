@@ -411,15 +411,85 @@
                                     </div>
                                 </div>
 
-                             
-
-                            </div>
-
-                            <div class="new-next-posts clearfix">
-                                <div class="pull-right">
-                                    <a href="#" class="next-post">Next Page <span class="arrow"><img
-                                                src="images/icons/right-arrow.png" alt="" /></span></a>
+                                <!--News Block Two: DeepSeek-R1（news8）-->
+                                <div class="news-block-two col-md-6 col-sm-6 col-xs-12">
+                                    <div class="inner-box">
+                                        <div class="image">
+                                            <a href="news8.html"><img src="images/resource/news8.png" alt="DeepSeek-R1" /></a>
+                                        </div>
+                                        <div class="lower-content">
+                                            <div class="title"><a href="news8.html">AI</a></div>
+                                            <h2><a href="news8.html">DeepSeek-R1：开源推理大模型的里程碑</a></h2>
+                                            <div class="post-date">April 20, 2025</div>
+                                            <div class="text">深度求索开发的开源推理大模型，在数学推理、代码生成等任务上媲美顶级闭源模型</div>
+                                            <div class="btn-box text-center">
+                                                <a href="news8.html" class="theme-btn btn-style-two">Read More</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <!--News Block Two: OpenAI Codex CLI（news9）-->
+                                <div class="news-block-two col-md-6 col-sm-6 col-xs-12">
+                                    <div class="inner-box">
+                                        <div class="image">
+                                            <a href="news9.html"><img src="images/resource/news9.png" alt="OpenAI Codex CLI" /></a>
+                                        </div>
+                                        <div class="lower-content">
+                                            <div class="title"><a href="news9.html">AI</a></div>
+                                            <h2><a href="news9.html">OpenAI Codex CLI：终端里的 AI 编程助手</a></h2>
+                                            <div class="post-date">April 20, 2025</div>
+                                            <div class="text">OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在命令行中运行</div>
+                                            <div class="btn-box text-center">
+                                                <a href="news9.html" class="theme-btn btn-style-two">Read More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--News Block Two: Roo-Code（news10）-->
+                                <div class="news-block-two col-md-6 col-sm-6 col-xs-12">
+                                    <div class="inner-box">
+                                        <div class="image">
+                                            <a href="news10.html"><img src="images/resource/news10.png" alt="Roo-Code" /></a>
+                                        </div>
+                                        <div class="lower-content">
+                                            <div class="title"><a href="news10.html">AI</a></div>
+                                            <h2><a href="news10.html">Roo-Code：你的 AI 编码队友</a></h2>
+                                            <div class="post-date">April 20, 2025</div>
+                                            <div class="text">开源的 AI 编码助手，Cursor 的免费替代品，支持多种 AI 模型</div>
+                                            <div class="btn-box text-center">
+                                                <a href="news10.html" class="theme-btn btn-style-two">Read More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--News Block Two: LaTeX 教程（news11）-->
+                                <div class="news-block-two col-md-6 col-sm-6 col-xs-12">
+                                    <div class="inner-box">
+                                        <div class="image">
+                                            <a href="news11.html"><img src="images/resource/news11.svg" alt="LaTeX 教程" /></a>
+                                        </div>
+                                        <div class="lower-content">
+                                            <div class="title"><a href="news11.html">TECH</a></div>
+                                            <h2><a href="news11.html">Mac 与 Windows 从零部署本地 LaTeX 完整教程</a></h2>
+                                            <div class="post-date">April 20, 2025</div>
+                                            <div class="text">从为什么要用 LaTeX 到进阶编译指令，一篇讲透 LaTeX 入门到进阶</div>
+                                            <div class="btn-box text-center">
+                                                <a href="news11.html" class="theme-btn btn-style-two">Read More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- end row clearfix -->
+
+                            <!-- Pagination Container -->
+                            <div id="pagination-controls" style="display:flex; align-items:center; justify-content:center; gap:16px; margin:30px 0 10px; font-family:inherit;">
+                                <button id="prev-page" onclick="goPage(currentPage-1)" style="padding:8px 20px; border:1px solid #ddd; background:#fff; cursor:pointer; border-radius:4px; font-size:14px; color:#333; transition:all 0.2s;">← Prev</button>
+                                <span id="page-info" style="font-size:15px; color:#555; min-width:80px; text-align:center;"></span>
+                                <button id="next-page" onclick="goPage(currentPage+1)" style="padding:8px 20px; border:1px solid #ddd; background:#fff; cursor:pointer; border-radius:4px; font-size:14px; color:#333; transition:all 0.2s;">Next →</button>
                             </div>
 
 
@@ -510,6 +580,50 @@
     <script src="js/appear.js"></script>
     <script src="js/wow.js"></script>
     <script src="js/script.js"></script>
+    <script>
+    // === Blog Pagination ===
+    (function() {
+        var PER_PAGE = 6;
+        var blocks = document.querySelectorAll('.news-block-two');
+        var total = blocks.length;
+        var totalPages = Math.ceil(total / PER_PAGE);
+
+        window.currentPage = 1;
+
+        window.goPage = function(p) {
+            if (p < 1 || p > totalPages) return;
+            window.currentPage = p;
+
+            // Show/hide blocks
+            for (var i = 0; i < total; i++) {
+                var pageOfItem = Math.floor(i / PER_PAGE) + 1;
+                if (pageOfItem === window.currentPage) {
+                    blocks[i].style.display = '';
+                } else {
+                    blocks[i].style.display = 'none';
+                }
+            }
+
+            // Update page info
+            document.getElementById('page-info').textContent = window.currentPage + ' / ' + totalPages;
+
+            // Update button states
+            var prevBtn = document.getElementById('prev-page');
+            var nextBtn = document.getElementById('next-page');
+            prevBtn.style.opacity = window.currentPage <= 1 ? '0.4' : '1';
+            prevBtn.style.cursor = window.currentPage <= 1 ? 'default' : 'pointer';
+            nextBtn.style.opacity = window.currentPage >= totalPages ? '0.4' : '1';
+            nextBtn.style.cursor = window.currentPage >= totalPages ? 'default' : 'pointer';
+
+            // Scroll to news section
+            var container = document.querySelector('.content-inner .row.clearfix');
+            if (container) container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+
+        // Init
+        window.goPage(1);
+    })();
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac 与 Windows 从零部署本地 LaTeX 完整教程</title>
+</head>
+<body>
+<h1>Mac 与 Windows 从零部署本地 LaTeX 完整教程</h1>
+<h2>从"为什么用"到"怎么用"，一篇讲透 LaTeX 入门到进阶</h2>
+<p>2025.04.20</p>
+<hr>
+
+<h2>一、为什么要用 LaTeX？</h2>
+
+<h3>LaTeX vs Word：优劣对比</h3>
+
+<p>很多人第一次听到 LaTeX 的反应是："Word 不够用吗？" 答案取决于你要写什么。</p>
+
+<h4>LaTeX 的优势</h4>
+
+<ol>
+<li><strong>排版质量碾压 Word</strong><br>
+LaTeX 由专业排版引擎驱动，公式、参考文献、目录的生成都是全自动的。你写论文时不用手动调格式，引擎帮你处理一切。</li>
+
+<li><strong>数学公式是原生支持</strong><br>
+Word 里插入公式需要点菜单、用鼠标选符号。LaTeX 里直接写 <code>$E = mc^2$</code>，又快又好看。</li>
+
+<li><strong>参考文献管理自动化</strong><br>
+配合 BibTeX，引用文献只需要一个命令 <code>\cite{key}</code>，参考文献列表自动生成，格式自动适配期刊要求。</li>
+
+<li><strong>版本控制友好</strong><br>
+LaTeX 源文件是纯文本，可以用 Git 管理版本、多人协作。Word 的 <code>.docx</code> 是二进制文件，diff 基本不可用。</li>
+
+<li><strong>跨平台一致性</strong><br>
+同样的 <code>.tex</code> 文件，在 Mac、Windows、Linux 上编译结果完全一致。不存在"我电脑上排版好的，你打开就乱了"的问题。</li>
+
+<li><strong>学术界事实标准</strong><br>
+绝大多数理工科期刊、会议论文都要求或推荐 LaTeX 格式投稿。学会它是迟早的事。</li>
+</ol>
+
+<h4>LaTeX 的弊端</h4>
+
+<ol>
+<li><strong>学习曲线陡峭</strong><br>
+入门需要记住基本语法，排版问题调试起来比 Word 麻烦得多。</li>
+
+<li><strong>实时预览缺失</strong><br>
+不像 Word "所见即所得"，LaTeX 需要编译后才能看到效果（虽然现代编辑器有实时预览）。</li>
+
+<li><strong>图形化排版困难</strong><br>
+如果需要自由拖拽图片位置、做海报或图文混排，Word / PowerPoint 更直观。</li>
+
+<li><strong>协作门槛高</strong><br>
+团队里有人不会 LaTeX，协作就变成你一个人的事。</li>
+</ol>
+
+<h4>一句话总结</h4>
+<p><strong>写论文、技术文档 → 用 LaTeX。写简历、简单报告 → 用 Word。</strong> 两者不是替代关系，是不同场景的最佳选择。</p>
+
+<hr>
+
+<h2>二、下载 LaTeX 发行版</h2>
+
+<p>LaTeX 本身是一套排版语言，需要一个「发行版」来提供编译器和宏包。就像 Python 需要解释器一样。</p>
+
+<h3>两大主流发行版</h3>
+
+<table border="1" cellpadding="8">
+<tr><th>发行版</th><th>平台</th><th>大小</th><th>推荐</th></tr>
+<tr><td><strong>TeX Live</strong></td><td>Windows / Linux / Mac</td><td>~4GB（完整版）</td><td>跨平台首选</td></tr>
+<tr><td><strong>MacTeX</strong></td><td>仅 Mac</td><td>~4GB</td><td>Mac 用户专用（基于 TeX Live）</td></tr>
+<tr><td><strong>MiKTeX</strong></td><td>Windows / Mac / Linux</td><td>~200MB（基础版）</td><td>轻量级，按需下载宏包</td></tr>
+</table>
+
+<h3>下载地址</h3>
+
+<ul>
+<li><strong>TeX Live（Windows/Linux）</strong>：<a href="https://www.tug.org/texlive/">https://www.tug.org/texlive/</a></li>
+<li><strong>MacTeX（Mac）</strong>：<a href="https://www.tug.org/mactex/">https://www.tug.org/mactex/</a></li>
+<li><strong>MiKTeX</strong>：<a href="https://miktex.org/download">https://miktex.org/download</a></li>
+</ul>
+
+<h3>安装建议</h3>
+<ul>
+<li><strong>Mac 用户</strong>：直接下载 MacTeX，安装包自带 TeX Live + 几个 GUI 工具，一键搞定。</li>
+<li><strong>Windows 用户</strong>：推荐 TeX Live（稳定、完整）或 MiKTeX（轻量、按需下载）。</li>
+<li>安装时选择「完整安装」，避免后面缺宏包。</li>
+</ul>
+
+<hr>
+
+<h2>三、安装编辑器：以 TeXStudio 为例</h2>
+
+<p>发行版只是编译器，写代码还需要一个编辑器。推荐 <strong>TeXStudio</strong> —— 免费、开源、跨平台、功能强大。</p>
+
+<h3>下载 TeXStudio</h3>
+<p><a href="https://texstudio.org/">https://texstudio.org/</a></p>
+
+<h3>安装步骤</h3>
+
+<h4>Windows</h4>
+<ol>
+<li>下载 <code>texstudio-x.x.x-win-qt6.exe</code></li>
+<li>双击安装，一路 Next</li>
+<li>首次打开 TeXStudio，它会自动检测已安装的 TeX Live / MiKTeX</li>
+<li>验证：菜单栏 → Help → Check LaTeX Installation，应该显示绿色对勾</li>
+</ol>
+
+<h4>Mac</h4>
+<ol>
+<li>下载 <code>texstudio-x.x.x-osx.dmg</code></li>
+<li>拖入 Applications 文件夹</li>
+<li>首次打开可能需要在 系统偏好设置 → 安全性与隐私 中允许</li>
+<li>同样通过 Help → Check LaTeX Installation 验证</li>
+</ol>
+
+<h3>TeXStudio 基础配置</h3>
+<ul>
+<li><strong>设置默认编译器</strong>：Options → Configure TeXStudio → Build → Default Compiler → 选择 XeLaTeX（支持中文）</li>
+<li><strong>开启实时预览</strong>：Options → Configure TeXStudio → Internal PDF Viewer → 勾选实时更新</li>
+<li><strong>中文界面</strong>：Options → Configure TeXStudio → General → Language → 中文（Chinese）</li>
+</ul>
+
+<h3>测试第一个 LaTeX 文档</h3>
+<p>打开 TeXStudio，输入以下内容，按 F5 编译：</p>
+
+<pre><code>\documentclass{article}
+\usepackage[UTF8]{ctex}
+\title{我的第一篇 LaTeX 文档}
+\author{Guyi}
+\date{\today}
+\begin{document}
+\maketitle
+Hello, \LaTeX! 这是我的第一篇文章。
+\end{document}
+</code></pre>
+
+<p>如果右侧 PDF 预览区成功显示标题和内容，恭喜你，LaTeX 环境搭建成功！</p>
+
+<hr>
+
+<h2>四、AI 提示词 + 命令行快速编译</h2>
+
+<h3>用 AI 帮你写 LaTeX</h3>
+
+<p>现在有了 ChatGPT / Claude，写 LaTeX 变得极其简单。以下是几个万能 prompt：</p>
+
+<h4>Prompt 1：生成完整论文模板</h4>
+<pre><code>请帮我写一篇 IEEE 会议论文的 LaTeX 模板，包含：
+- 标题、作者、摘要
+- 三个章节（引言、方法、实验）
+- 一个表格、一个公式、一张图片的引用
+- 参考文献（使用 BibTeX）
+使用中文撰写。</code></pre>
+
+<h4>Prompt 2：公式转 LaTeX</h4>
+<pre><code>请将以下数学公式转换为 LaTeX 代码：
+勾股定理、泰勒展开、高斯积分、贝叶斯公式</code></pre>
+
+<h4>Prompt 3：表格生成</h4>
+<pre><code>请用 LaTeX 生成一个 5 行 4 列的表格，内容如下：
+姓名 | 年龄 | 专业 | 成绩
+要求带边框、居中对齐、首行加粗。</code></pre>
+
+<h4>Prompt 4：排版调试</h4>
+<pre><code>我的 LaTeX 编译报错：Undefined control sequence \xxxxx
+请帮我分析原因并给出修复方案。完整代码如下：
+[粘贴你的 .tex 代码]</code></pre>
+
+<h3>命令行快速编译</h3>
+
+<p>不打开 GUI 编辑器，直接在终端编译：</p>
+
+<pre><code># 基本编译（生成 PDF）
+xelatex myfile.tex
+
+# 编译两次（解决引用和目录）
+xelatex myfile.tex
+xelatex myfile.tex
+
+# 使用 latexmk 自动判断编译次数
+latexmk -xelatex myfile.tex
+
+# 清理中间文件
+latexmk -c myfile.tex
+
+# 一键编译并打开 PDF（Mac）
+xelatex myfile.tex &amp;&amp; open myfile.pdf
+
+# 一键编译并打开 PDF（Windows PowerShell）
+xelatex myfile.tex; Start-Process myfile.pdf</code></pre>
+
+<hr>
+
+<h2>五、进阶内容</h2>
+
+<h3>pdflatex vs xelatex：该用哪个？</h3>
+
+<table border="1" cellpadding="8">
+<tr><th>特性</th><th>pdflatex</th><th>xelatex</th></tr>
+<tr><td>中文支持</td><td>需额外配置</td><td>原生支持（配合 ctex 宏包）</td></tr>
+<tr><td>字体支持</td><td>仅限 TeX 内置字体</td><td>可直接使用系统字体</td></tr>
+<tr><td>Unicode</td><td>部分支持</td><td>完全支持</td></tr>
+<tr><td>编译速度</td><td>稍快</td><td>稍慢（可忽略）</td></tr>
+<tr><td>适用场景</td><td>纯英文文档</td><td>中文文档 / 多语言文档</td></tr>
+</table>
+
+<p><strong>结论：直接用 xelatex，中文英文都通吃。</strong></p>
+
+<h3>中文 LaTeX 编写规则</h3>
+
+<h4>最小中文文档模板</h4>
+<pre><code>\documentclass[UTF8]{ctexart}
+\begin{document}
+这是一段中文。English text is also OK.
+\end{document}
+</code></pre>
+
+<h4>中英文混排注意事项</h4>
+<ul>
+<li>使用 <code>ctex</code> 宏包或 <code>ctexart</code> 文档类</li>
+<li>编译器必须用 xelatex，不要用 pdflatex</li>
+<li>中英文之间自动加空格：<code>\usepackage{xeCJK}</code> 会自动处理</li>
+<li>引号：<code>``中文引号''</code> → "中文引号"</li>
+<li>破折号：直接输入中文破折号即可</li>
+</ul>
+
+<h3>实用指令速查表</h3>
+
+<table border="1" cellpadding="8">
+<tr><th>功能</th><th>指令</th></tr>
+<tr><td>加粗</td><td><code>\textbf{文字}</code></td></tr>
+<tr><td>斜体</td><td><code>\textit{文字}</code></td></tr>
+<tr><td>下划线</td><td><code>\underline{文字}</code></td></tr>
+<tr><td>无序列表</td><td><code>\begin{itemize} \item 项目 \end{itemize}</code></td></tr>
+<tr><td>有序列表</td><td><code>\begin{enumerate} \item 项目 \end{enumerate}</code></td></tr>
+<tr><td>插入图片</td><td><code>\includegraphics[width=0.8\textwidth]{image.png}</code></td></tr>
+<tr><td>行内公式</td><td><code>$E = mc^2$</code></td></tr>
+<tr><td>行间公式</td><td><code>\[ \int_0^\infty e^{-x} dx = 1 \]</code></td></tr>
+<tr><td>章节标题</td><td><code>\section{标题}</code> / <code>\subsection{子标题}</code></td></tr>
+<tr><td>脚注</td><td><code>\footnote{脚注内容}</code></td></tr>
+<tr><td>超链接</td><td><code>\usepackage{hyperref}</code> + <code>\url{https://example.com}</code></td></tr>
+<tr><td>引用文献</td><td><code>\cite{bibkey}</code></td></tr>
+<tr><td>代码高亮</td><td><code>\usepackage{listings}</code></td></tr>
+</table>
+
+<h3>推荐宏包</h3>
+<pre><code>\usepackage{ctex}          % 中文支持
+\usepackage{graphicx}      % 插入图片
+\usepackage{amsmath}       % 数学公式增强
+\usepackage{hyperref}      % 超链接
+\usepackage{listings}      % 代码高亮
+\usepackage{geometry}      % 页面边距设置
+\usepackage{booktabs}      % 专业表格（三线表）
+\usepackage{cite}          % 参考文献优化</code></pre>
+
+<hr>
+
+<h2>总结</h2>
+
+<p>LaTeX 的学习曲线确实比 Word 陡，但一旦上手，排版效率和质量都会大幅提升。加上 AI 工具的辅助，入门门槛已经大大降低。</p>
+
+<p><strong>快速上手路线图</strong>：</p>
+<ol>
+<li>安装发行版（TeX Live / MacTeX）</li>
+<li>安装 TeXStudio</li>
+<li>复制一个模板，按 F5 编译</li>
+<li>遇到问题用 AI prompt 解决</li>
+<li>逐渐掌握进阶用法</li>
+</ol>
+
+<p>祝你排版愉快 ✨</p>
+
+</body>
+</html>
