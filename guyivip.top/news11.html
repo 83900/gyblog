@@ -3,11 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Mac 与 Windows 从零部署本地 LaTeX 完整教程 - 俗人的技术博客</title>
+    <title>Mac 与 Windows 从零部署本地 LaTeX 完整教程 - Seek4nothing技术博客</title>
     <meta name="description" content="LaTeX 入门到进阶完整教程，涵盖安装配置、与 Word 的对比、AI 辅助写作、中英文排版规则及常用命令。">
-    <meta name="keywords" content="LaTeX,TeXStudio,MiKTeX,MacTeX,排版,论文写作,PDF,Pandoc">
-    <meta name="author" content="Seek4nothing">
-    <meta name="robots" content="index, follow">
     <meta property="og:title" content="Mac 与 Windows 从零部署本地 LaTeX 完整教程">
     <meta property="og:description" content="LaTeX 入门到进阶完整教程，涵盖安装配置、与 Word 的对比、AI 辅助写作、中英文排版规则及常用命令。">
     <meta property="og:type" content="article">
@@ -18,33 +15,37 @@
     <meta name="twitter:description" content="LaTeX 入门到进阶完整教程，涵盖安装配置、与 Word 的对比、AI 辅助写作、中英文排版规则及常用命令。">
     <link rel="canonical" href="https://guyivip.top/news11.html">
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "Mac 与 Windows 从零部署本地 LaTeX 完整教程",
-      "description": "LaTeX 入门到进阶完整教程，涵盖安装配置、与 Word 的对比、AI 辅助写作、中英文排版规则及常用命令。",
-      "url": "https://guyivip.top/news11.html",
-      "datePublished": "2026-04-20",
-      "dateModified": "2026-04-20",
-      "author": {
-        "@type": "Person",
-        "name": "Seek4nothing"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Seek4nothing技术博客",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://guyivip.top/images/logo.png"
-        }
-      },
-      "image": "https://guyivip.top/images/resource/news11-cover.png",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://guyivip.top/news11.html"
-      }
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mac 与 Windows 从零部署本地 LaTeX 完整教程",
+  "description": "LaTeX 入门到进阶完整教程，涵盖安装配置、与 Word 的对比、AI 辅助写作、中英文排版规则及常用命令。",
+  "url": "https://guyivip.top/news11.html",
+  "author": {
+    "@type": "Person",
+    "name": "Seek4nothing"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Seek4nothing技术博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://guyivip.top/images/logo.png"
     }
+  },
+  "image": "https://guyivip.top/images/resource/news11-cover.png",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://guyivip.top/news11.html"
+  },
+  "datePublished": "2026-04-20",
+  "dateModified": "2026-04-20"
+}
     </script>
+
+    <meta name="keywords" content="LaTeX,TeXStudio,MiKTeX,MacTeX,排版,论文写作,PDF,Pandoc">
+    <meta name="author" content="Seek4nothing">
+    <meta name="robots" content="index, follow">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
@@ -77,10 +78,6 @@
     </style>
 </head>
 <body>
-    <div class="page-wrapper">
-
-        <!-- Preloader -->
-        <div class="preloader"></div>
 
         <!-- Main Header-->
         <header class="main-header">
@@ -93,118 +90,28 @@
                         <div class="logo-outer">
                             <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
                         </div>
-
-                        <div class="top-left info-block left-aligned">
-                            <div class="inner">
-                                <!-- Hidden Nav Toggler -->
-                                <div class="nav-toggler">
-                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img
-                                                src="images/icons/menu-icon.png" alt="" /></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="top-right info-block right-aligned">
-                            <!--Search Box-->
-                            <div class="search-box-outer">
-                                <div class="dropdown">
-                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
-                                        data-bs-toggle="dropdown" aria-expanded="false"><img
-                                            src="images/icons/search-icon.png" alt="" /></button>
-                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
-                                        <li class="panel-outer">
-                                            <div class="form-container">
-                                                <form method="post" action="blog.html">
-                                                    <div class="form-group">
-                                                        <input type="search" name="field-name" value=""
-                                                            placeholder="Search Here" required="">
-                                                        <button type="submit" class="search-btn"><span
-                                                                class="fa fa-search"></span></button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
-            <!--End Header Upper-->
-
-            <div class="header-lower">
-                <div class="auto-container">
-                    <div class="nav-outer clearfix">
-                        <!-- Main Menu -->
-                        <nav class="main-menu navbar-expand-md">
-                            <div class="navbar-header">
-                                <!-- Toggle Button -->
-                                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-
-                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
-                                <!--Nav-->
-                                <ul class="navigation clearfix">
-                                    <li class="current dropdown"><a href="./index.html">Home</a>
-                                    <li class="dropdown"><a href="#">Others</a>
-<ul>
-<li><a href="badminton_scores.html">沃特福德羽毛球比分</a></li>
-</ul>
-</li>
-                                    <li><a href="about.html">About Me</a></li>
-                                <li><a href="resources.html">Resources</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile Menu  -->
-            <div class="mobile-menu">
-                <div class="menu-backdrop"></div>
-                <div class="close-btn"><span class="icon fa-remove"></span></div>
-
-                <nav class="menu-box">
-                    <div class="nav-logo"><a href="index.html"><img src="images/logo-small.png" alt="" title=""></a>
-                    </div>
-                    <div class="menu-outer">
-                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
-                    </div>
-                </nav>
-            </div>
-            <!-- End Mobile Menu -->
 
         </header>
+        <!--End Main Header -->
 
-        <section class="page-banner" style="background-image:url(images/background/6.jpg)">
-            <div class="auto-container">
-                <center>
-                    <h1>Mac 与 Windows 从零部署本地 LaTeX 完整教程</h1>
-                <div class="page-banner-info">
-                    <span class="post-info">April 20, 2026</span>
-                    <span class="post-info">Author: Seek4nothing</span>
-                    <span class="post-info">Read: 5min</span>
-                </div>
-                </center>
+        <div class="auto-container">
+            <div class="back-home" style="margin: 12px 0 6px;">
+                <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; color:#6b7280; text-decoration:none;">← 返回主页</a>
             </div>
-        </section>
+            <div class="row clearfix">
+                <div class="content-inner">
+                    <div class="sec-title">
+                        <div class="title">TECH</div>
+                        <h2>Mac 与 Windows 从零部署本地 LaTeX 完整教程</h2>
+                        <div class="post-date">April 20, 2026</div>
+                    </div>
 
-        <section class="news-section" id="news">
-            <div class="auto-container">
-                <div class="row clearfix">
-                    <div class="col-lg-12 col-md-12 col-sm-12 content-side">
-                        <div class="blog-details-content">
-                            <div class="latex-article">
+                    <div class="about-section">
+                        <div class="auto-container">
+<div class="latex-article">
 
 <h2>序言</h2>
 <p>写毕业论文的时候，你有没有经历过这种场景：调了一晚上的格式，目录突然乱了，参考文献顺序全错，图片飘到下一页去了。当时我就想，有没有一种工具能让我专注于<strong>写内容</strong>，而不是<strong>调格式</strong>？</p>
@@ -494,26 +401,26 @@ latexmk -pvc -pdf main.tex</code></pre>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <footer class="main-footer alternate">
-            <div class="auto-container">
-                <div class="footer-bottom">
-                    <div class="copyright">Copyright &copy; 2025 <a href="index.html">俗人的技术博客</a>. All rights reserved.</div>
-                </div>
-            </div>
-        </footer>
+    <!--Main Footer-->
+    <div class="main-footer">
+        <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
+    </div>
+    <!--Main Footer-->
+
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span>
     </div>
 
     <script src="js/jquery.js"></script>
-    <script src="js/popper.min.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/jquery.fancybox.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.fancybox-media.js"></script>
     <script src="js/owl.js"></script>
     <script src="js/appear.js"></script>
     <script src="js/wow.js"></script>
-    <script src="js/validate.js"></script>
     <script src="js/script.js"></script>
 </body>
 

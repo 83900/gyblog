@@ -1,8 +1,48 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Seek4nothing">
+    <meta name="keywords" content="ShareSim,虚拟股票交易系统前后端架构拆解">
     <meta charset="utf-8">
-    <title>ShareSim：虚拟股票交易系统架构拆解</title>
+    <title>ShareSim：虚拟股票交易系统前后端架构拆解 - Seek4nothing技术博客</title>
+    <meta name="description" content="ShareSim 是部署在我本人博客 guyivip.top 下的一个“附加模块”。它既要像普通静态页面一样能从博客导航直达，又要具备用户注册登录、持仓、交易流水、行情查询等动态能力。 为了让它在你的服务器上长期稳定运行，同时最大化复用你现">
+    <meta property="og:title" content="ShareSim：虚拟股票交易系统前后端架构拆解">
+    <meta property="og:description" content="ShareSim 是部署在我本人博客 guyivip.top 下的一个“附加模块”。它既要像普通静态页面一样能从博客导航直达，又要具备用户注册登录、持仓、交易流水、行情查询等动态能力。 为了让它在你的服务器上长期稳定运行，同时最大化复用你现">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://guyivip.top/news12.html">
+    <meta property="og:image" content="https://guyivip.top/images/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ShareSim：虚拟股票交易系统前后端架构拆解">
+    <meta name="twitter:description" content="ShareSim 是部署在我本人博客 guyivip.top 下的一个“附加模块”。它既要像普通静态页面一样能从博客导航直达，又要具备用户注册登录、持仓、交易流水、行情查询等动态能力。 为了让它在你的服务器上长期稳定运行，同时最大化复用你现">
+    <link rel="canonical" href="https://guyivip.top/news12.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ShareSim：虚拟股票交易系统前后端架构拆解",
+  "description": "ShareSim 是部署在我本人博客 guyivip.top 下的一个“附加模块”。它既要像普通静态页面一样能从博客导航直达，又要具备用户注册登录、持仓、交易流水、行情查询等动态能力。 为了让它在你的服务器上长期稳定运行，同时最大化复用你现",
+  "url": "https://guyivip.top/news12.html",
+  "author": {
+    "@type": "Person",
+    "name": "Seek4nothing"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Seek4nothing技术博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://guyivip.top/images/logo.png"
+    }
+  },
+  "image": "https://guyivip.top/images/logo.png",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://guyivip.top/news12.html"
+  }
+}
+    </script>
+
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
@@ -25,94 +65,31 @@
 </head>
 
 <body>
-    <div class="page-wrapper">
-        <div class="preloader"></div>
 
+        <!-- Main Header-->
         <header class="main-header">
+
+            <!--Header-Upper-->
             <div class="header-upper">
                 <div class="auto-container">
                     <div class="outer-container clearfix">
+                        <!--Logo Outer-->
                         <div class="logo-outer">
                             <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
                         </div>
-
-                        <div class="top-left info-block left-aligned">
-                            <div class="inner">
-                                <div class="nav-toggler">
-                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img src="images/icons/menu-icon.png" alt="" /></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="top-right info-block right-aligned">
-                            <div class="search-box-outer">
-                                <div class="dropdown">
-                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false"><img src="images/icons/search-icon.png" alt="" /></button>
-                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
-                                        <li class="panel-outer">
-                                            <div class="form-container">
-                                                <form method="post" action="blog.html">
-                                                    <div class="form-group">
-                                                        <input type="search" name="field-name" value="" placeholder="Search Here" required="">
-                                                        <button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
 
-            <div class="header-lower">
-                <div class="auto-container">
-                    <div class="nav-outer clearfix">
-                        <nav class="main-menu navbar-expand-md">
-                            <div class="navbar-header">
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-
-                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
-                                <ul class="navigation clearfix">
-                                    <li class="current dropdown"><a href="index.html">Home</a></li>
-                                    <li class="dropdown"><a href="#">Others</a>
-                                        <ul>
-                                            <li><a href="badminton_scores.html">沃特福德羽毛球比分</a></li>
-                                            <li><a href="share/login.html">虚拟股票交易</a></li>
-                                            
-                                        </ul>
-                                    </li>
-                                    <li><a href="about.html">About Me</a></li>
-                                    <li><a href="resources.html">Resources</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mobile-menu">
-                <div class="menu-backdrop"></div>
-                <div class="close-btn"><span class="icon fa-remove"></span></div>
-
-                <nav class="menu-box">
-                    <div class="nav-logo"><a href="index.html"><img src="images/logo-small.png" alt="" title=""></a></div>
-                    <div class="menu-outer"></div>
-                </nav>
-            </div>
         </header>
+        <!--End Main Header -->
 
         <div class="auto-container">
+            <div class="back-home" style="margin: 12px 0 6px;">
+                <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; color:#6b7280; text-decoration:none;">← 返回主页</a>
+            </div>
             <div class="row clearfix">
-                <div class="content-inner">
+<div class="content-inner">
                     <div class="sec-title">
                         <div class="title">TECH</div>
                         <h2>ShareSim：虚拟股票交易系统前后端架构拆解</h2>
@@ -259,12 +236,15 @@ curl -I https://guyivip.top/share/login.html</code></pre>
             </div>
         </div>
 
-        <div class="main-footer">
-            <div class="copyright">Copyright &copy 2026 俗人的blog. All rights reserved.</div>
-        </div>
+    <!--Main Footer-->
+    <div class="main-footer">
+        <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
     </div>
+    <!--Main Footer-->
 
-    <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span></div>
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span>
+    </div>
 
     <script src="js/jquery.js"></script>
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -276,4 +256,5 @@ curl -I https://guyivip.top/share/login.html</code></pre>
     <script src="js/wow.js"></script>
     <script src="js/script.js"></script>
 </body>
+
 </html>

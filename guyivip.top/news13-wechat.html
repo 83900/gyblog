@@ -1,0 +1,106 @@
+<html>
+<head><meta charset="UTF-8"></head>
+<body>
+<!--
+使用方法：全选复制（Ctrl+A → Ctrl+C），粘贴到微信公众号编辑器（Ctrl+V）
+封面建议：news13-fig1 截图 / 终端日志截图 / token 消耗对比图
+-->
+
+<div style="text-align:center; margin:20px 0;">
+<h1 style="font-size:22px; font-weight:bold; color:#333;">别急着 All in AI Agent：我用 Hermes 一小时烧掉 50 万 Token 后，为什么回到 CC/Codex</h1>
+<p style="color:#999; font-size:14px;">Guyi · 2026.04</p>
+</div>
+
+<hr style="border:none; border-top:1px solid #ddd; margin:20px 0;">
+
+<div style="background:#f0f7ff; border-left:4px solid #4a90d9; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>📌 先说结论</strong><br><br>
+AI Agent 很酷，也确实能干活。<br>
+但如果你是普通开发者或内容创作者，现阶段优先使用 <strong>Claude Code / Codex</strong> 这类“人机协同”工具，通常会更稳、更省钱、更可控。<br><br>
+这不是唱衰 Agent，而是基于真实使用后的经验判断：它很强，但也很挑人、挑场景。
+</p>
+</div>
+
+<div style="background:#fffbe6; border-left:4px solid #faad14; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>⚠️ 声明</strong><br><br>
+我不是云评测。文中观点来自本人实际使用 Hermes 的体验，包括高权限执行、定时任务、长任务排版、装包超时和 token 消耗对比等场景。
+</p>
+</div>
+
+<!-- ====== Step 1 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 1 — AI Agent 让人上头的 3 个优点</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<ol>
+<li><strong>远程调用，像“分身在线”</strong><br>只要宿主机在线，你在外面也能远程下发任务，持续推进流程。<br>例如我在通勤路上给 Hermes 下过“把给几份没完成的实验出具指引，写在md文件，顺便生成一份待办清单”的指令，到家后已经直接化身DDL侠，光速做完压线提交作业。</li>
+<li><strong>自动化程度高</strong><br>很多任务可以连续执行，不用每一步都手动确认，批处理场景体验很好。
+<li><strong>定时任务能力强</strong><br>比如每天固定时间抓热点、汇总信息、生成初稿，信息流工作非常省心。<br>我实际尝试跑过“每天 10:00 抓 GitHub Trending + X 热点 + Hacker News，输出 300 字摘要”，对写周报和选题都很实用。（当时小米接入Hermes限免，确实没事干就试了试）</li>
+</ol>
+</div>
+
+<!-- ====== Step 2 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 2 — 真正劝退我的 4 个硬伤</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<ol>
+<li><strong>安全边界难把控</strong><br>高权限意味着高风险，尤其涉及浏览器会话、凭据和本地文件时，心理负担很重。<br>比如你让它“自动登录后台并发布”，它可能会接触 cookie、密码管理器、历史下载目录。即使没出事，很多人也不敢长期开这个权限。</li>
+<li><strong>成本波动太大</strong><br>我一次文档排版任务（20+页、含图表）一个任务烧掉约 50 万 token；同任务在 CC 上大约 16 万，差距直接决定“敢不敢长期开着跑”。<br>最痛的是：有时候它并不是在“做新工作”，而是在错误路径上反复重试，token 继续烧。</li>
+<li><strong>容易陷入“埋头硬干”循环</strong><br>失败后重复重试，反复超时，最后产出质量下降。很多时候不是模型不行，而是执行策略太激进。<br>就拿文档排版来说：由于需要装包，但是控制台没导入代理，装包失败后 Hermes 连续重试 3 次，最后跳过公式排版直接交付；而 CC 在第二次失败就提醒“代理缺失”，我手动补代理后一次成功。</li>
+<li><strong>多 Agent 编排门槛高</strong><br>理论上并行很强，现实里对任务拆分、提示词工程、环境管理都有要求，不是普通用户的开箱即用路线。<br>比如“Agent A 抓数据、Agent B 清洗、Agent C 出图”，任一环节字段命名不一致，就会连锁报错，最后排查成本反而更高。</li>
+</ol>
+</div>
+
+<!-- ====== Step 3 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 3 — 哪些人适合 Agent，哪些人不适合</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p><strong>更适合 Agent 的人：</strong></p>
+<ul>
+<li>有自动化流水线需求，且能维护隔离环境；</li>
+<li>对 token 成本不敏感，追求并行吞吐；</li>
+<li>愿意投入时间做任务拆解与提示词工程。</li>
+</ul>
+
+<p><strong>更适合 CC/Codex 的人：</strong></p>
+<ul>
+<li>日常开发、写作、排版等中轻度任务用户；</li>
+<li>预算敏感，希望 token 可预期；</li>
+<li>需要过程可解释、每一步都可回滚和调试。</li>
+</ul>
+</div>
+
+<!-- ====== Step 4 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 4 — 我的落地建议（可直接照抄）</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<ol>
+<li><strong>默认主力工具：</strong>CC/Codex；</li>
+<li><strong>Agent 只用于固定流程：</strong>定时抓取、批量整理、可重复任务；</li>
+<li><strong>高风险任务一定手动兜底：</strong>权限、装包、网络代理、删除操作；</li>
+<li><strong>单独记账 token 成本：</strong>按任务类型统计，避免“看似自动化，实际亏成本”。<br>建议至少记录 3 类：信息整理类、代码修改类、文档排版类。跑一周后你会很直观看到哪类任务最烧钱。</li>
+</ol>
+</div>
+
+<hr style="border:none; border-top:1px solid #ddd; margin:30px 0;">
+
+<div style="background:#f6ffed; border-left:4px solid #52c41a; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>最后一句</strong><br><br>
+AI Agent 不是没用，而是还没“无脑好用”。<br>
+现阶段它更像一台高性能跑车：会开的很爽，不会开的很容易翻车。<br>
+普通用户先把 CC/Codex 用顺，再考虑上 Agent，通常是更划算的路径。
+</p>
+</div>
+
+</body>
+</html>

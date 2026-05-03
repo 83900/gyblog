@@ -5,9 +5,6 @@
     <meta charset="utf-8">
     <title>OpenAI Codex CLI：终端里的 AI 编程助手 - Seek4nothing技术博客</title>
     <meta name="description" content="OpenAI Codex CLI 是 OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在你的命令行中运行。它能理解你的代码库、执行代码修改、运行测试，就像一个坐在你身边的结对编程伙伴。">
-    <meta name="keywords" content="OpenAI,Codex CLI,终端编程助手,Rust,AI编程,命令行工具,代码助手,开发工具">
-    <meta name="author" content="Seek4nothing">
-    <meta name="robots" content="index, follow">
     <meta property="og:title" content="OpenAI Codex CLI：终端里的 AI 编程助手">
     <meta property="og:description" content="OpenAI Codex CLI 是 OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在你的命令行中运行。它能理解你的代码库、执行代码修改、运行测试，就像一个坐在你身边的结对编程伙伴。">
     <meta property="og:type" content="article">
@@ -17,35 +14,39 @@
     <meta name="twitter:title" content="OpenAI Codex CLI：终端里的 AI 编程助手">
     <meta name="twitter:description" content="OpenAI Codex CLI 是 OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在你的命令行中运行。它能理解你的代码库、执行代码修改、运行测试，就像一个坐在你身边的结对编程伙伴。">
     <link rel="canonical" href="https://guyivip.top/news9.html">
-    <!-- Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "OpenAI Codex CLI：终端里的 AI 编程助手",
-      "description": "OpenAI Codex CLI 是 OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在你的命令行中运行。它能理解你的代码库、执行代码修改、运行测试，就像一个坐在你身边的结对编程伙伴。",
-      "url": "https://guyivip.top/news9.html",
-      "datePublished": "2025-04-20",
-      "dateModified": "2025-04-20",
-      "author": {
-        "@type": "Person",
-        "name": "Seek4nothing"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Seek4nothing技术博客",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://guyivip.top/images/logo.png"
-        }
-      },
-      "image": "https://guyivip.top/images/resource/news9.svg",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://guyivip.top/news9.html"
-      }
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "OpenAI Codex CLI：终端里的 AI 编程助手",
+  "description": "OpenAI Codex CLI 是 OpenAI 推出的轻量级终端编程助手，用 Rust 编写，直接在你的命令行中运行。它能理解你的代码库、执行代码修改、运行测试，就像一个坐在你身边的结对编程伙伴。",
+  "url": "https://guyivip.top/news9.html",
+  "author": {
+    "@type": "Person",
+    "name": "Seek4nothing"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Seek4nothing技术博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://guyivip.top/images/logo.png"
     }
+  },
+  "image": "https://guyivip.top/images/resource/news9.svg",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://guyivip.top/news9.html"
+  },
+  "datePublished": "2026-04-20",
+  "dateModified": "2026-04-20"
+}
     </script>
+
+    <meta name="keywords" content="OpenAI,Codex CLI,终端编程助手,Rust,AI编程,命令行工具,代码助手,开发工具">
+    <meta name="author" content="Seek4nothing">
+    <meta name="robots" content="index, follow">
+    <!-- Structured Data -->
     <!-- Stylesheets -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -62,10 +63,6 @@
 </head>
 
 <body>
-    <div class="page-wrapper">
-
-        <!-- Preloader -->
-        <div class="preloader"></div>
 
         <!-- Main Header-->
         <header class="main-header">
@@ -78,110 +75,24 @@
                         <div class="logo-outer">
                             <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
                         </div>
-
-                        <div class="top-left info-block left-aligned">
-                            <div class="inner">
-                                <!-- Hidden Nav Toggler -->
-                                <div class="nav-toggler">
-                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img
-                                                src="images/icons/menu-icon.png" alt="" /></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="top-right info-block right-aligned">
-                            <!--Search Box-->
-                            <div class="search-box-outer">
-                                <div class="dropdown">
-                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
-                                        data-bs-toggle="dropdown" aria-expanded="false"><img
-                                            src="images/icons/search-icon.png" alt="" /></button>
-                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
-                                        <li class="panel-outer">
-                                            <div class="form-container">
-                                                <form method="post" action="blog.html">
-                                                    <div class="form-group">
-                                                        <input type="search" name="field-name" value=""
-                                                            placeholder="Search Here" required="">
-                                                        <button type="submit" class="search-btn"><span
-                                                                class="fa fa-search"></span></button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
-            <!--End Header Upper-->
-
-            <div class="header-lower">
-                <div class="auto-container">
-                    <div class="nav-outer clearfix">
-                        <!-- Main Menu -->
-                        <nav class="main-menu navbar-expand-md">
-                            <div class="navbar-header">
-                                <!-- Toggle Button -->
-                                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-
-                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
-                                <!--Nav-->
-                                <ul class="navigation clearfix">
-                                    <li class="current dropdown"><a href="./index.html">Home</a>
-                                    <li><a href="post-side.html">Categories</a></li>
-                                    <li><a href="about.html">About Me</a></li>
-                                    <li><a href="resources.html">Resources</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile Menu  -->
-            <div class="mobile-menu">
-                <div class="menu-backdrop"></div>
-                <div class="close-btn"><span class="icon fa-remove"></span></div>
-
-                <nav class="menu-box">
-                    <div class="nav-logo"><a href="index.html"><img src="images/logo-small.png" alt="" title=""></a>
-                    </div>
-                    <div class="menu-outer">
-                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
-                    </div>
-                </nav>
-            </div>
-            <!-- End Mobile Menu -->
 
         </header>
         <!--End Main Header -->
-
 
         <div class="auto-container">
             <div class="back-home" style="margin: 12px 0 6px;">
                 <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; color:#6b7280; text-decoration:none;">← 返回主页</a>
             </div>
             <div class="row clearfix">
-
-                <!--Content Side / News Single-->
-                <div class="content-inner">
+<div class="content-inner">
                     <!--Page Title-->
                     <div class="sec-title">
                         <div class="title">TECH</div>
                         <h2>OpenAI Codex CLI：终端里的 AI 编程助手</h2>
-                        <div class="post-date">April 20, 2025</div>
+                        <div class="post-date">April 20, 2026</div>
                     </div>
 
                     <!--News Detail-->
@@ -280,26 +191,14 @@ codex</code></pre>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
-
-    </div>
-    </div>
-    </div>
-
-
-
 
     <!--Main Footer-->
     <div class="main-footer">
         <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
     </div>
     <!--Main Footer-->
-
-    </div>
-    <!--End pagewrapper-->
 
     <!--Scroll to top-->
     <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span>

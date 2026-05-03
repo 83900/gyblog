@@ -3,11 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM - 俗人的技术博客</title>
+    <title>在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM - Seek4nothing技术博客</title>
     <meta name="description" content="在树莓派5上部署 Ollama 并配置 8GB 交换空间的完整指南，覆盖无屏/有屏差异、网络与 SSH、安装与 systemd 开机自启等步骤。">
-    <meta name="keywords" content="树莓派5,Ollama,LLM,交换空间,swap,SSH,Raspberry Pi OS,arm64,systemd,安装教程">
-    <meta name="author" content="Seek4nothing">
-    <meta name="robots" content="index, follow">
     <meta property="og:title" content="在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM">
     <meta property="og:description" content="在树莓派5上部署 Ollama 并配置 8GB 交换空间的完整指南，覆盖无屏/有屏差异、网络与 SSH、安装与 systemd 开机自启等步骤。">
     <meta property="og:type" content="article">
@@ -17,35 +14,39 @@
     <meta name="twitter:title" content="在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM">
     <meta name="twitter:description" content="在树莓派5上部署 Ollama 并配置 8GB 交换空间的完整指南，覆盖无屏/有屏差异、网络与 SSH、安装与 systemd 开机自启等步骤。">
     <link rel="canonical" href="https://guyivip.top/news3.html">
-    <!-- Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM",
-      "description": "在树莓派5上部署 Ollama 并配置 8GB 交换空间的完整指南，覆盖无屏/有屏差异、网络与 SSH、安装与 systemd 开机自启等步骤。",
-      "url": "https://guyivip.top/news3.html",
-      "datePublished": "2025-08-25",
-      "dateModified": "2025-08-25",
-      "author": {
-        "@type": "Person",
-        "name": "Seek4nothing"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Seek4nothing技术博客",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://guyivip.top/images/logo.png"
-        }
-      },
-      "image": "https://guyivip.top/images/resource/news3-fig1.png",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://guyivip.top/news3.html"
-      }
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "在树莓派5上部署ollama并且配置8G交换空间以在树莓派上使用LLM",
+  "description": "在树莓派5上部署 Ollama 并配置 8GB 交换空间的完整指南，覆盖无屏/有屏差异、网络与 SSH、安装与 systemd 开机自启等步骤。",
+  "url": "https://guyivip.top/news3.html",
+  "author": {
+    "@type": "Person",
+    "name": "Seek4nothing"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Seek4nothing技术博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://guyivip.top/images/logo.png"
     }
+  },
+  "image": "https://guyivip.top/images/resource/news3-fig1.png",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://guyivip.top/news3.html"
+  },
+  "datePublished": "2025-08-25",
+  "dateModified": "2025-08-25"
+}
     </script>
+
+    <meta name="keywords" content="树莓派5,Ollama,LLM,交换空间,swap,SSH,Raspberry Pi OS,arm64,systemd,安装教程">
+    <meta name="author" content="Seek4nothing">
+    <meta name="robots" content="index, follow">
+    <!-- Structured Data -->
     <!-- Stylesheets -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -62,10 +63,6 @@
 </head>
 
 <body>
-    <div class="page-wrapper">
-
-        <!-- Preloader -->
-        <div class="preloader"></div>
 
         <!-- Main Header-->
         <header class="main-header">
@@ -78,111 +75,19 @@
                         <div class="logo-outer">
                             <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
                         </div>
-
-                        <div class="top-left info-block left-aligned">
-                            <div class="inner">
-                                <!-- Hidden Nav Toggler -->
-                                <div class="nav-toggler">
-                                    <a class="mobile-nav-toggler"><i class="icon_menu"><img
-                                                src="images/icons/menu-icon.png" alt="" /></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="top-right info-block right-aligned">
-                            <!--Search Box-->
-                            <div class="search-box-outer">
-                                <div class="dropdown">
-                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
-                                        data-bs-toggle="dropdown" aria-expanded="false"><img
-                                            src="images/icons/search-icon.png" alt="" /></button>
-                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
-                                        <li class="panel-outer">
-                                            <div class="form-container">
-                                                <form method="post" action="blog.html">
-                                                    <div class="form-group">
-                                                        <input type="search" name="field-name" value=""
-                                                            placeholder="Search Here" required="">
-                                                        <button type="submit" class="search-btn"><span
-                                                                class="fa fa-search"></span></button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
-            <!--End Header Upper-->
-
-            <div class="header-lower">
-                <div class="auto-container">
-                    <div class="nav-outer clearfix">
-                        <!-- Main Menu -->
-                        <nav class="main-menu navbar-expand-md">
-                            <div class="navbar-header">
-                                <!-- Toggle Button -->
-                                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-
-                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
-                                <!--Nav-->
-                                <ul class="navigation clearfix">
-                                    <li class="current dropdown"><a href="./index.html">Home</a>
-                                    <li class="dropdown"><a href="#">Others</a>
-                                        <ul>
-                                            <li><a href="badminton_scores.html">沃特福德羽毛球比分</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="about.html">About Me</a></li>
-                                    <li><a href="resources.html">Resources</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile Menu  -->
-            <div class="mobile-menu">
-                <div class="menu-backdrop"></div>
-                <div class="close-btn"><span class="icon fa-remove"></span></div>
-
-                <nav class="menu-box">
-                    <div class="nav-logo"><a href="index.html"><img src="images/logo-small.png" alt="" title=""></a>
-                    </div>
-                    <div class="menu-outer">
-                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
-                    </div>
-                </nav>
-            </div>
-            <!-- End Mobile Menu -->
 
         </header>
         <!--End Main Header -->
-
-
 
         <div class="auto-container">
             <div class="back-home" style="margin: 12px 0 6px;">
                 <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; color:#6b7280; text-decoration:none;">← 返回主页</a>
             </div>
             <div class="row clearfix">
-
-                <!--Content Side / News Single-->
-                <!-- <div class="content-side col-lg-8 col-md-8 col-sm-12 col-xs-12"> -->
-                <div class="content-inner">
+<div class="content-inner">
                     <!--Page Title-->
                     <div class="sec-title">
                         <div class="title">TECH</div>
@@ -331,7 +236,6 @@ WantedBy=multi-user.target</code>
                                     
 
 
-
                                     <span style="display:block; font-weight:600; font-size:18px; margin-top:20px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">Step 3: 下载（拉取）模型</span> <br>
                                     1.执行以下命令下载（拉取）模型（例如：llama）：
                                     <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama pull llama:latest</code>
@@ -351,7 +255,6 @@ WantedBy=multi-user.target</code>
                                     
 
 
-
                                     <span style="display:block; font-weight:600; font-size:18px; margin-top:20px; background:#f8f9fa; padding:8px 12px; border-left:4px solid #81a1c1; border-radius:6px;">Step 4: 启动模型</span> <br>
                                     执行以下命令启动模型（例如：llama）：
                                     <code style="display:block; user-select: all; background:#f7f7f8; border:1px solid #e6e6e6; padding:6px 8px; border-radius:6px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:14px; white-space: pre; line-height: 1.6;">ollama run llama:latest</code>
@@ -365,32 +268,18 @@ WantedBy=multi-user.target</code>
                                     
 
 
-
-
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
 
-
-
-
-
-
-
-        <!--Main Footer-->
-        <div class="main-footer">
-            <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
-        </div>
-        <!--Main Footer-->
-
+    <!--Main Footer-->
+    <div class="main-footer">
+        <div class="copyright">Copyright &copy 2025 俗人的blog. All rights reserved.</div>
     </div>
-    <!--End pagewrapper-->
+    <!--Main Footer-->
 
     <!--Scroll to top-->
     <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-hand-o-up"></span>

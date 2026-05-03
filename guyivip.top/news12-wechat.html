@@ -1,0 +1,201 @@
+<html>
+<head><meta charset="UTF-8"></head>
+<body>
+<!-- 
+使用方法：全选复制（Ctrl+A → Ctrl+C），粘贴到微信公众号编辑器（Ctrl+V）
+封面建议：系统架构图 / 交易页面截图 / Nginx 反代配置截图
+-->
+
+<div style="text-align:center; margin:20px 0;">
+<h1 style="font-size:22px; font-weight:bold; color:#333;">ShareSim：虚拟股票交易系统前后端架构拆解</h1>
+<p style="color:#999; font-size:14px;">Guyi · 2026.04</p>
+</div>
+
+<hr style="border:none; border-top:1px solid #ddd; margin:20px 0;">
+
+<div style="background:#f0f7ff; border-left:4px solid #4a90d9; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>📖 导言</strong><br><br>
+ShareSim 是部署在我本人博客 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">guyivip.top</span> 下的一个“附加模块”。它既要像普通静态页面一样能从博客导航直达，又要具备用户注册登录、持仓、交易流水、行情查询等动态能力。<br><br>
+为了让它在服务器上长期稳定运行，同时最大化复用已有站点环境（宝塔 Nginx、HTTPS、静态站点结构），整体采用“静态主站 + 子路径反向代理 + 轻量后端”的组合架构。
+这个结构应该不是最优，写这篇帖子单纯是记录一下我的部署经验，留待后续改进。
+</p>
+</div>
+
+<div style="background:#fffbe6; border-left:4px solid #faad14; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>提示</strong><br><br>
+关于查询价格，我个人使用了tushare的2000积分token，点击过快可能因为查询间隔太短而无法查询成功。这个不是架构问题，单纯是接口问题（太穷导致的） 
+</p>
+</div>
+
+<!-- ====== Step 1 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 1 — 技术栈一览</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<ul>
+<li><strong>后端：</strong>Flask（路由/API/会话） + Gunicorn（生产 WSGI 运行）</li>
+<li><strong>数据：</strong>SQLite（单文件数据库，免运维，适合个人站点低并发场景）</li>
+<li><strong>行情：</strong>Tushare（实时行情 + 历史 K 线）</li>
+<li><strong>前端：</strong>多页 HTML + 原生 JavaScript（无构建依赖，便于上传部署）</li>
+<li><strong>部署：</strong>宝塔 Nginx 监听 80/443，对外提供 HTTPS；反向代理到服务器本机 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">127.0.0.1:8080</span></li>
+</ul>
+
+<div style="background:#f6ffed; border-left:4px solid #52c41a; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>✅ 一句话概括</strong><br><br>
+Gunicorn 只负责“动态能力”，Nginx 负责“对外入口与 HTTPS”，ShareSim 只占用一个子路径 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">/share/</span>，不影响主站静态页面。
+</p>
+</div>
+</div>
+
+<!-- ====== Step 2 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 2 — 为什么采用这种架构（以及它的好处）</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p>ShareSim 是静态主站的附属功能：不应该引入复杂的前端工程化或数据库运维。架构决策围绕三个目标：<strong>最小侵入</strong>、<strong>低成本运维</strong>、<strong>上线可靠</strong>。</p>
+<ol>
+<li><strong>只新增一个子路径</strong>：对外入口固定为 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">/share/</span>，主站其他路径继续走静态站点逻辑。</li>
+<li><strong>后端端口不暴露公网</strong>：Gunicorn 绑定 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">127.0.0.1</span>，外网无法直接访问 8080，降低安全风险。</li>
+<li><strong>HTTPS 一处管理</strong>：TLS 证书、HTTP/2 等交给 Nginx，后端不用处理证书配置。</li>
+<li><strong>SQLite 免运维</strong>：单文件、无需服务进程，迁移只需带走 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">app.db</span>。</li>
+<li><strong>前端免打包</strong>：多页 + 原生 JS，减少 Node 依赖与构建步骤。</li>
+</ol>
+</div>
+
+<!-- ====== Step 3 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 3 — 目录结构与职责划分</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p>整体遵循“后端最小化 + 前端静态化”的原则：后端只提供鉴权与业务 API；页面文件直接放在静态目录下，运维时看到 URL 就能定位页面。</p>
+<div style="background:#f5f5f5; border-radius:8px; padding:15px; margin:15px 0; font-family:monospace; font-size:13px; line-height:1.7; white-space:pre; overflow-x:auto;">guyivip.top/
+└── share/
+    ├── app.py                 # Flask 入口（create_app 工厂模式）
+    ├── price_provider.py      # Tushare 行情（实时/历史）
+    ├── app.db                 # SQLite 数据库（用户/持仓/流水）
+    ├── requirements.txt       # Python 依赖
+    ├── start.sh               # 一键启动（venv + gunicorn）
+    └── static/
+        ├── login.html
+        ├── dashboard.html
+        ├── trade.html
+        ├── portfolio.html
+        ├── transactions.html
+        ├── styles.css
+        └── js/
+            ├── common.js      # 子路径适配、API 封装、鉴权跳转
+            ├── auth.js
+            ├── dashboard.js
+            ├── trade.js
+            ├── portfolio.js
+            └── transactions.js</div>
+</div>
+
+<!-- ====== Step 4 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 4 — 后端：Flask + Gunicorn 的关键设计</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p>后端用 <strong>Flask 工厂模式</strong>提供应用实例，Gunicorn 以 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">app:create_app()</span> 启动。工厂模式的优势是启动入口清晰、初始化集中、部署与测试更稳定。</p>
+<div style="background:#f5f5f5; border-radius:8px; padding:15px; margin:15px 0; font-family:monospace; font-size:13px; line-height:1.7; white-space:pre; overflow-x:auto;">./venv/bin/gunicorn -w 2 -b 127.0.0.1:8080 'app:create_app()'</div>
+<p>API 组织遵循“页面走 HTML、数据走 JSON”：页面访问 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">/share/login.html</span>，数据请求走 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">/share/api/*</span>。</p>
+</div>
+
+<!-- ====== Step 5 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 5 — 数据：SQLite 表与业务含义</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<ul>
+<li><strong>users：</strong>用户名、密码哈希、现金余额</li>
+<li><strong>holdings：</strong>按用户维度记录持仓（股票代码、股数、均价）</li>
+<li><strong>transactions：</strong>每笔买卖成交记录（方向、价格、股数、时间）</li>
+</ul>
+<div style="background:#fffbe6; border-left:4px solid #faad14; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>为什么 SQLite 够用</strong><br><br>
+个人博客场景用户少、并发低，SQLite 性能完全足够；而且不用维护 MySQL/Postgres 服务进程，部署体验更好。
+</p>
+</div>
+</div>
+
+<!-- ====== Step 6 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 6 — 行情：实时 + 历史的组合链路</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p>ShareSim 对行情的需求分为两块：下单前查价（实时）与图表展示（日 K、历史）。实时链路优先使用实时接口；历史数据通常依赖 token。</p>
+<p><strong>环境变量：</strong></p>
+<div style="background:#f5f5f5; border-radius:8px; padding:15px; margin:15px 0; font-family:monospace; font-size:13px; line-height:1.7; white-space:pre; overflow-x:auto;">export TUSHARE_TOKEN=你的token
+export TUSHARE_PROXY=http://你的代理:端口/</div>
+<div style="background:#f0f7ff; border-left:4px solid #4a90d9; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>建议</strong><br><br>
+生产环境把这些变量写进 systemd / supervisor / 宝塔的启动脚本环境中，避免“手动 export 一次好用、重启就失效”的问题。
+</p>
+</div>
+</div>
+
+<!-- ====== Step 7 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 7 — 前端：多页 + common.js 的路径自适应</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p>模块部署在 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">/share/</span> 下，前端通过 <strong>common.js</strong> 统一处理路径拼接、鉴权跳转与 API 请求，避免“登录后跳转 404”这类子路径问题。</p>
+<p>页面之间跳转使用固定的 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">*.html</span> 文件名，保证可读性与运维排查效率（看到 URL 就知道对应哪个页面）。</p>
+</div>
+
+<!-- ====== Step 8 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 8 — 部署流程（从 0 到上线）</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<p>典型部署顺序是：先确保 Gunicorn 本机可访问，再让 Nginx 把 <span style="background:#f5f5f5; padding:2px 6px; border-radius:3px; font-family:monospace;">/share/</span> 代理给它。</p>
+<p><strong>自检（本机 → 线上）：</strong></p>
+<div style="background:#f5f5f5; border-radius:8px; padding:15px; margin:15px 0; font-family:monospace; font-size:13px; line-height:1.7; white-space:pre; overflow-x:auto;">curl -I http://127.0.0.1:8080/login.html
+curl -I https://你的页面</div>
+<p><strong>Nginx 反代配置示例：</strong></p>
+<div style="background:#f5f5f5; border-radius:8px; padding:15px; margin:15px 0; font-family:monospace; font-size:13px; line-height:1.7; white-space:pre; overflow-x:auto;">location ^~ /share/ {
+    proxy_pass http://127.0.0.1:8080/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}</div>
+</div>
+
+<!-- ====== Step 9 ====== -->
+<div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:20px; border-radius:12px; margin:25px 0 15px;">
+<h2 style="margin:0; font-size:18px;">Step 9 — 这套架构的边界与改进方向</h2>
+</div>
+
+<div style="padding:0 10px; line-height:1.9; font-size:15px; color:#333;">
+<ul>
+<li><strong>并发：</strong>当前 2 个 sync worker 适合低并发；更高并发可评估 gevent/async 或引入缓存。</li>
+<li><strong>交易规则：</strong>可加入手续费、滑点、涨跌停、交易时间等规则，让模拟更接近真实市场。</li>
+<li><strong>可观测：</strong>可加入更清晰的日志与监控，但会增加运维复杂度。</li>
+</ul>
+</div>
+
+<hr style="border:none; border-top:1px solid #ddd; margin:30px 0;">
+
+<div style="background:#f6ffed; border-left:4px solid #52c41a; padding:15px; margin:20px 0; border-radius:0 8px 8px 0;">
+<p style="margin:0; font-size:15px; color:#333; line-height:1.8;">
+<strong>本来想放出登陆页的，但是由于考虑使用的token除此以外还在进行其他任务，频繁查询可能导致封禁或者其他程序报错，故仅展示架构</strong><br><br>
+
+</p>
+</div>
+
+</body>
+</html>
